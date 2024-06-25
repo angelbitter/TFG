@@ -6,7 +6,7 @@ public class Beat_manager : MonoBehaviour
 {
 
     [SerializeField] private float Bpm;
-    [SerializeField] private AudioSource Audio;
+    [SerializeField] public AudioSource Audio;
     [SerializeField] private Intervals[] IntervalArray;
 
     private void Update()
@@ -17,16 +17,30 @@ public class Beat_manager : MonoBehaviour
             i.CheckForNewInterval(sampledTime);
         }
     }
+    public void CheckSongMode(float sampledTime){
+        foreach (Intervals i in IntervalArray)
+        {
+            // Comprobamos si es el inicio del compás 4/4 (que suena 1 de cada 4 pulsos o beats)
+            if (i.BeatDivision == 0.25f){
+                i.CheckOnBeat(sampledTime, Bpm);
+            }
+        }
+    
+    }
 }
 
 [System.Serializable]
 public class Intervals{
-    [SerializeField] private float Beats;
+    [SerializeField] public float BeatDivision;
     [SerializeField] private UnityEvent OnBeat;
+    [SerializeField] private UnityEvent OnWrongBeat;
+    [SerializeField] private UnityEvent OnCorrectBeat;
+    public float Threshold = 0.1f;
+
     private int LastInterval  = 0;
 
     public float GetIntervalLength(float bpm){
-        return 60f / (bpm * Beats);
+        return 60f / (bpm * BeatDivision);
     }
 
     public void CheckForNewInterval (float interval)
@@ -35,6 +49,21 @@ public class Intervals{
         {
             LastInterval = Mathf.FloorToInt(interval);
             OnBeat.Invoke();
+        }
+    }
+
+    public void CheckOnBeat(float time, float bpm)
+    {
+        float intervalLength = GetIntervalLength(bpm);
+        float intervalPos = time % intervalLength;
+        // Debug.Log("Intervalo: " + intervalPos);
+        if (Mathf.Abs(intervalPos - intervalLength) < Threshold  || Mathf.Abs(intervalPos) < Threshold)
+        {
+            OnCorrectBeat.Invoke();
+        }
+        else
+        {
+            OnWrongBeat.Invoke();
         }
     }
 }

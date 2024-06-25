@@ -173,7 +173,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PulseSize: 1.5
   ReturnSpeed: 5
-  UseBeat: 0
   Baqueta: {fileID: 149708569}
 --- !u!114 &32207894
 MonoBehaviour:
@@ -189,7 +188,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PulseSize: 1.15
   ReturnSpeed: 5
-  UseBeat: 0
   Baqueta: {fileID: 149708569}
 --- !u!1 &145226872
 GameObject:
@@ -224,7 +222,7 @@ MonoBehaviour:
   Bpm: 120
   Audio: {fileID: 145226874}
   IntervalArray:
-  - Beats: 1
+  - BeatDivision: 0.25
     OnBeat:
       m_PersistentCalls:
         m_Calls:
@@ -240,7 +238,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - Beats: 0.5
+    OnWrongBeat:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 149708574}
+          m_TargetAssemblyTypeName: Baqueta_movement, Assembly-CSharp
+          m_MethodName: OnWrongBeat
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnCorrectBeat:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 149708574}
+          m_TargetAssemblyTypeName: Baqueta_movement, Assembly-CSharp
+          m_MethodName: OnRightBeat
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    Threshold: 0.1
+  - BeatDivision: 0.5
     OnBeat:
       m_PersistentCalls:
         m_Calls:
@@ -256,13 +285,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - Beats: 0.25
+    OnWrongBeat:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCorrectBeat:
+      m_PersistentCalls:
+        m_Calls: []
+    Threshold: 0.1
+  - BeatDivision: 1
     OnBeat:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 899752527}
-          m_TargetAssemblyTypeName: Beat_marker, Assembly-CSharp
-          m_MethodName: Pulse
+        - m_Target: {fileID: 149708574}
+          m_TargetAssemblyTypeName: Baqueta_movement, Assembly-CSharp
+          m_MethodName: SongMode
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -272,6 +308,13 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    OnWrongBeat:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCorrectBeat:
+      m_PersistentCalls:
+        m_Calls: []
+    Threshold: 0.1
 --- !u!82 &145226874
 AudioSource:
   m_ObjectHideFlags: 0
@@ -449,6 +492,7 @@ MonoBehaviour:
   WhatIsGround:
     serializedVersion: 2
     m_Bits: 128
+  beatManager: {fileID: 145226873}
 --- !u!4 &149708576
 Transform:
   m_ObjectHideFlags: 0
@@ -595,7 +639,7 @@ GameObject:
   - component: {fileID: 274014588}
   - component: {fileID: 274014589}
   m_Layer: 0
-  m_Name: FullBeat
+  m_Name: QuarterMeasure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -682,7 +726,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PulseSize: 1.15
   ReturnSpeed: 5
-  UseBeat: 0
   Baqueta: {fileID: 149708569}
 --- !u!1 &506134476
 GameObject:
@@ -696,7 +739,7 @@ GameObject:
   - component: {fileID: 506134478}
   - component: {fileID: 506134479}
   m_Layer: 0
-  m_Name: HalfBeat
+  m_Name: HalfMeasure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -783,7 +826,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PulseSize: 1.15
   ReturnSpeed: 5
-  UseBeat: 0
   Baqueta: {fileID: 149708569}
 --- !u!1 &532915491
 GameObject:
@@ -913,7 +955,7 @@ GameObject:
   - component: {fileID: 899752526}
   - component: {fileID: 899752527}
   m_Layer: 0
-  m_Name: QuarterBeat
+  m_Name: FullMeasure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1000,7 +1042,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PulseSize: 1.15
   ReturnSpeed: 5
-  UseBeat: 0
   Baqueta: {fileID: 149708569}
 --- !u!1 &1124722948
 GameObject:
