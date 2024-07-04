@@ -58,7 +58,7 @@ public class Baqueta_movement : MonoBehaviour
                 Jump();
             }
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && !FailBeatTriggered)
             {
                 //action button - start of SongMode
                 float sampledTime = (float)beatManager.Audio.timeSamples / beatManager.Audio.clip.frequency;
@@ -109,6 +109,8 @@ public class Baqueta_movement : MonoBehaviour
     public void OnWrongBeat()
     {
         FailBeatTriggered = true;
+        Speed = 0;
+        StartCoroutine(ResetFailBeat());
         Debug.Log("wrong Beat");
     }
     public void SongModeEnd()
@@ -116,5 +118,10 @@ public class Baqueta_movement : MonoBehaviour
         Song = false;
         Debug.Log("End Song Mode");
         Rb.gravityScale = originalGravityScale;
+    }
+    private IEnumerator ResetFailBeat()
+    {
+        yield return new WaitForSeconds(0.5f);
+        FailBeatTriggered = false;
     }
 }
