@@ -6,30 +6,41 @@ public class Baqueta_movement : MonoBehaviour
 {
     private Rigidbody2D Rb;
     private float Horizontal;
-    private float Vertical;
     private bool IsGrounded;
     private bool BeatTriggered;
     private bool FailBeatTriggered;
     private float originalGravityScale;
     private bool Song;
+    private bool SongModeBeat1, SongModeBeat2, SongModeBeat3, SongModeBeat4;
 
     public float Speed;
-    private bool ChangingDirection;
     public float MaxSpeed = 2.0f;
     // public float TimeToMaxSpeed = 0.5f;
-    public float Acceleration = 4.0f;
-    public float AirAcceleration = 2.0f;
-    public float JumpForce = 4.0f;
+    public float Acceleration = 10.0f;
+    public float AirAcceleration = 5.0f;
+    public float JumpForce = 3.0f;
     public Transform GroundCheck;
     public LayerMask WhatIsGround;    
 
     protected Animator Animator;
     public Beat_manager beatManager;
+    public GameObject[] visualEffectPrefabs;
+
+    private Dictionary<string, GameObject> visualEffects = new Dictionary<string, GameObject>();
+
     void Start()
     {
         Rb = GetComponent<Rigidbody2D>();;
         Animator = GetComponent<Animator>();
         originalGravityScale = Rb.gravityScale;
+        
+        foreach (var prefab in visualEffectPrefabs)
+        {
+            var instance = Instantiate(prefab);
+            instance.SetActive(false);
+            visualEffects[prefab.name] = instance;
+        }
+        
 
     }
 
@@ -52,6 +63,10 @@ public class Baqueta_movement : MonoBehaviour
             }
 
             IsGrounded = Physics2D.OverlapCircle(GroundCheck.position, 0.1f, WhatIsGround);
+            if (IsGrounded)
+            {
+                BeatTriggered = false;
+            }
 
             if (Input.GetKeyDown(KeyCode.Space)  && IsGrounded)
             {
@@ -75,7 +90,6 @@ public class Baqueta_movement : MonoBehaviour
         if (!Song){
             if (IsGrounded) {
                 if (Horizontal != 0.0f){
-                    ChangingDirection = Horizontal * Speed < 0.0f;
                     if (Horizontal > 0 )
                         Speed = Mathf.Min(Speed + Acceleration * Time.deltaTime, MaxSpeed);
                     else
@@ -99,16 +113,18 @@ public class Baqueta_movement : MonoBehaviour
     }
 
     public void OnRightBeat()
-    {
+    {   if (!BeatTriggered){
         Debug.Log("Start Song Mode");
         Rb.velocity = Vector2.zero;
         Rb.gravityScale = 0;
         Speed = 0;
-        Song = true;
+        Song = true;}
+        BeatTriggered = true;
      }
     public void OnWrongBeat()
     {
         FailBeatTriggered = true;
+        ShowVisualEffect("WrongBeatVFX");;
         Speed = 0;
         StartCoroutine(ResetFailBeat());
         Debug.Log("wrong Beat");
@@ -118,10 +134,36 @@ public class Baqueta_movement : MonoBehaviour
         Song = false;
         Debug.Log("End Song Mode");
         Rb.gravityScale = originalGravityScale;
+        Jump();
     }
     private IEnumerator ResetFailBeat()
     {
         yield return new WaitForSeconds(0.5f);
         FailBeatTriggered = false;
+    }
+    private void ShowVisualEffect(string effectName)
+    {
+        if (visualEffects.ContainsKey(effectName))
+        {
+            var effect = visualEffects[effectName];
+            effect.transform.position = transform.position;
+            effect.SetActive(true);
+            Animator effectAnimator = effect.GetComponent<Animator>();
+            if (effectAnimator != null)
+            {
+                effectAnimator.Play(effectAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash, -1, 0); // Reproduce desde el principio
+            }
+            StartCoroutine(HideVisualEffectAfterAnimation(effectAnimator, effect));
+        }
+        else
+        {
+            Debug.LogWarning("Effect " + effectName + " not found!");
+        }
+    }
+
+    private IEnumerator HideVisualEffectAfterAnimation(Animator animator, GameObject effect)
+    {
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        effect.SetActive(false);
     }
 }

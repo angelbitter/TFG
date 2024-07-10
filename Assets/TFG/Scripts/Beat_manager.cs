@@ -5,15 +5,18 @@ using UnityEngine.Events;
 public class Beat_manager : MonoBehaviour
 {
 
+    const int INNER_BEATS = 8;
     [SerializeField] private float Bpm;
     [SerializeField] public AudioSource Audio;
     [SerializeField] private Intervals[] IntervalArray;
+    [SerializeField] private bool[] SongModeArray = new bool[INNER_BEATS];
+    public int SongModeBeatCounter = 0;
 
     private void Update()
     {
         foreach (Intervals i in IntervalArray)
         {
-            float sampledTime = (Audio.timeSamples / (Audio.clip.frequency * i.GetIntervalLength(Bpm)));
+            float sampledTime = Audio.timeSamples / (Audio.clip.frequency * i.GetIntervalLength(Bpm));
             i.CheckForNewInterval(sampledTime);
         }
     }
@@ -25,12 +28,27 @@ public class Beat_manager : MonoBehaviour
                 i.CheckOnBeat(sampledTime, Bpm);
             }
         }
-        
     }
-    public void StartSongMode(){
+     public void CheckSongModeBeat(float sampledTime, int note = 0){
         foreach (Intervals i in IntervalArray)
         {
-            i.Threshold = 0.1f;
+            if (i.BeatDivision == 2.0f){
+                i.CheckOnSongModeBeat(sampledTime, Bpm, note, SongModeBeatCounter);
+            }
+        }
+    }
+    public void StartSongMode(){
+        for (int i = 0; i < SongModeArray.Length; i++)
+        {
+            SongModeArray[i] = false;
+        }
+
+    }
+    public void CountBeatsOnSongMode(){
+        SongModeBeatCounter++;
+        Debug.Log("SongModeBeatCounter: " + SongModeBeatCounter);
+        if (SongModeBeatCounter == INNER_BEATS){
+            SongModeBeatCounter = 0;
         }
     }
 }
@@ -45,6 +63,7 @@ public class Intervals{
     private bool SongMode = false;
     private bool NewBeat = false;
     public float Threshold = 0.1f;
+    public float Threshold2 = 0.05f;
     const float FULL_MEASURE = 0.25f;
 
     private int LastInterval  = 0;
@@ -81,6 +100,19 @@ public class Intervals{
             {
                 NewBeat = false;
             }
+        }
+        else
+        {
+            OnWrongBeat.Invoke();
+        }
+    }
+    public void CheckOnSongModeBeat(float time, float bpm, int note, int beatCounter)
+    {
+        float intervalLength = GetIntervalLength(bpm);
+        float intervalPos = time % intervalLength;
+        if (Mathf.Abs(intervalPos  - intervalLength) < Threshold2  || Mathf.Abs(intervalPos) < Threshold2)
+        {  
+            
         }
         else
         {
