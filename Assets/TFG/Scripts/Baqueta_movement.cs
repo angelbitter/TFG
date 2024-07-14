@@ -11,7 +11,10 @@ public class Baqueta_movement : MonoBehaviour
     private bool FailBeatTriggered;
     private float originalGravityScale;
     private bool Song;
-    private bool SongModeBeat1, SongModeBeat2, SongModeBeat3, SongModeBeat4;
+    private int SongResult = 0;
+    private bool[] SongModeBeats;
+    
+    private int SongModeBeatCounter;
 
     public float Speed;
     public float MaxSpeed = 2.0f;
@@ -40,8 +43,6 @@ public class Baqueta_movement : MonoBehaviour
             instance.SetActive(false);
             visualEffects[prefab.name] = instance;
         }
-        
-
     }
 
     void Update()
@@ -73,11 +74,19 @@ public class Baqueta_movement : MonoBehaviour
                 Jump();
             }
 
-            if (Input.GetKeyDown(KeyCode.E) && !FailBeatTriggered)
+            if (Input.GetKeyDown(KeyCode.E) && !FailBeatTriggered && !Song)
+            {
+                //action button - start of SongMode
+                SongModeBeatCounter++;
+                float sampledTime = (float)beatManager.Audio.timeSamples / beatManager.Audio.clip.frequency;
+                beatManager.CheckSongMode(sampledTime);
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && !FailBeatTriggered && Song && SongModeBeatCounter < 4)
             {
                 //action button - start of SongMode
                 float sampledTime = (float)beatManager.Audio.timeSamples / beatManager.Audio.clip.frequency;
-                beatManager.CheckSongMode(sampledTime);
+                beatManager.CheckSongModeBeat(sampledTime, SongModeBeatCounter);
             }
         }
     }
@@ -114,28 +123,55 @@ public class Baqueta_movement : MonoBehaviour
 
     public void OnRightBeat()
     {   if (!BeatTriggered){
-        Debug.Log("Start Song Mode");
-        Rb.velocity = Vector2.zero;
-        Rb.gravityScale = 0;
-        Speed = 0;
-        Song = true;}
-        BeatTriggered = true;
+            Rb.velocity = Vector2.zero;
+            Rb.gravityScale = 0;
+            Speed = 0;
+            Song = true;
+            SongResult = 0;
+            BeatTriggered = true;
+        }
      }
     public void OnWrongBeat()
     {
         FailBeatTriggered = true;
-        ShowVisualEffect("WrongBeatVFX");;
+        ShowVisualEffect("WrongBeatVFX");
         Speed = 0;
         StartCoroutine(ResetFailBeat());
-        Debug.Log("wrong Beat");
     }
     public void SongModeEnd()
     {
         Song = false;
-        Debug.Log("End Song Mode");
         Rb.gravityScale = originalGravityScale;
-        Jump();
+        switch (SongResult)
+        {
+            case 0:
+                ShowVisualEffect("WrongBeatVFX");
+                break;
+            case 1:
+                // Impulse();
+                Jump();
+                // ShowVisualEffect("CorrectSongVFX");
+                Debug.Log("CorrectImpulse");
+
+                break;
+            case 2:
+                // ShootSoundWave(); 
+                // ShowVisualEffect("CorrectSongVFX");
+                Debug.Log("CorrectSoundWave");
+                break;
+        }
+
     }
+    public void CorrectImpulse()
+    {
+        SongResult = 1;
+    }
+
+    public void CorrectSoundWave()
+    {
+        SongResult = 2;
+    }
+
     private IEnumerator ResetFailBeat()
     {
         yield return new WaitForSeconds(0.5f);

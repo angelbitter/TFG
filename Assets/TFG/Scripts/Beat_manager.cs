@@ -9,7 +9,8 @@ public class Beat_manager : MonoBehaviour
     [SerializeField] private float Bpm;
     [SerializeField] public AudioSource Audio;
     [SerializeField] private Intervals[] IntervalArray;
-    [SerializeField] private bool[] SongModeArray = new bool[INNER_BEATS];
+    [SerializeField] public bool[] SongModeArray = new bool[INNER_BEATS];
+    private bool Song = false;
     public int SongModeBeatCounter = 0;
 
     private void Update()
@@ -38,17 +39,17 @@ public class Beat_manager : MonoBehaviour
         }
     }
     public void StartSongMode(){
-        for (int i = 0; i < SongModeArray.Length; i++)
-        {
-            SongModeArray[i] = false;
-        }
-
+        Song = true;
+        SongModeBeatCounter = 0;
+    }
+    public void EndSongMode(){
+        Song = false;
+        SongModeBeatCounter = 0;
     }
     public void CountBeatsOnSongMode(){
-        SongModeBeatCounter++;
-        Debug.Log("SongModeBeatCounter: " + SongModeBeatCounter);
-        if (SongModeBeatCounter == INNER_BEATS){
-            SongModeBeatCounter = 0;
+        if(Song){
+            SongModeBeatCounter++;
+            Debug.Log("SongModeBeatCounter: " + SongModeBeatCounter);
         }
     }
 }
@@ -60,12 +61,11 @@ public class Intervals{
     [SerializeField] private UnityEvent OnWrongBeat;
     [SerializeField] private UnityEvent OnCorrectBeat;
     [SerializeField] private UnityEvent SongModeEndEvent;
+    public Beat_manager BeatManager;
     private bool SongMode = false;
     private bool NewBeat = false;
     public float Threshold = 0.1f;
     public float Threshold2 = 0.05f;
-    const float FULL_MEASURE = 0.25f;
-
     private int LastInterval  = 0;
 
     public float GetIntervalLength(float bpm){
@@ -79,6 +79,7 @@ public class Intervals{
             LastInterval = Mathf.FloorToInt(interval);
             if (SongMode && NewBeat){
                 Debug.Log(" End of Measure!");
+                // if()
                 SongModeEndEvent.Invoke();
                 SongMode = false;
             }
@@ -110,13 +111,15 @@ public class Intervals{
     {
         float intervalLength = GetIntervalLength(bpm);
         float intervalPos = time % intervalLength;
-        if (Mathf.Abs(intervalPos  - intervalLength) < Threshold2  || Mathf.Abs(intervalPos) < Threshold2)
-        {  
-            
-        }
-        else
-        {
-            OnWrongBeat.Invoke();
+        if (note < 3){
+            if (Mathf.Abs(intervalPos  - intervalLength) < Threshold2  || Mathf.Abs(intervalPos) < Threshold2)
+            { 
+                Debug.Log("IntervalLenght: " + (intervalLength - Threshold) + " IntervalPos: " + intervalPos);
+                if ((intervalLength - Threshold) < intervalPos)
+                    BeatManager.SongModeArray[beatCounter + 1] = true;
+                else
+                    BeatManager.SongModeArray[beatCounter] = true;
+            }
         }
     }
 }
