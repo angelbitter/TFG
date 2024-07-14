@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Events;
+
 public class Baqueta_movement : MonoBehaviour
 {
     private Rigidbody2D Rb;
@@ -12,6 +14,9 @@ public class Baqueta_movement : MonoBehaviour
     private float originalGravityScale;
     private bool Song;
     private bool SongModeBeat1, SongModeBeat2, SongModeBeat3, SongModeBeat4;
+
+    [SerializeField] private UnityEvent ShowWrongVFX;
+    [SerializeField] private UnityEvent ShowRightVFX;
 
     public float Speed;
     public float MaxSpeed = 2.0f;
@@ -24,24 +29,12 @@ public class Baqueta_movement : MonoBehaviour
 
     protected Animator Animator;
     public Beat_manager beatManager;
-    public GameObject[] visualEffectPrefabs;
-
-    private Dictionary<string, GameObject> visualEffects = new Dictionary<string, GameObject>();
 
     void Start()
     {
-        Rb = GetComponent<Rigidbody2D>();;
+        Rb = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
         originalGravityScale = Rb.gravityScale;
-        
-        foreach (var prefab in visualEffectPrefabs)
-        {
-            var instance = Instantiate(prefab);
-            instance.SetActive(false);
-            visualEffects[prefab.name] = instance;
-        }
-        
-
     }
 
     void Update()
@@ -73,7 +66,7 @@ public class Baqueta_movement : MonoBehaviour
                 Jump();
             }
 
-            if (Input.GetKeyDown(KeyCode.E) && !FailBeatTriggered)
+            if (Input.GetKeyDown(KeyCode.E) && !FailBeatTriggered && !BeatTriggered)
             {
                 //action button - start of SongMode
                 float sampledTime = (float)beatManager.Audio.timeSamples / beatManager.Audio.clip.frequency;
@@ -113,18 +106,20 @@ public class Baqueta_movement : MonoBehaviour
     }
 
     public void OnRightBeat()
-    {   if (!BeatTriggered){
+    {  
         Debug.Log("Start Song Mode");
+        ShowRightVFX.Invoke();
         Rb.velocity = Vector2.zero;
         Rb.gravityScale = 0;
         Speed = 0;
-        Song = true;}
+        Song = true;
         BeatTriggered = true;
+    
      }
     public void OnWrongBeat()
     {
         FailBeatTriggered = true;
-        ShowVisualEffect("WrongBeatVFX");;
+        ShowWrongVFX.Invoke();
         Speed = 0;
         StartCoroutine(ResetFailBeat());
         Debug.Log("wrong Beat");
@@ -140,30 +135,5 @@ public class Baqueta_movement : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         FailBeatTriggered = false;
-    }
-    private void ShowVisualEffect(string effectName)
-    {
-        if (visualEffects.ContainsKey(effectName))
-        {
-            var effect = visualEffects[effectName];
-            effect.transform.position = transform.position;
-            effect.SetActive(true);
-            Animator effectAnimator = effect.GetComponent<Animator>();
-            if (effectAnimator != null)
-            {
-                effectAnimator.Play(effectAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash, -1, 0); // Reproduce desde el principio
-            }
-            StartCoroutine(HideVisualEffectAfterAnimation(effectAnimator, effect));
-        }
-        else
-        {
-            Debug.LogWarning("Effect " + effectName + " not found!");
-        }
-    }
-
-    private IEnumerator HideVisualEffectAfterAnimation(Animator animator, GameObject effect)
-    {
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        effect.SetActive(false);
     }
 }
