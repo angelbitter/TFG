@@ -6,18 +6,30 @@ public class Visual_effects : MonoBehaviour
 
 {
     public GameObject Baqueta;
+    protected Animator Animator;
+
+    private bool WrongBeatTriggered;
+    private bool RightBeatTriggered;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
      void Update()
     {
-        Vector3 position = transform.position ;
-        position.x = Baqueta.transform.position.x;
-        position.y = Baqueta.transform.position.y;
-        transform.position = position;
+        Animator.SetBool("wrong", WrongBeatTriggered);
+        Animator.SetBool("right", RightBeatTriggered);
+        WrongBeatTriggered = false;
+        RightBeatTriggered = false;
+    }
+
+    public void OnWrongBeat(){
+        WrongBeatTriggered = true;
+    }
+    public void OnRightBeat(){
+        RightBeatTriggered = true;
     }
 }
