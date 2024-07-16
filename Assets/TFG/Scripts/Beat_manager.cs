@@ -9,10 +9,16 @@ public class Beat_manager : MonoBehaviour
     [SerializeField] private float Bpm;
     [SerializeField] public AudioSource Audio;
     [SerializeField] private Intervals[] IntervalArray;
-    [SerializeField] public bool[] SongModeArray = new bool[INNER_BEATS];
+    [SerializeField] public bool[] SongModeArray;
+    public UnityEvent ImpulseEvent;
+    public UnityEvent ShootEvent;
     private bool Song = false;
     public int SongModeBeatCounter = 0;
 
+    private void Start()
+    {
+        SongModeArray = new bool[INNER_BEATS];
+    }
     private void Update()
     {
         foreach (Intervals i in IntervalArray)
@@ -30,7 +36,7 @@ public class Beat_manager : MonoBehaviour
             }
         }
     }
-     public void CheckSongModeBeat(float sampledTime, int note = 0){
+     public void CheckSongModeBeat(float sampledTime, int note){
         foreach (Intervals i in IntervalArray)
         {
             if (i.BeatDivision == 2.0f){
@@ -44,12 +50,42 @@ public class Beat_manager : MonoBehaviour
     }
     public void EndSongMode(){
         Song = false;
+        string songKey = "";
+
+        for (int i = 0; i <  SongModeArray.Length; i++)
+        {
+            if ( SongModeArray[i])
+            {
+                songKey += i.ToString();
+            }
+        }
+
+        switch (songKey)
+        {
+            case "246":
+                ImpulseEvent.Invoke();
+                break; 
+            case "346":
+                ShootEvent.Invoke();
+                break;
+            default:
+                Debug.Log("Canción no reconocida");
+                break;
+        }
+        SongModeArray = new bool[INNER_BEATS];
         SongModeBeatCounter = 0;
+    }
+    
+    public void SongActions(){
+        
+
     }
     public void CountBeatsOnSongMode(){
         if(Song){
-            SongModeBeatCounter++;
-            Debug.Log("SongModeBeatCounter: " + SongModeBeatCounter);
+            if(SongModeBeatCounter == INNER_BEATS)
+                SongModeBeatCounter = 0;
+            else
+                SongModeBeatCounter++;
         }
     }
 }
@@ -78,8 +114,6 @@ public class Intervals{
         {
             LastInterval = Mathf.FloorToInt(interval);
             if (SongMode && NewBeat){
-                Debug.Log(" End of Measure!");
-                // if()
                 SongModeEndEvent.Invoke();
                 SongMode = false;
             }
@@ -87,6 +121,7 @@ public class Intervals{
             OnBeat.Invoke();
         }
     }
+
 
     public void CheckOnBeat(float time, float bpm)
     {
@@ -96,7 +131,6 @@ public class Intervals{
         {  
             OnCorrectBeat.Invoke();
             SongMode = true;
-            Debug.Log("IntervalLenght: " + (intervalLength - Threshold) + " IntervalPos: " + intervalPos);
             if ((intervalLength - Threshold) < intervalPos)
             {
                 NewBeat = false;
@@ -112,13 +146,17 @@ public class Intervals{
         float intervalLength = GetIntervalLength(bpm);
         float intervalPos = time % intervalLength;
         if (note < 3){
-            if (Mathf.Abs(intervalPos  - intervalLength) < Threshold2  || Mathf.Abs(intervalPos) < Threshold2)
+            if (Mathf.Abs(intervalPos  - intervalLength) < Threshold  || Mathf.Abs(intervalPos) < Threshold)
             { 
-                Debug.Log("IntervalLenght: " + (intervalLength - Threshold) + " IntervalPos: " + intervalPos);
-                if ((intervalLength - Threshold) < intervalPos)
+                if ((intervalLength - Threshold) < intervalPos){
+                Debug.Log("IntervalLenght: " + (intervalLength - Threshold) + " IntervalPos: " + intervalPos + " BeatCounter: " + (beatCounter+1) );
                     BeatManager.SongModeArray[beatCounter + 1] = true;
-                else
+                    }
+                else{
+                    
+                Debug.Log("IntervalLenght: " + (intervalLength - Threshold) + " IntervalPos: " + intervalPos + " BeatCounter: " + beatCounter );
                     BeatManager.SongModeArray[beatCounter] = true;
+                    }
             }
         }
     }

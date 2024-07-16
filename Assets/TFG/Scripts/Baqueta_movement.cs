@@ -11,12 +11,12 @@ public class Baqueta_movement : MonoBehaviour
     private bool IsGrounded;
     private bool BeatTriggered;
     private bool FailBeatTriggered;
+    private bool ImpulseBool;
     private float originalGravityScale;
     private bool Song;
     private int SongResult = 0;
-    private bool[] SongModeBeats;
     
-    private int SongModeBeatCounter;
+    private int SongModeBeatCounter = 0;
 
     [SerializeField] private UnityEvent ShowWrongVFX;
     [SerializeField] private UnityEvent ShowRightVFX;
@@ -46,6 +46,7 @@ public class Baqueta_movement : MonoBehaviour
         Animator.SetBool("air", !IsGrounded);
         Animator.SetBool("fail", FailBeatTriggered);
         Animator.SetBool("songMode", Song);
+        Animator.SetBool("impulsed", ImpulseBool);
 
         Horizontal = Input.GetAxisRaw("Horizontal");
         
@@ -62,28 +63,31 @@ public class Baqueta_movement : MonoBehaviour
             if (IsGrounded)
             {
                 BeatTriggered = false;
+                ImpulseBool = false;
             }
 
             if (Input.GetKeyDown(KeyCode.Space)  && IsGrounded)
             {
                 Jump();
             }
-
-            if (Input.GetKeyDown(KeyCode.E) && !FailBeatTriggered && !Song && !BeatTriggered)
-            {
-                //action button - start of SongMode
-                SongModeBeatCounter++;
-                float sampledTime = (float)beatManager.Audio.timeSamples / beatManager.Audio.clip.frequency;
-                beatManager.CheckSongMode(sampledTime);
+            if (Input.GetKeyDown(KeyCode.E) && !FailBeatTriggered && !BeatTriggered)
+                {
+                    //action button - start of SongMode
+                    SongModeBeatCounter=0;
+                    float sampledTime = (float)beatManager.Audio.timeSamples / beatManager.Audio.clip.frequency;
+                    beatManager.CheckSongMode(sampledTime);
+                }
             }
-
-            if (Input.GetKeyDown(KeyCode.E) && !FailBeatTriggered && Song && SongModeBeatCounter < 4)
-            {
-                //action button - start of SongMode
-                float sampledTime = (float)beatManager.Audio.timeSamples / beatManager.Audio.clip.frequency;
-                beatManager.CheckSongModeBeat(sampledTime, SongModeBeatCounter);
+            else {
+                if (Input.GetKeyDown(KeyCode.E) && Song  && SongModeBeatCounter < 3 )
+                {
+                    //action button - start of SongMode
+                    float sampledTime = (float)beatManager.Audio.timeSamples / beatManager.Audio.clip.frequency;
+                    beatManager.CheckSongModeBeat(sampledTime, SongModeBeatCounter);
+                    SongModeBeatCounter++;
+                }  
             }
-        }
+        
     }
     private void Jump()
     {
@@ -137,11 +141,12 @@ public class Baqueta_movement : MonoBehaviour
     public void SongModeEnd()
     {
         Song = false;
+        SongModeBeatCounter = 0;
         Rb.gravityScale = originalGravityScale;
         switch (SongResult)
         {
             case 0:
-                ShowVisualEffect("WrongBeatVFX");
+                ShowWrongVFX.Invoke();
                 break;
             case 1:
                 // Impulse();
@@ -156,16 +161,28 @@ public class Baqueta_movement : MonoBehaviour
                 Debug.Log("CorrectSoundWave");
                 break;
         }
+        SongResult = 0;
 
     }
     public void CorrectImpulse()
     {
         SongResult = 1;
+
     }
 
     public void CorrectSoundWave()
     {
         SongResult = 2;
+    }
+    public void Impulse()
+    {
+        ImpulseBool = true;
+        // acciones del impulso
+    }
+    public void ShootSoundWave()
+    {
+        ImpulseBool = false;
+        // acciones de la onda de sonido
     }
 
     private IEnumerator ResetFailBeat()
