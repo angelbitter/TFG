@@ -148,6 +148,8 @@ public class Intervals{
         if (note < 3){
             if (Mathf.Abs(intervalPos  - intervalLength) < Threshold  || Mathf.Abs(intervalPos) < Threshold)
             { 
+                
+                OnCorrectBeat.Invoke();
                 if ((intervalLength - Threshold) < intervalPos){
                 Debug.Log("IntervalLenght: " + (intervalLength - Threshold) + " IntervalPos: " + intervalPos + " BeatCounter: " + (beatCounter+1) );
                     BeatManager.SongModeArray[beatCounter + 1] = true;

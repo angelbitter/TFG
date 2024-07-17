@@ -267,9 +267,9 @@ MonoBehaviour:
     SongModeEndEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 456120142}
-          m_TargetAssemblyTypeName: Baqueta_movement, Assembly-CSharp
-          m_MethodName: SongModeEnd
+        - m_Target: {fileID: 145226873}
+          m_TargetAssemblyTypeName: Beat_manager, Assembly-CSharp
+          m_MethodName: EndSongMode
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -279,9 +279,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 145226873}
-          m_TargetAssemblyTypeName: Beat_manager, Assembly-CSharp
-          m_MethodName: EndSongMode
+        - m_Target: {fileID: 456120142}
+          m_TargetAssemblyTypeName: Baqueta_movement, Assembly-CSharp
+          m_MethodName: SongModeEnd
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -379,6 +379,36 @@ MonoBehaviour:
     Threshold: 0.1
     Threshold2: 0.05
   SongModeArray: 0000000000000000
+  ImpulseEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 456120142}
+        m_TargetAssemblyTypeName: Baqueta_movement, Assembly-CSharp
+        m_MethodName: CorrectImpulse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ShootEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 456120142}
+        m_TargetAssemblyTypeName: Baqueta_movement, Assembly-CSharp
+        m_MethodName: CorrectSoundWave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   SongModeBeatCounter: 0
 --- !u!82 &145226874
 AudioSource:
