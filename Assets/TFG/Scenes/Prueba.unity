@@ -371,7 +371,19 @@ MonoBehaviour:
         m_Calls: []
     OnCorrectBeat:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 456120142}
+          m_TargetAssemblyTypeName: Baqueta_movement, Assembly-CSharp
+          m_MethodName: Pulse
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     SongModeEndEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -1037,7 +1049,7 @@ GameObject:
   - component: {fileID: 1382608504}
   m_Layer: 8
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6758,7 +6770,7 @@ GameObject:
   - component: {fileID: 1483814607}
   m_Layer: 7
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9633,6 +9645,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Baqueta
       objectReference: {fileID: 0}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: JumpForce
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: SoundWave
+      value: 
+      objectReference: {fileID: 2193769949584282365, guid: e2077a749eedfe145a8f8943a8dea1eb, type: 3}
     - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
       propertyPath: beatManager
       value: 

@@ -76,10 +76,6 @@ public class Beat_manager : MonoBehaviour
         SongModeBeatCounter = 0;
     }
     
-    public void SongActions(){
-        
-
-    }
     public void CountBeatsOnSongMode(){
         if(Song){
             if(SongModeBeatCounter == INNER_BEATS)

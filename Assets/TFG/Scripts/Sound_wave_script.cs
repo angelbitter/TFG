@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Sound_wave_script : MonoBehaviour
@@ -14,7 +13,7 @@ public class Sound_wave_script : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         rb.velocity = Direction * Speed;
     }
@@ -22,5 +21,24 @@ public class Sound_wave_script : MonoBehaviour
     public void SetDirection(Vector2 direction)
     {
         Direction = direction;
+        transform.localScale = new Vector3(direction.x, 1, 1);
+    }
+
+    public void OnDestroyWave()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // if (collision.gameObject.CompareTag("SoundBarrier"))
+        // {
+        //     collision.gameObject.GetComponent<Barrier>().TakeDamage();
+        //     Destroy(gameObject);
+        // }
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

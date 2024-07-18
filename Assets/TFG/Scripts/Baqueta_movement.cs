@@ -201,15 +201,17 @@ public class Baqueta_movement : MonoBehaviour
         Vector3 direction;
         if (transform.localScale.x > 0)
         {
-            direction = Vector2.right;
+            direction = Vector3.right;
+            Debug.Log("right");
         }
         else
         {
-            direction = Vector2.left;
+            direction = Vector3.left;
+            Debug.Log("left");
         }
 
         GameObject soundWave = Instantiate(SoundWave, transform.position + direction * 0.1f, Quaternion.identity) as GameObject;
-        soundWave.GetComponent<Sound_wave_script>().SetDirection(new Vector2(transform.localScale.x, 0));
+        soundWave.GetComponent<Sound_wave_script>().SetDirection(direction);
     }
 
     private IEnumerator ResetFailBeat()

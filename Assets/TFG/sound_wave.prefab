@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: sound_wave
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: e1921a116c9636f4e99315a05f906a4b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: df67443b488b31c4bacf907d9c3d4242, type: 2}
     - target: {fileID: 7878350319992209165, guid: e1921a116c9636f4e99315a05f906a4b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.885
@@ -83,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bf22dbffff52a04aa3060fe902999ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  Speed: 2
 --- !u!50 &5301181090073340989
 Rigidbody2D:
   serializedVersion: 4
