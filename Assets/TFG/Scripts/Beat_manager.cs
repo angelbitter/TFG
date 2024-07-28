@@ -146,15 +146,15 @@ public class Intervals{
             { 
                 
                 OnCorrectBeat.Invoke();
-                if ((intervalLength - Threshold) < intervalPos){
-                Debug.Log("IntervalLenght: " + (intervalLength - Threshold) + " IntervalPos: " + intervalPos + " BeatCounter: " + (beatCounter+1) );
-                    BeatManager.SongModeArray[beatCounter + 1] = true;
-                    }
-                else{
+                // if ((intervalLength - Threshold) < intervalPos){
+                // Debug.Log("IntervalLenght: " + (intervalLength - Threshold) + " IntervalPos: " + intervalPos + " BeatCounter: " + (beatCounter+1) );
+                //     BeatManager.SongModeArray[beatCounter + 1] = true;
+                //     }
+                // else{
                     
                 Debug.Log("IntervalLenght: " + (intervalLength - Threshold) + " IntervalPos: " + intervalPos + " BeatCounter: " + beatCounter );
                     BeatManager.SongModeArray[beatCounter] = true;
-                    }
+                    // }
             }
         }
     }

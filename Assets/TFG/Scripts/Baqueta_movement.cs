@@ -138,8 +138,8 @@ public class Baqueta_movement : MonoBehaviour
     }
 
     public void OnRightBeat()
-    {  
-        Debug.Log("Start Song Mode");
+    {   
+        Pulse();
         ShowRightVFX.Invoke();
         Rb.velocity = Vector2.zero;
         Rb.gravityScale = 0;
@@ -147,6 +147,10 @@ public class Baqueta_movement : MonoBehaviour
         Song = true;
         BeatTriggered = true;
     
+     }
+     public void OnRightBeatSongMode(){
+        ShowRightVFX.Invoke();
+        Pulse();
      }
     public void OnWrongBeat()
     {
@@ -166,14 +170,13 @@ public class Baqueta_movement : MonoBehaviour
                 ShowWrongVFX.Invoke();
                 break;
             case 1:
+                Pulse();
                 Impulse();
-                // ShowVisualEffect("CorrectSongVFX");
                 Debug.Log("CorrectImpulse");
 
                 break;
             case 2:
                 ShootSoundWave(); 
-                // ShowVisualEffect("CorrectSongVFX");
                 Debug.Log("CorrectSoundWave");
                 break;
         }
@@ -202,15 +205,12 @@ public class Baqueta_movement : MonoBehaviour
         if (transform.localScale.x > 0)
         {
             direction = Vector3.right;
-            Debug.Log("right");
         }
         else
         {
             direction = Vector3.left;
-            Debug.Log("left");
         }
-
-        GameObject soundWave = Instantiate(SoundWave, transform.position + direction * 0.1f, Quaternion.identity) as GameObject;
+        GameObject soundWave = Instantiate(SoundWave, transform.position + direction * 0.2f + new Vector3(0, 0.1f, 0), Quaternion.identity) as GameObject;
         soundWave.GetComponent<Sound_wave_script>().SetDirection(direction);
     }
 
@@ -228,5 +228,18 @@ public class Baqueta_movement : MonoBehaviour
     public void Pulse()
     {
         transform.localScale = OriginalScale * PulseSize;
+    }
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall") && !IsGrounded)
+        {
+            Speed = 0;
+            if (ImpulseBool)
+            {
+                Rb.velocity = Vector2.zero;
+                ImpulseBool = false; 
+            }
+        }
     }
 }
