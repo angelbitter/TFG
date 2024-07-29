@@ -69,7 +69,6 @@ public class Beat_manager : MonoBehaviour
                 ShootEvent.Invoke();
                 break;
             default:
-                Debug.Log("Canción no reconocida");
                 break;
         }
         SongModeArray = new bool[INNER_BEATS];
@@ -97,7 +96,7 @@ public class Intervals{
     private bool SongMode = false;
     private bool NewBeat = false;
     public float Threshold = 0.1f;
-    public float Threshold2 = 0.05f;
+    public float Threshold2 = 0.075f;
     private int LastInterval  = 0;
 
     public float GetIntervalLength(float bpm){
@@ -142,19 +141,23 @@ public class Intervals{
         float intervalLength = GetIntervalLength(bpm);
         float intervalPos = time % intervalLength;
         if (note < 3){
-            if (Mathf.Abs(intervalPos  - intervalLength) < Threshold  || Mathf.Abs(intervalPos) < Threshold)
+            if (Mathf.Abs(intervalPos  - intervalLength) < Threshold2  || Mathf.Abs(intervalPos) < Threshold2)
             { 
                 
                 OnCorrectBeat.Invoke();
-                // if ((intervalLength - Threshold) < intervalPos){
-                // Debug.Log("IntervalLenght: " + (intervalLength - Threshold) + " IntervalPos: " + intervalPos + " BeatCounter: " + (beatCounter+1) );
-                //     BeatManager.SongModeArray[beatCounter + 1] = true;
-                //     }
-                // else{
+                if (Mathf.Abs(intervalPos  - intervalLength) < Threshold2 ){
+                Debug.Log("IntervalLenght: " + (Mathf.Abs(intervalPos  - intervalLength)) + " IntervalPos: " + intervalPos + " BeatCounter: " + (beatCounter+1) );
+                    BeatManager.SongModeArray[beatCounter + 1] = true;
+                    }
+                else{
                     
-                Debug.Log("IntervalLenght: " + (intervalLength - Threshold) + " IntervalPos: " + intervalPos + " BeatCounter: " + beatCounter );
+                Debug.Log("IntervalLenght: " + (Mathf.Abs(intervalPos  - intervalLength)) + " IntervalPos: " + intervalPos + " BeatCounter: " + beatCounter );
                     BeatManager.SongModeArray[beatCounter] = true;
-                    // }
+                    }
+            }
+            else {
+                Debug.Log("IntervalLenght: " + (Mathf.Abs(intervalPos  - intervalLength) ) + " threshosld: " + Threshold2 + " BeatCounter: " + beatCounter );
+                OnWrongBeat.Invoke();
             }
         }
     }

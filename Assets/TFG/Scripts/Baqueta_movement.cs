@@ -170,14 +170,12 @@ public class Baqueta_movement : MonoBehaviour
                 ShowWrongVFX.Invoke();
                 break;
             case 1:
-                Pulse();
                 Impulse();
-                Debug.Log("CorrectImpulse");
 
                 break;
             case 2:
                 ShootSoundWave(); 
-                Debug.Log("CorrectSoundWave");
+                Pulse();
                 break;
         }
         SongResult = 0;
