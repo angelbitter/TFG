@@ -199,6 +199,25 @@ public class Baqueta_movement : MonoBehaviour
     }
     public void ShootSoundWave()
     {
+        Rb.velocity = Vector2.zero;
+        Rb.gravityScale = 0;
+        Speed = 0;
+        StartCoroutine(ResetShootSoundwave());
+       }
+
+    private IEnumerator ResetFailBeat()
+    {
+        yield return new WaitForSeconds(0.5f);
+        FailBeatTriggered = false;
+    }
+    private IEnumerator ResetBeatTriggered()
+    {
+        yield return new WaitForSeconds(0.5f);
+        BeatTriggered = false;
+    }
+    private IEnumerator ResetShootSoundwave()
+    {
+        yield return new WaitForSeconds(0.25f);
         Vector3 direction;
         if (transform.localScale.x > 0)
         {
@@ -210,17 +229,9 @@ public class Baqueta_movement : MonoBehaviour
         }
         GameObject soundWave = Instantiate(SoundWave, transform.position + direction * 0.2f + new Vector3(0, 0.1f, 0), Quaternion.identity) as GameObject;
         soundWave.GetComponent<Sound_wave_script>().SetDirection(direction);
-    }
-
-    private IEnumerator ResetFailBeat()
-    {
-        yield return new WaitForSeconds(0.5f);
-        FailBeatTriggered = false;
-    }
-    private IEnumerator ResetBeatTriggered()
-    {
-        yield return new WaitForSeconds(0.5f);
-        BeatTriggered = false;
+        
+        Rb.gravityScale = originalGravityScale; 
+    
     }
 
     public void Pulse()
