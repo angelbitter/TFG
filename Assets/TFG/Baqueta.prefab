@@ -280,6 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c4a3a354a8ee24fbdc0411e6d7ae80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundWave: {fileID: 2193769949584282365, guid: e2077a749eedfe145a8f8943a8dea1eb, type: 3}
   ShowWrongVFX:
     m_PersistentCalls:
       m_Calls:
@@ -303,10 +304,13 @@ MonoBehaviour:
   Acceleration: 10
   AirAcceleration: 5
   JumpForce: 3
+  ImpulseAngle: {x: 1, y: 1}
   GroundCheck: {fileID: 6481117765202081921}
   WhatIsGround:
     serializedVersion: 2
     m_Bits: 128
+  PulseSize: 1.15
+  ReturnSpeed: 5
   beatManager: {fileID: 0}
 --- !u!95 &7095742318455967627
 Animator:

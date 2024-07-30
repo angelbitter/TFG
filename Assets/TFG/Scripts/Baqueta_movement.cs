@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class Baqueta_movement : MonoBehaviour
 {
     private Rigidbody2D Rb;
+    public GameObject SoundWave;
     private float Horizontal;
     private bool IsGrounded;
     private bool BeatTriggered;
@@ -27,8 +28,13 @@ public class Baqueta_movement : MonoBehaviour
     public float Acceleration = 10.0f;
     public float AirAcceleration = 5.0f;
     public float JumpForce = 3.0f;
+    public Vector2 ImpulseAngle = new Vector2(1.0f, 1.0f);
     public Transform GroundCheck;
     public LayerMask WhatIsGround;    
+    private Vector3 OriginalScale;
+    [SerializeField] private float PulseSize = 1.15f;
+    [SerializeField] private float ReturnSpeed = 5f;
+    
 
     protected Animator Animator;
     public Beat_manager beatManager;
@@ -38,6 +44,8 @@ public class Baqueta_movement : MonoBehaviour
         Rb = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
         originalGravityScale = Rb.gravityScale;
+        ImpulseAngle.Normalize();
+        OriginalScale = transform.localScale;
     }
 
     void Update()
@@ -47,6 +55,9 @@ public class Baqueta_movement : MonoBehaviour
         Animator.SetBool("fail", FailBeatTriggered);
         Animator.SetBool("songMode", Song);
         Animator.SetBool("impulsed", ImpulseBool);
+        
+        // para la animación de "pulsar"
+        transform.localScale = Vector3.Lerp(transform.localScale,OriginalScale, Time.deltaTime * ReturnSpeed);
 
         Horizontal = Input.GetAxisRaw("Horizontal");
         
@@ -54,15 +65,18 @@ public class Baqueta_movement : MonoBehaviour
             if(Horizontal < 0 && IsGrounded)
             {
                 transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+                OriginalScale = transform.localScale;
+                ImpulseAngle = new Vector2(-1.0f, 1.0f);
             }else if(Horizontal > 0 && IsGrounded)
             {
                 transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                OriginalScale = transform.localScale;
+                ImpulseAngle = new Vector2(1.0f, 1.0f);
             }
 
             IsGrounded = Physics2D.OverlapCircle(GroundCheck.position, 0.1f, WhatIsGround);
-            if (IsGrounded)
+            if (IsGrounded && !BeatTriggered)
             {
-                BeatTriggered = false;
                 ImpulseBool = false;
             }
 
@@ -81,7 +95,7 @@ public class Baqueta_movement : MonoBehaviour
             else {
                 if (Input.GetKeyDown(KeyCode.E) && Song  && SongModeBeatCounter < 3 )
                 {
-                    //action button - start of SongMode
+                    //action button - Song Mode Beats
                     float sampledTime = (float)beatManager.Audio.timeSamples / beatManager.Audio.clip.frequency;
                     beatManager.CheckSongModeBeat(sampledTime, SongModeBeatCounter);
                     SongModeBeatCounter++;
@@ -95,6 +109,9 @@ public class Baqueta_movement : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (ImpulseBool){
+            return;
+        }
         if (!Song){
             if (IsGrounded) {
                 if (Horizontal != 0.0f){
@@ -121,8 +138,8 @@ public class Baqueta_movement : MonoBehaviour
     }
 
     public void OnRightBeat()
-    {  
-        Debug.Log("Start Song Mode");
+    {   
+        Pulse();
         ShowRightVFX.Invoke();
         Rb.velocity = Vector2.zero;
         Rb.gravityScale = 0;
@@ -130,6 +147,10 @@ public class Baqueta_movement : MonoBehaviour
         Song = true;
         BeatTriggered = true;
     
+     }
+     public void OnRightBeatSongMode(){
+        ShowRightVFX.Invoke();
+        Pulse();
      }
     public void OnWrongBeat()
     {
@@ -149,20 +170,17 @@ public class Baqueta_movement : MonoBehaviour
                 ShowWrongVFX.Invoke();
                 break;
             case 1:
-                // Impulse();
-                Jump();
-                // ShowVisualEffect("CorrectSongVFX");
-                Debug.Log("CorrectImpulse");
+                Impulse();
 
                 break;
             case 2:
-                // ShootSoundWave(); 
-                // ShowVisualEffect("CorrectSongVFX");
-                Debug.Log("CorrectSoundWave");
+                ShootSoundWave(); 
+                Pulse();
                 break;
         }
         SongResult = 0;
 
+        StartCoroutine(ResetBeatTriggered());
     }
     public void CorrectImpulse()
     {
@@ -177,17 +195,60 @@ public class Baqueta_movement : MonoBehaviour
     public void Impulse()
     {
         ImpulseBool = true;
-        // acciones del impulso
+        Rb.velocity = ImpulseAngle * JumpForce;
     }
     public void ShootSoundWave()
     {
-        ImpulseBool = false;
-        // acciones de la onda de sonido
-    }
+        Rb.velocity = Vector2.zero;
+        Rb.gravityScale = 0;
+        Speed = 0;
+        StartCoroutine(ResetShootSoundwave());
+       }
 
     private IEnumerator ResetFailBeat()
     {
         yield return new WaitForSeconds(0.5f);
         FailBeatTriggered = false;
+    }
+    private IEnumerator ResetBeatTriggered()
+    {
+        yield return new WaitForSeconds(0.5f);
+        BeatTriggered = false;
+    }
+    private IEnumerator ResetShootSoundwave()
+    {
+        yield return new WaitForSeconds(0.25f);
+        Vector3 direction;
+        if (transform.localScale.x > 0)
+        {
+            direction = Vector3.right;
+        }
+        else
+        {
+            direction = Vector3.left;
+        }
+        GameObject soundWave = Instantiate(SoundWave, transform.position + direction * 0.2f + new Vector3(0, 0.1f, 0), Quaternion.identity) as GameObject;
+        soundWave.GetComponent<Sound_wave_script>().SetDirection(direction);
+        
+        Rb.gravityScale = originalGravityScale; 
+    
+    }
+
+    public void Pulse()
+    {
+        transform.localScale = OriginalScale * PulseSize;
+    }
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall") && !IsGrounded)
+        {
+            Speed = 0;
+            if (ImpulseBool)
+            {
+                Rb.velocity = Vector2.zero;
+                ImpulseBool = false; 
+            }
+        }
     }
 }

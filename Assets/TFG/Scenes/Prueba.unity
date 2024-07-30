@@ -267,9 +267,9 @@ MonoBehaviour:
     SongModeEndEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 456120142}
-          m_TargetAssemblyTypeName: Baqueta_movement, Assembly-CSharp
-          m_MethodName: SongModeEnd
+        - m_Target: {fileID: 145226873}
+          m_TargetAssemblyTypeName: Beat_manager, Assembly-CSharp
+          m_MethodName: EndSongMode
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -279,9 +279,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 145226873}
-          m_TargetAssemblyTypeName: Beat_manager, Assembly-CSharp
-          m_MethodName: EndSongMode
+        - m_Target: {fileID: 456120142}
+          m_TargetAssemblyTypeName: Baqueta_movement, Assembly-CSharp
+          m_MethodName: SongModeEnd
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -349,7 +349,7 @@ MonoBehaviour:
         m_Calls: []
     BeatManager: {fileID: 0}
     Threshold: 0.1
-    Threshold2: 0.05
+    Threshold2: 2
   - BeatDivision: 2
     OnBeat:
       m_PersistentCalls:
@@ -368,17 +368,95 @@ MonoBehaviour:
           m_CallState: 2
     OnWrongBeat:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 456120145}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: SongModeWrong
+            m_BoolArgument: 0
+          m_CallState: 2
     OnCorrectBeat:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 456120145}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: SongModeCorrect
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 456120142}
+          m_TargetAssemblyTypeName: Baqueta_movement, Assembly-CSharp
+          m_MethodName: OnRightBeat
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     SongModeEndEvent:
       m_PersistentCalls:
         m_Calls: []
     BeatManager: {fileID: 145226873}
     Threshold: 0.1
-    Threshold2: 0.05
+    Threshold2: 0.075
   SongModeArray: 0000000000000000
+  ImpulseEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 456120142}
+        m_TargetAssemblyTypeName: Baqueta_movement, Assembly-CSharp
+        m_MethodName: CorrectImpulse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ShootEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 456120142}
+        m_TargetAssemblyTypeName: Baqueta_movement, Assembly-CSharp
+        m_MethodName: CorrectSoundWave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 456120145}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SoundWaveStart
+          m_BoolArgument: 0
+        m_CallState: 2
   SongModeBeatCounter: 0
 --- !u!82 &145226874
 AudioSource:
@@ -607,6 +685,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c4a3a354a8ee24fbdc0411e6d7ae80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &456120145 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7095742318455967627, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+  m_PrefabInstance: {fileID: 641659975366888038}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &506134476
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,6 +921,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1157765055 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3754489587209990779, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+  m_PrefabInstance: {fileID: 641659975366888038}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4debb56ae06085546b102e18a34b34a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1246285054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,7 +1101,7 @@ GameObject:
   - component: {fileID: 1382608504}
   m_Layer: 8
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6728,7 +6822,7 @@ GameObject:
   - component: {fileID: 1483814607}
   m_Layer: 7
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9604,9 +9698,45 @@ PrefabInstance:
       value: Baqueta
       objectReference: {fileID: 0}
     - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: JumpForce
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: SoundWave
+      value: 
+      objectReference: {fileID: 2193769949584282365, guid: e2077a749eedfe145a8f8943a8dea1eb, type: 3}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
       propertyPath: beatManager
       value: 
       objectReference: {fileID: 145226873}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: ShowRightVFX.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: ShowRightVFX.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: ShowRightVFX.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1157765055}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: ShowRightVFX.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: ShowRightVFX.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnRightBeat
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: ShowRightVFX.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Visual_effects, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: ShowRightVFX.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
