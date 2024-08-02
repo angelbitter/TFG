@@ -8,16 +8,21 @@ public class Beat_manager : MonoBehaviour
     const int INNER_BEATS = 8;
     [SerializeField] private float Bpm;
     [SerializeField] public AudioSource Audio;
+    private AudioSource AudioClips;
+    public AudioClip OnBeatClip;
     [SerializeField] private Intervals[] IntervalArray;
     [SerializeField] public bool[] SongModeArray;
     public UnityEvent ImpulseEvent;
     public UnityEvent ShootEvent;
     private bool Song = false;
-    public int SongModeBeatCounter = 0;
+    public int SongModeBeatCounter;
+    public bool FailedBeat = false;
 
     private void Start()
     {
         SongModeArray = new bool[INNER_BEATS];
+        AudioClips = GetComponent<AudioSource>();
+        SongModeBeatCounter = 0;
     }
     private void Update()
     {
@@ -46,6 +51,7 @@ public class Beat_manager : MonoBehaviour
     }
     public void StartSongMode(){
         Song = true;
+        FailedBeat = false;
         SongModeBeatCounter = 0;
     }
     public void EndSongMode(){
@@ -59,17 +65,18 @@ public class Beat_manager : MonoBehaviour
                 songKey += i.ToString();
             }
         }
-
-        switch (songKey)
-        {
-            case "246":
-                ImpulseEvent.Invoke();
-                break; 
-            case "346":
-                ShootEvent.Invoke();
-                break;
-            default:
-                break;
+        if (!FailedBeat){
+            switch (songKey)  //remember it starts from 0 to 7
+            {
+                case "135":
+                    ImpulseEvent.Invoke();
+                    break; 
+                case "235":
+                    ShootEvent.Invoke();
+                    break;
+                default:
+                    break;
+            }
         }
         SongModeArray = new bool[INNER_BEATS];
         SongModeBeatCounter = 0;
@@ -81,8 +88,14 @@ public class Beat_manager : MonoBehaviour
                 SongModeBeatCounter = 0;
             else
                 SongModeBeatCounter++;
+                
+            Debug.Log("BeatCounter: " + SongModeBeatCounter);
         }
     }
+    public void PlayOnBeatClip(){
+            if (Song && OnBeatClip != null)
+                AudioClips.PlayOneShot(OnBeatClip);
+        }
 }
 
 [System.Serializable]
@@ -92,11 +105,12 @@ public class Intervals{
     [SerializeField] private UnityEvent OnWrongBeat;
     [SerializeField] private UnityEvent OnCorrectBeat;
     [SerializeField] private UnityEvent SongModeEndEvent;
-    public Beat_manager BeatManager;
+
+    [SerializeField] public Beat_manager BeatManager;
     private bool SongMode = false;
     private bool NewBeat = false;
     public float Threshold = 0.1f;
-    public float Threshold2 = 0.075f;
+    public float Threshold2 = 0.05f;
     private int LastInterval  = 0;
 
     public float GetIntervalLength(float bpm){
@@ -129,6 +143,8 @@ public class Intervals{
             if ((intervalLength - Threshold) < intervalPos)
             {
                 NewBeat = false;
+            }else{
+                BeatManager.SongModeBeatCounter = 1;
             }
         }
         else
@@ -145,20 +161,24 @@ public class Intervals{
             { 
                 
                 OnCorrectBeat.Invoke();
-                if (Mathf.Abs(intervalPos  - intervalLength) < Threshold2 ){
-                Debug.Log("IntervalLenght: " + (Mathf.Abs(intervalPos  - intervalLength)) + " IntervalPos: " + intervalPos + " BeatCounter: " + (beatCounter+1) );
-                    BeatManager.SongModeArray[beatCounter + 1] = true;
-                    }
+                if ((intervalLength - Threshold2) < intervalPos){
+                    Debug.Log("IntervalLenght: " + (Mathf.Abs(intervalPos  - intervalLength)) + " IntervalPos: " + intervalPos + " BeatCounter: " + beatCounter  );
+                    BeatManager.SongModeArray[beatCounter - 1] = true;
+                }
                 else{
                     
-                Debug.Log("IntervalLenght: " + (Mathf.Abs(intervalPos  - intervalLength)) + " IntervalPos: " + intervalPos + " BeatCounter: " + beatCounter );
-                    BeatManager.SongModeArray[beatCounter] = true;
-                    }
+                Debug.Log("IntervalLenght: " + (Mathf.Abs(intervalPos  - intervalLength)) + " IntervalPos: " + intervalPos + " BeatCounter: " + beatCounter + "-1");
+                    BeatManager.SongModeArray[beatCounter - 2] = true;
+                }
             }
             else {
-                Debug.Log("IntervalLenght: " + (Mathf.Abs(intervalPos  - intervalLength) ) + " threshosld: " + Threshold2 + " BeatCounter: " + beatCounter );
+                Debug.Log("IntervalLenght: " + (Mathf.Abs(intervalPos  - intervalLength) ) + " threshold: " + Threshold2 + " BeatCounter: " + beatCounter );
                 OnWrongBeat.Invoke();
             }
+        }
+        else{
+            BeatManager.FailedBeat = true;
+            OnWrongBeat.Invoke();
         }
     }
 }

@@ -183,6 +183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 145226875}
   - component: {fileID: 145226874}
+  - component: {fileID: 145226876}
   - component: {fileID: 145226873}
   m_Layer: 0
   m_Name: BeatControler
@@ -205,6 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Bpm: 120
   Audio: {fileID: 145226874}
+  OnBeatClip: {fileID: 8300000, guid: 34379d0f205a4034a8eca89cab824a52, type: 3}
   IntervalArray:
   - BeatDivision: 0.25
     OnBeat:
@@ -291,7 +293,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    BeatManager: {fileID: 0}
+    BeatManager: {fileID: 145226873}
     Threshold: 0.1
     Threshold2: 0.05
   - BeatDivision: 0.5
@@ -319,7 +321,7 @@ MonoBehaviour:
     SongModeEndEvent:
       m_PersistentCalls:
         m_Calls: []
-    BeatManager: {fileID: 0}
+    BeatManager: {fileID: 145226873}
     Threshold: 0.1
     Threshold2: 0.05
   - BeatDivision: 1
@@ -347,7 +349,7 @@ MonoBehaviour:
     SongModeEndEvent:
       m_PersistentCalls:
         m_Calls: []
-    BeatManager: {fileID: 0}
+    BeatManager: {fileID: 145226873}
     Threshold: 0.1
     Threshold2: 2
   - BeatDivision: 2
@@ -357,6 +359,18 @@ MonoBehaviour:
         - m_Target: {fileID: 145226873}
           m_TargetAssemblyTypeName: Beat_manager, Assembly-CSharp
           m_MethodName: CountBeatsOnSongMode
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 145226873}
+          m_TargetAssemblyTypeName: Beat_manager, Assembly-CSharp
+          m_MethodName: PlayOnBeatClip
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -381,6 +395,18 @@ MonoBehaviour:
             m_StringArgument: SongModeWrong
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 456120142}
+          m_TargetAssemblyTypeName: Baqueta_movement, Assembly-CSharp
+          m_MethodName: OnWrongBeatSongMode
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     OnCorrectBeat:
       m_PersistentCalls:
         m_Calls:
@@ -398,7 +424,7 @@ MonoBehaviour:
           m_CallState: 2
         - m_Target: {fileID: 456120142}
           m_TargetAssemblyTypeName: Baqueta_movement, Assembly-CSharp
-          m_MethodName: OnRightBeat
+          m_MethodName: OnRightBeatSongMode
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -413,7 +439,7 @@ MonoBehaviour:
         m_Calls: []
     BeatManager: {fileID: 145226873}
     Threshold: 0.1
-    Threshold2: 0.075
+    Threshold2: 0.05
   SongModeArray: 0000000000000000
   ImpulseEvent:
     m_PersistentCalls:
@@ -569,6 +595,102 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &145226876
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145226872}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 100
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &274014586
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,6 +812,102 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 7095742318455967627, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
   m_PrefabInstance: {fileID: 641659975366888038}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &456120146
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456120141}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 0.8934417
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &506134476
 GameObject:
   m_ObjectHideFlags: 0
@@ -9698,9 +9916,17 @@ PrefabInstance:
       value: Baqueta
       objectReference: {fileID: 0}
     - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: JumpAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 387d090ceecff484cbe97b4c7fae5ece, type: 3}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
       propertyPath: JumpForce
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: LandAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 6b85611ce74e89c43ae8d2997ba1d51c, type: 3}
     - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
       propertyPath: SoundWave
       value: 
@@ -9709,6 +9935,22 @@ PrefabInstance:
       propertyPath: beatManager
       value: 
       objectReference: {fileID: 145226873}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: OnRightBeatAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 7f8c38ea7f0647f4784b9a813b194256, type: 3}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: OnRightSongAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 624c2d56305ef6345b74603d415bfa66, type: 3}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: OnWrongBeatAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 1c42629f09437454b945dc62610b2303, type: 3}
+    - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      propertyPath: OnWrongSongAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 190128333dbc7524fba4b964c3c3d9fc, type: 3}
     - target: {fileID: 8527101983893985879, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
       propertyPath: ShowRightVFX.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -9740,7 +9982,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7943672444483102231, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 456120146}
   m_SourcePrefab: {fileID: 100100000, guid: 2fbf420151e4acb4b95c7617c198c4e5, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

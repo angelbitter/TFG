@@ -10,6 +10,7 @@ public class Baqueta_movement : MonoBehaviour
     public GameObject SoundWave;
     private float Horizontal;
     private bool IsGrounded;
+    private bool WasFlying;
     private bool BeatTriggered;
     private bool FailBeatTriggered;
     private bool ImpulseBool;
@@ -35,12 +36,21 @@ public class Baqueta_movement : MonoBehaviour
     [SerializeField] private float PulseSize = 1.15f;
     [SerializeField] private float ReturnSpeed = 5f;
     
+    public AudioSource Audio;
+     
+    public AudioClip JumpAudio;
+    public AudioClip LandAudio;
+    public AudioClip OnRightSongAudio;
+    public AudioClip OnRightBeatAudio;
+    public AudioClip OnWrongSongAudio;
+    public AudioClip OnWrongBeatAudio;
 
     protected Animator Animator;
     public Beat_manager beatManager;
 
     void Start()
     {
+        Audio = GetComponent<AudioSource>();
         Rb = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
         originalGravityScale = Rb.gravityScale;
@@ -75,9 +85,16 @@ public class Baqueta_movement : MonoBehaviour
             }
 
             IsGrounded = Physics2D.OverlapCircle(GroundCheck.position, 0.1f, WhatIsGround);
+            if(IsGrounded && WasFlying)
+            {
+                PlaySound(LandAudio);
+                WasFlying = false;
+            }
+
             if (IsGrounded && !BeatTriggered)
             {
                 ImpulseBool = false;
+                WasFlying = false;
             }
 
             if (Input.GetKeyDown(KeyCode.Space)  && IsGrounded)
@@ -93,7 +110,7 @@ public class Baqueta_movement : MonoBehaviour
                 }
             }
             else {
-                if (Input.GetKeyDown(KeyCode.E) && Song  && SongModeBeatCounter < 3 )
+                if (Input.GetKeyDown(KeyCode.E) && Song)
                 {
                     //action button - Song Mode Beats
                     float sampledTime = (float)beatManager.Audio.timeSamples / beatManager.Audio.clip.frequency;
@@ -106,6 +123,7 @@ public class Baqueta_movement : MonoBehaviour
     private void Jump()
     {
         Rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
+        PlaySound(JumpAudio);
     }
     private void FixedUpdate()
     {
@@ -123,6 +141,7 @@ public class Baqueta_movement : MonoBehaviour
                     Speed = Mathf.MoveTowards(Speed, 0, Acceleration * Time.deltaTime);
                 }
             }else{
+                WasFlying = true;
                 //air movement
                 if (Horizontal != 0.0f){
                     if (Horizontal > 0 )
@@ -141,6 +160,7 @@ public class Baqueta_movement : MonoBehaviour
     {   
         Pulse();
         ShowRightVFX.Invoke();
+        PlaySound(OnRightBeatAudio);
         Rb.velocity = Vector2.zero;
         Rb.gravityScale = 0;
         Speed = 0;
@@ -150,34 +170,51 @@ public class Baqueta_movement : MonoBehaviour
      }
      public void OnRightBeatSongMode(){
         ShowRightVFX.Invoke();
+        PlaySound(OnRightBeatAudio);
         Pulse();
      }
+
     public void OnWrongBeat()
     {
         FailBeatTriggered = true;
+        PlaySound(OnWrongBeatAudio);
         ShowWrongVFX.Invoke();
         Speed = 0;
         StartCoroutine(ResetFailBeat());
     }
+    public void OnWrongBeatSongMode(){
+        PlaySound(OnWrongBeatAudio);
+        SongResult = 0;
+    }
+
     public void SongModeEnd()
     {
         Song = false;
         SongModeBeatCounter = 0;
         Rb.gravityScale = originalGravityScale;
-        switch (SongResult)
+        if (SongResult == 0)
         {
-            case 0:
-                ShowWrongVFX.Invoke();
-                break;
-            case 1:
-                Impulse();
+            ShowWrongVFX.Invoke();
+            PlaySound(OnWrongSongAudio);
+        }else{
+            Pulse();
+            PlaySound(OnRightSongAudio);
+            switch (SongResult)
+            {
+                case 1:
+                    Impulse();
+                    break;
+                case 2:
+                    ShootSoundWave();
+                    break;
+                default:
+                    break;
 
-                break;
-            case 2:
-                ShootSoundWave(); 
-                Pulse();
-                break;
+        //abierta la puerta a más acciones
+
+            }
         }
+        
         SongResult = 0;
 
         StartCoroutine(ResetBeatTriggered());
@@ -185,25 +222,26 @@ public class Baqueta_movement : MonoBehaviour
     public void CorrectImpulse()
     {
         SongResult = 1;
-
     }
 
     public void CorrectSoundWave()
     {
         SongResult = 2;
     }
+
     public void Impulse()
     {
         ImpulseBool = true;
         Rb.velocity = ImpulseAngle * JumpForce;
     }
+
     public void ShootSoundWave()
     {
         Rb.velocity = Vector2.zero;
         Rb.gravityScale = 0;
         Speed = 0;
         StartCoroutine(ResetShootSoundwave());
-       }
+    }
 
     private IEnumerator ResetFailBeat()
     {
@@ -249,6 +287,16 @@ public class Baqueta_movement : MonoBehaviour
                 Rb.velocity = Vector2.zero;
                 ImpulseBool = false; 
             }
+        }
+    }
+
+    // Baqueta Sounds
+
+    public void PlaySound(AudioClip clip)
+    {
+        if (Audio != null && clip != null)
+        {
+            Audio.PlayOneShot(clip);
         }
     }
 }
