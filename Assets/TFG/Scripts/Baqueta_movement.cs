@@ -24,12 +24,11 @@ public class Baqueta_movement : MonoBehaviour
     [SerializeField] private UnityEvent ShowRightVFX;
 
     public float Speed;
-    public float MaxSpeed = 2.0f;
-    // public float TimeToMaxSpeed = 0.5f;
+    public float MaxSpeed = 1.5f;
     public float Acceleration = 10.0f;
     public float AirAcceleration = 5.0f;
     public float JumpForce = 3.0f;
-    public Vector2 ImpulseAngle = new Vector2(1.0f, 1.0f);
+    public Vector2 ImpulseAngle = new Vector2(0.8f, 0.8f);
     public Transform GroundCheck;
     public LayerMask WhatIsGround;    
     private Vector3 OriginalScale;
@@ -56,6 +55,7 @@ public class Baqueta_movement : MonoBehaviour
         originalGravityScale = Rb.gravityScale;
         ImpulseAngle.Normalize();
         OriginalScale = transform.localScale;
+        Jump();
     }
 
     void Update()
@@ -76,12 +76,12 @@ public class Baqueta_movement : MonoBehaviour
             {
                 transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
                 OriginalScale = transform.localScale;
-                ImpulseAngle = new Vector2(-1.0f, 1.0f);
+                ImpulseAngle = new Vector2(-0.8f, 0.8f);
             }else if(Horizontal > 0 && IsGrounded)
             {
                 transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 OriginalScale = transform.localScale;
-                ImpulseAngle = new Vector2(1.0f, 1.0f);
+                ImpulseAngle = new Vector2(0.8f, 0.8f);
             }
 
             IsGrounded = Physics2D.OverlapCircle(GroundCheck.position, 0.1f, WhatIsGround);
