@@ -11,23 +11,55 @@ public class Pause_menu : MonoBehaviour
     public AudioSource Audio;
     public AudioClip BackSound;
     public AudioClip ButtonSound;
+    public AudioClip PauseGameSound;
 
     public Image FadeImage;
-
+    [SerializeField] GameObject PauseMenu;
     
+    void Start()
+    {
+        PauseMenu.SetActive(false);
+    }
+
+    void Update()
+    {
+        Debug.Log("Update");
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("Escape pressed");    
+            if (GameIsPaused)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+        }
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0f;
+        GameIsPaused = true;
+        PlaySound(PauseGameSound);
+        PauseMenu.SetActive(true);
+    }
+
     public void Resume()
     {
-        // pauseMenuUI.SetActive(false);
-        // Time.timeScale = 1f;
-        // GameIsPaused = false;
+        Time.timeScale = 1f;
+        GameIsPaused = false;
         PlaySound(ButtonSound);
+        PauseMenu.SetActive(false);
     }
 
     public void QuitGame()
     {
-       PlaySound(BackSound);
+        Time.timeScale = 1f;
+        PlaySound(BackSound);
 
-       StartCoroutine(LoadMainMenu());
+        StartCoroutine(LoadMainMenu());
     }
 
 
