@@ -13,11 +13,13 @@ public class Main_menu : MonoBehaviour
     public AudioClip BackSound;
     public AudioClip ButtonSound;
     
+    public Image FadeImage;
 
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync(1);
         PlaySound(ButtonSound);
+        StartCoroutine(LoadGame());
+        FadeImage.GetComponent<Image>().raycastTarget = true; 
     }
 
     public void QuitGame()
@@ -30,9 +32,8 @@ public class Main_menu : MonoBehaviour
     {
         HelpGuide.SetActive(true);        
         PlaySound(ButtonSound);
-
     }
-    
+
     public void CloseHelpGuide()
     {
         HelpGuide.SetActive(false);
@@ -45,5 +46,29 @@ public class Main_menu : MonoBehaviour
         {
             Audio.PlayOneShot(clip);
         }
+    }
+
+    private IEnumerator LoadGame()
+    {
+        // Fade out
+
+        float elapsedTime = 0f;
+        float fadeDuration = 1f;
+        Color startColor = FadeImage.color = new Color(0, 0, 0, 0);
+        Color endColor = new Color(0, 0, 0, 1);
+        
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / fadeDuration;
+            FadeImage.color = Color.Lerp(startColor, endColor, t);
+            yield return null;
+        }
+        FadeImage.color = endColor;
+        
+        yield return new WaitForSeconds(0.2f);
+        FadeImage.GetComponent<Image>().raycastTarget = false; 
+
+        SceneManager.LoadSceneAsync(1);
     }
 }

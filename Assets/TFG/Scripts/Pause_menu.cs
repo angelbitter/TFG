@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class Pause_menu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
+    private bool Loading = false;
+    private bool Help = false;
 
     public AudioSource Audio;
     public AudioSource Music;
@@ -14,22 +16,30 @@ public class Pause_menu : MonoBehaviour
     public AudioClip ButtonSound;
     public AudioClip PauseGameSound;
 
+    public GameObject Baqueta;
     public Image FadeImage;
     [SerializeField] GameObject PauseMenu;
     public GameObject HelpGuide;
     
     void Start()
     {
-        PauseMenu.SetActive(false);
+        // PauseMenu.SetActive(false);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !Loading)
         {
             if (GameIsPaused)
             {
-                Resume();
+                if (Help)
+                {
+                    CloseHelpGuide();
+                }
+                else
+                {
+                    Resume();
+                }
             }
             else
             {
@@ -45,6 +55,7 @@ public class Pause_menu : MonoBehaviour
         PlaySound(PauseGameSound);
 
         Music.Pause(); 
+        Baqueta.GetComponent<Baqueta_movement>().enabled = false;
         PauseMenu.SetActive(true);
     }
 
@@ -55,26 +66,29 @@ public class Pause_menu : MonoBehaviour
         PlaySound(ButtonSound);
         
         Music.UnPause();
+        
+        Baqueta.GetComponent<Baqueta_movement>().enabled = true;
         PauseMenu.SetActive(false);
     }
 
     public void QuitGame()
     {
         Time.timeScale = 1f;
+        Loading = true;
         PlaySound(BackSound);
-
         StartCoroutine(LoadMainMenu());
     }
 
 public void LoadHelpGuide()
     {
+        Help = true;
         HelpGuide.SetActive(true);        
         PlaySound(ButtonSound);
-
     }
     
     public void CloseHelpGuide()
     {
+        Help = false;
         HelpGuide.SetActive(false);
         PlaySound(BackSound);
     }
@@ -92,7 +106,7 @@ public void LoadHelpGuide()
 
         float elapsedTime = 0f;
         float fadeDuration = 1f;
-        Color startColor = FadeImage.color = new Color(0, 0, 0, 0);
+        Color startColor = FadeImage.color;
         Color endColor = new Color(0, 0, 0, 1);
         
         while (elapsedTime < fadeDuration)
@@ -105,6 +119,8 @@ public void LoadHelpGuide()
         FadeImage.color = endColor;
 
         yield return new WaitForSeconds(0.2f);
+        Loading = false;
+        GameIsPaused = false;
         SceneManager.LoadSceneAsync(0);
     }
 }
