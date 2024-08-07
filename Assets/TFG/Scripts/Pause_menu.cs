@@ -9,12 +9,14 @@ public class Pause_menu : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public AudioSource Audio;
+    public AudioSource Music;
     public AudioClip BackSound;
     public AudioClip ButtonSound;
     public AudioClip PauseGameSound;
 
     public Image FadeImage;
     [SerializeField] GameObject PauseMenu;
+    public GameObject HelpGuide;
     
     void Start()
     {
@@ -23,10 +25,8 @@ public class Pause_menu : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Update");
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("Escape pressed");    
             if (GameIsPaused)
             {
                 Resume();
@@ -43,6 +43,8 @@ public class Pause_menu : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
         PlaySound(PauseGameSound);
+
+        Music.Pause(); 
         PauseMenu.SetActive(true);
     }
 
@@ -51,6 +53,8 @@ public class Pause_menu : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
         PlaySound(ButtonSound);
+        
+        Music.UnPause();
         PauseMenu.SetActive(false);
     }
 
@@ -62,7 +66,18 @@ public class Pause_menu : MonoBehaviour
         StartCoroutine(LoadMainMenu());
     }
 
+public void LoadHelpGuide()
+    {
+        HelpGuide.SetActive(true);        
+        PlaySound(ButtonSound);
 
+    }
+    
+    public void CloseHelpGuide()
+    {
+        HelpGuide.SetActive(false);
+        PlaySound(BackSound);
+    }
 
     public void PlaySound(AudioClip clip)
     {

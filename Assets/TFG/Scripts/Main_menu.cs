@@ -7,20 +7,43 @@ using UnityEngine.SceneManagement;
 public class Main_menu : MonoBehaviour
 {
 
-    public GameObject OptionsMenu;
+    public GameObject HelpGuide;
+    
+    public AudioSource Audio;
+    public AudioClip BackSound;
+    public AudioClip ButtonSound;
+    
 
     public void PlayGame()
     {
         SceneManager.LoadSceneAsync(1);
-    }
-
-    public void LoadOptionsMenu()
-    {
-        OptionsMenu.SetActive(true);
+        PlaySound(ButtonSound);
     }
 
     public void QuitGame()
     {
         Application.Quit();
+        PlaySound(BackSound);
+    }
+
+    public void LoadHelpGuide()
+    {
+        HelpGuide.SetActive(true);        
+        PlaySound(ButtonSound);
+
+    }
+    
+    public void CloseHelpGuide()
+    {
+        HelpGuide.SetActive(false);
+        PlaySound(BackSound);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        if (Audio != null && clip != null)
+        {
+            Audio.PlayOneShot(clip);
+        }
     }
 }

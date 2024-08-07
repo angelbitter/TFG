@@ -94,7 +94,7 @@ public class Beat_manager : MonoBehaviour
     }
     public void PlayOnBeatClip(){
             if (Song && OnBeatClip != null)
-                AudioClips.PlayOneShot(OnBeatClip, 0.5f);
+                AudioClips.PlayOneShot(OnBeatClip, 0.7f);
         }
 }
 

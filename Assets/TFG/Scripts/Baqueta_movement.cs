@@ -14,7 +14,7 @@ public class Baqueta_movement : MonoBehaviour
     private bool BeatTriggered;
     private bool FailBeatTriggered;
     private bool ImpulseBool;
-    private float originalGravityScale;
+    private float OriginalGravityScale;
     private bool Song;
     private int SongResult = 0;
     
@@ -52,10 +52,9 @@ public class Baqueta_movement : MonoBehaviour
         Audio = GetComponent<AudioSource>();
         Rb = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
-        originalGravityScale = Rb.gravityScale;
+        OriginalGravityScale = Rb.gravityScale;
         ImpulseAngle.Normalize();
         OriginalScale = transform.localScale;
-        Jump();
     }
 
     void Update()
@@ -97,11 +96,11 @@ public class Baqueta_movement : MonoBehaviour
                 WasFlying = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space)  && IsGrounded)
+            if (Input.GetButtonDown("Jump")  && IsGrounded)
             {
                 Jump();
             }
-            if (Input.GetKeyDown(KeyCode.E) && !FailBeatTriggered && !BeatTriggered)
+            if (Input.GetButtonDown("Fire1") && !FailBeatTriggered && !BeatTriggered)
                 {
                     //action button - start of SongMode
                     SongModeBeatCounter=0;
@@ -110,7 +109,7 @@ public class Baqueta_movement : MonoBehaviour
                 }
             }
             else {
-                if (Input.GetKeyDown(KeyCode.E) && Song)
+                if (Input.GetButtonDown("Fire1") && Song)
                 {
                     //action button - Song Mode Beats
                     float sampledTime = (float)beatManager.Audio.timeSamples / beatManager.Audio.clip.frequency;
@@ -191,7 +190,7 @@ public class Baqueta_movement : MonoBehaviour
     {
         Song = false;
         SongModeBeatCounter = 0;
-        Rb.gravityScale = originalGravityScale;
+        Rb.gravityScale = OriginalGravityScale;
         if (SongResult == 0)
         {
             ShowWrongVFX.Invoke();
@@ -268,7 +267,7 @@ public class Baqueta_movement : MonoBehaviour
         GameObject soundWave = Instantiate(SoundWave, transform.position + direction * 0.2f + new Vector3(0, 0.1f, 0), Quaternion.identity) as GameObject;
         soundWave.GetComponent<Sound_wave_script>().SetDirection(direction);
         
-        Rb.gravityScale = originalGravityScale; 
+        Rb.gravityScale = OriginalGravityScale; 
     
     }
 
