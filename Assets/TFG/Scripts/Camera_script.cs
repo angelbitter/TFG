@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Camera_script : MonoBehaviour
 {
-
     public GameObject Baqueta;
 
     void Update()
