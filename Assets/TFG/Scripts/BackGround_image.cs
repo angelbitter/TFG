@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BackGround_image : MonoBehaviour
 {
-    public float Amplitude;
-    public float Frequency;
+    public float amplitude;
+    public float frequency;
 
     private Vector3 StartPosition;
 
@@ -16,7 +16,7 @@ public class BackGround_image : MonoBehaviour
 
     void Update()
     {
-        float yOffset = Amplitude * Mathf.Sin(Time.time * Frequency);
+        float yOffset = amplitude * Mathf.Sin(Time.time * frequency);
         transform.position = StartPosition + new Vector3(0, yOffset, 0);
 
     }

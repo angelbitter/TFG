@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: sound_wave
       objectReference: {fileID: 0}
+    - target: {fileID: -2253911629886400664, guid: e1921a116c9636f4e99315a05f906a4b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1160356261127867848, guid: e1921a116c9636f4e99315a05f906a4b, type: 3}
       propertyPath: m_Controller
       value: 
