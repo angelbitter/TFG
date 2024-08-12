@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6afd88204f56d0245863bcfe5cca8580
+guid: e1a141a4ed7ce7f45b3315f74a8313af
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: life_sprite
+  - name: spikes
     originalName: 
-    pivot: {x: 0.5217391, y: -0.095238104}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 23
-      height: 21
-    spriteID: 4aec30c044acaaf418d07f3bc25cb56f
+      width: 32
+      height: 16
+    spriteID: e0073c2cf1748a54190eea6d69252e21
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,83 +141,27 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: life_sprite_Frame_1
-    originalName: 
-    pivot: {x: 0.5217391, y: -0.095238104}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 33
-      width: 23
-      height: 21
-    spriteID: 844d80255bccd3b48930dcecb95666e6
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 33}
-  - name: life_sprite_Frame_2
-    originalName: 
-    pivot: {x: 0.5217391, y: -0.095238104}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 35
-      y: 4
-      width: 23
-      height: 21
-    spriteID: b8230ed391df0004a99eb1d2cf092d59
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 35, y: 4}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 187193656
-    name: life_sprite
+    guid: 568934207
+    name: spikes
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: life_sprite_Frame_0
+    - name: spikes
       frameIndex: 0
       cellRect:
         x: 0
-        y: 2
-        width: 23
-        height: 21
-      spriteId: 4aec30c044acaaf418d07f3bc25cb56f
-    - name: life_sprite_Frame_1
-      frameIndex: 1
-      cellRect:
-        x: 0
-        y: 2
-        width: 23
-        height: 21
-      spriteId: 844d80255bccd3b48930dcecb95666e6
-    - name: life_sprite_Frame_2
-      frameIndex: 2
-      cellRect:
-        x: 0
-        y: 2
-        width: 23
-        height: 21
-      spriteId: b8230ed391df0004a99eb1d2cf092d59
+        y: 0
+        width: 32
+        height: 16
+      spriteId: e0073c2cf1748a54190eea6d69252e21
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 24, y: 24}
+  canvasSize: {x: 32, y: 16}
