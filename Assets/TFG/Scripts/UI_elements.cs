@@ -48,12 +48,12 @@ public class UI_elements : MonoBehaviour
             case 2:
                 life1.sprite = emptyLife;
                 life2.sprite = emptyLife;
-                life3.sprite = halfLife;
+                life3.sprite = fullLife;
                 break;
             case 1:
                 life1.sprite = emptyLife;
                 life2.sprite = emptyLife;
-                life3.sprite = fullLife;
+                life3.sprite = halfLife;
                 break;
 
             case 0:

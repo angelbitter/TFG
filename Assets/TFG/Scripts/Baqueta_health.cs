@@ -7,12 +7,6 @@ public class Baqueta_health : MonoBehaviour
     public int health, maxHealth;
     public static Baqueta_health instance;
     public bool vulnerable = true;
-    
-    public float hitAngle = -60f;
-    private Vector2 hitDirection;
-
-    public float hitForce;
-
     private void Awake()
     {
         instance = this;
@@ -22,9 +16,6 @@ public class Baqueta_health : MonoBehaviour
     void Start()
     {
         health = maxHealth; 
-        hitAngle = hitAngle * Mathf.Deg2Rad;
-        float hitAngleInRad = hitAngle * Mathf.Deg2Rad;
-        hitDirection = new Vector2(Mathf.Cos(hitAngleInRad), Mathf.Sin(hitAngleInRad));
     }
 
     // Update is called once per frame
@@ -44,11 +35,10 @@ public class Baqueta_health : MonoBehaviour
         {
             gameObject.SetActive(false);
             
+            
         }
-
         UI_elements.instance.UpdateHealthDisplay();
         gameObject.GetComponent<Animator>().SetTrigger("Hit");
-        gameObject.GetComponent<Rigidbody2D>().velocity = hitDirection * hitForce;
         StartCoroutine(Invulnerable());
     }
 

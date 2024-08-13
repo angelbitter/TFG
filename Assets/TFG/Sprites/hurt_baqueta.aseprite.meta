@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e1a141a4ed7ce7f45b3315f74a8313af
+guid: 4db65ada72a07c24689c4f9cb5744b52
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,7 +121,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: spikes
+  - name: hurt_baqueta
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -130,9 +130,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 31
-      height: 16
-    spriteID: e0073c2cf1748a54190eea6d69252e21
+      width: 32
+      height: 32
+    spriteID: d7d6dda3453f1a84486af70571749166
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,24 +144,24 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 568934207
-    name: spikes
+    guid: 1937756371
+    name: hurt_baqueta
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: spikes
+    - name: hurt_baqueta
       frameIndex: 0
       cellRect:
         x: 0
         y: 0
-        width: 31
-        height: 16
-      spriteId: e0073c2cf1748a54190eea6d69252e21
+        width: 32
+        height: 32
+      spriteId: d7d6dda3453f1a84486af70571749166
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 31, y: 16}
+  canvasSize: {x: 32, y: 32}

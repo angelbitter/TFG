@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Events;
+using Unity.VisualScripting.Dependencies.Sqlite;
+using Cinemachine;
 
 public class Baqueta_movement : MonoBehaviour
 {
@@ -36,16 +38,18 @@ public class Baqueta_movement : MonoBehaviour
     [SerializeField] private float returnSpeed = 5f;
     
     public AudioSource audioSource;
-     
     public AudioClip jumpAudio;
     public AudioClip landAudio;
     public AudioClip onRightSongAudio;
     public AudioClip onRightBeatAudio;
     public AudioClip onWrongSongAudio;
     public AudioClip onWrongBeatAudio;
+    public AudioClip getHitSound;
 
     protected Animator animator;
     public Beat_manager beatManager;
+
+    private bool vulnerable = true;
 
     void Start()
     {
@@ -278,6 +282,11 @@ public class Baqueta_movement : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Hazard") && impulseBool)
+        {
+            impulseBool = true;
+            return;
+        }
         if (collision.gameObject.CompareTag("Wall") && !isGrounded)
         {
             speed = 0;
@@ -287,6 +296,41 @@ public class Baqueta_movement : MonoBehaviour
                 impulseBool = false; 
             }
         }
+    }
+
+    public void Knockback()
+    {
+        if (!vulnerable)
+        {
+            return;
+        }
+        // posibilidad de que se reimpulse con los pinchos en un futuro
+        // if (impulseBool)
+        // {
+        //     Impulse();
+        //     return;
+        // }
+        rb.velocity = new Vector2(-transform.localScale.x, 1) * 2.0f;
+        PlaySound(getHitSound);
+        StartCoroutine(Invulnerable());
+    }
+
+    IEnumerator Invulnerable()
+    {
+        vulnerable = false;
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        float vulnerableTime = 1.5f;
+        float blinkInterval = 0.1f;
+        float timePassed = 0f;
+        
+        while (timePassed < vulnerableTime)
+        {
+            spriteRenderer.enabled = !spriteRenderer.enabled;
+            yield return new WaitForSeconds(blinkInterval);
+            timePassed += blinkInterval;
+        }
+        spriteRenderer.enabled = true;
+        vulnerable = true;
     }
 
     // Baqueta Sounds
