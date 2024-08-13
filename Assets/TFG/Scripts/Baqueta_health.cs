@@ -34,11 +34,11 @@ public class Baqueta_health : MonoBehaviour
         if(health <= 0)
         {
             gameObject.SetActive(false);
-            
+
             
         }
         UI_elements.instance.UpdateHealthDisplay();
-        gameObject.GetComponent<Animator>().SetTrigger("Hit");
+        gameObject.GetComponent<Animator>().Play("Hurt");
         StartCoroutine(Invulnerable());
     }
 

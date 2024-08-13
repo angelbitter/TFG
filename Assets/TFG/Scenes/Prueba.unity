@@ -1018,6 +1018,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spike
       objectReference: {fileID: 0}
+    - target: {fileID: -2253911629886400664, guid: 143cd17d6b6663346aa44b47b635d7f7, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 143cd17d6b6663346aa44b47b635d7f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.476
@@ -1131,7 +1135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8739e0dd418f60845bd478f591530f4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Baqueta: {fileID: 0}
+  Baqueta: {fileID: 7403663158098746010, guid: 3aeff20736769e7469a1f0e3fc223cf2, type: 3}
 --- !u!1 &899752524
 GameObject:
   m_ObjectHideFlags: 0
@@ -10890,6 +10894,14 @@ PrefabInstance:
     - target: {fileID: -2253911629886400664, guid: e1a141a4ed7ce7f45b3315f74a8313af, type: 3}
       propertyPath: m_Name
       value: Spikes
+      objectReference: {fileID: 0}
+    - target: {fileID: -2253911629886400664, guid: e1a141a4ed7ce7f45b3315f74a8313af, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2253911629886400664, guid: e1a141a4ed7ce7f45b3315f74a8313af, type: 3}
+      propertyPath: m_TagString
+      value: Hazard
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: e1a141a4ed7ce7f45b3315f74a8313af, type: 3}
       propertyPath: m_LocalPosition.x
