@@ -55,12 +55,6 @@ public class UI_elements : MonoBehaviour
                 life2.sprite = emptyLife;
                 life3.sprite = halfLife;
                 break;
-
-            case 0:
-                life1.sprite = emptyLife;
-                life2.sprite = emptyLife;
-                life3.sprite = halfLife;
-                break;
             default:
                 life1.sprite = emptyLife;
                 life2.sprite = emptyLife;

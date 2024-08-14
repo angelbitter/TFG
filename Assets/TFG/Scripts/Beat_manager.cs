@@ -53,7 +53,6 @@ public class Beat_manager : MonoBehaviour
         song = true;
         failedBeat = false;
         songModeBeatCounter = 0;
-        Debug.Log("Song Mode Started");
     }
     public void EndSongMode(){
         song = false;
@@ -94,12 +93,11 @@ public class Beat_manager : MonoBehaviour
     }
     public void PlayOnBeatClip(){
             if (song && onBeatClip != null)
-                audioClips.PlayOneShot(onBeatClip, 0.7f);
+                audioClips.PlayOneShot(onBeatClip, 1f);
         }
 }
 
-[System.Serializable]
-public class Intervals{
+[System.Serializable] public class Intervals{
     [SerializeField] public float beatDivision;
     [SerializeField] private UnityEvent onBeat;
     [SerializeField] private UnityEvent onWrongBeat;

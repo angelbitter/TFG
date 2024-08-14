@@ -20,11 +20,6 @@ public class Pause_menu : MonoBehaviour
     public Image FadeImage;
     [SerializeField] GameObject PauseMenu;
     public GameObject HelpGuide;
-    
-    void Start()
-    {
-        // PauseMenu.SetActive(false);
-    }
 
     void Update()
     {
@@ -76,7 +71,7 @@ public class Pause_menu : MonoBehaviour
         Time.timeScale = 1f;
         Loading = true;
         PlaySound(BackSound);
-        StartCoroutine(LoadMainMenu());
+        StartCoroutine(LoadScreen(0));
     }
 
 public void LoadHelpGuide()
@@ -92,6 +87,12 @@ public void LoadHelpGuide()
         HelpGuide.SetActive(false);
         PlaySound(BackSound);
     }
+    public void Restart()
+    {
+        PlaySound(ButtonSound);
+        StartCoroutine(LoadScreen(1));
+        FadeImage.GetComponent<Image>().raycastTarget = true; 
+    }
 
     public void PlaySound(AudioClip clip)
     {
@@ -100,7 +101,7 @@ public void LoadHelpGuide()
             Audio.PlayOneShot(clip);
         }
     }
-     private IEnumerator LoadMainMenu()
+     private IEnumerator LoadScreen(int index)
     {
         // Fade out
 
@@ -121,6 +122,6 @@ public void LoadHelpGuide()
         yield return new WaitForSeconds(0.2f);
         Loading = false;
         GameIsPaused = false;
-        SceneManager.LoadSceneAsync(0);
+        SceneManager.LoadSceneAsync(index);
     }
 }

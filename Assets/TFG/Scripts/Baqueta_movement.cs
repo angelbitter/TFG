@@ -5,11 +5,14 @@ using System;
 using UnityEngine.Events;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using Cinemachine;
+using Unity.VisualScripting;
 
 public class Baqueta_movement : MonoBehaviour
 {
+    public static Baqueta_movement instance;
     private Rigidbody2D rb;
     public GameObject soundWave;
+    private Collider2D baquetaCollider;
     private float horizontal;
     private bool isGrounded;
     private bool wasFlying;
@@ -50,15 +53,23 @@ public class Baqueta_movement : MonoBehaviour
     public Beat_manager beatManager;
 
     private bool vulnerable = true;
+    public float vulnerableTime = 1.5f;
+    public bool isDead = false;
 
+    void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        baquetaCollider = GetComponent<Collider2D>();
         originalGravityScale = rb.gravityScale;
         impulseAngle.Normalize();
         originalScale = transform.localScale;
+        isDead = false;
     }
 
     void Update()
@@ -68,11 +79,11 @@ public class Baqueta_movement : MonoBehaviour
         animator.SetBool("fail", failBeatTriggered);
         animator.SetBool("songMode", song);
         animator.SetBool("impulsed", impulseBool);
-        
+
         // para la animación de "pulsar"
         transform.localScale = Vector3.Lerp(transform.localScale,originalScale, Time.deltaTime * returnSpeed);
 
-        horizontal = Input.GetAxisRaw("Horizontal");
+        if (!isDead) horizontal = Input.GetAxisRaw("Horizontal");
         
         if (!song){
             if(horizontal < 0 && isGrounded)
@@ -125,6 +136,7 @@ public class Baqueta_movement : MonoBehaviour
     }
     private void Jump()
     {
+        rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         PlaySound(jumpAudio);
     }
@@ -300,37 +312,48 @@ public class Baqueta_movement : MonoBehaviour
 
     public void Knockback()
     {
-        if (!vulnerable)
+        if (!vulnerable || isDead)
         {
             return;
         }
-        // posibilidad de que se reimpulse con los pinchos en un futuro
-        // if (impulseBool)
-        // {
-        //     Impulse();
-        //     return;
-        // }
         rb.velocity = new Vector2(-transform.localScale.x, 1) * 2.0f;
-        PlaySound(getHitSound);
+        PlayHitSound();
         StartCoroutine(Invulnerable());
+    }
+    public void PlayHitSound()
+    {
+        PlaySound(getHitSound);
     }
 
     IEnumerator Invulnerable()
     {
         vulnerable = false;
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        float vulnerableTime = 1.5f;
         float blinkInterval = 0.1f;
         float timePassed = 0f;
         
         while (timePassed < vulnerableTime)
         {
+        Debug.Log("Vulnerable: " + spriteRenderer.enabled);
             spriteRenderer.enabled = !spriteRenderer.enabled;
             yield return new WaitForSeconds(blinkInterval);
             timePassed += blinkInterval;
         }
         spriteRenderer.enabled = true;
         vulnerable = true;
+        if (IsTouchingHazard())
+        {
+            Baqueta_health.instance.TakeDamage();
+            Knockback();
+        }
+    }
+    public bool IsTouchingHazard()
+    {   
+        if (baquetaCollider.IsTouchingLayers(LayerMask.GetMask("Hazards")))
+        {
+            return true;
+        }
+        return false;
     }
 
     // Baqueta Sounds
@@ -341,5 +364,18 @@ public class Baqueta_movement : MonoBehaviour
         {
             audioSource.PlayOneShot(clip);
         }
+    }
+    public void DisableBaqueta()
+    {   horizontal = 0;
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0;
+        speed = 0;
+    }
+
+    public void KillBaqueta()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.enabled = false;
+        gameObject.SetActive(false);        
     }
 }

@@ -508,7 +508,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1442,8 +1442,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61e9d675ae06e0e42b46823404c503c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amplitude: 50
-  Frequency: 1.4
+  amplitude: 40
+  frequency: 1.4
 --- !u!1 &2122296577
 GameObject:
   m_ObjectHideFlags: 0
