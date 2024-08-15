@@ -18,9 +18,10 @@ public class LevelController : MonoBehaviour
     
     IEnumerator RespawnCoroutine()
     {
-        Baqueta_movement.instance.gameObject.SetActive(false);
+        Baqueta_movement.instance.DisableBaqueta();
         yield return new WaitForSeconds(waitForRespawn);
-        Baqueta_movement.instance.gameObject.SetActive(true);
+        Baqueta_movement.instance.EnableBaqueta();
         Baqueta_movement.instance.transform.position = RespawnController.instance.respawnPoint;
+        Baqueta_movement.instance.OnRespawn();
     }
 }

@@ -68,6 +68,7 @@ public class Pause_menu : MonoBehaviour
 
     public void QuitGame()
     {
+        Baqueta_movement.instance.DisableBaqueta();
         Time.timeScale = 1f;
         Loading = true;
         PlaySound(BackSound);

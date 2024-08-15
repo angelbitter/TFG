@@ -40,14 +40,12 @@ public class Baqueta_movement : MonoBehaviour
     [SerializeField] private float pulseSize = 1.15f;
     [SerializeField] private float returnSpeed = 5f;
     
-    public AudioSource audioSource;
-    public AudioClip jumpAudio;
-    public AudioClip landAudio;
-    public AudioClip onRightSongAudio;
-    public AudioClip onRightBeatAudio;
-    public AudioClip onWrongSongAudio;
-    public AudioClip onWrongBeatAudio;
-    public AudioClip getHitSound;
+    public AudioSource audioSource;     public AudioSource loopingSource;
+    public AudioClip landAudio;         public AudioClip onRightSongAudio;
+    public AudioClip onRightBeatAudio;  public AudioClip onWrongSongAudio;
+    public AudioClip onWrongBeatAudio;  public AudioClip getHitSound;
+    public AudioClip impulseAudio;      public AudioClip jumpAudio;
+    public AudioClip soundWaveAudio;    public AudioClip soundWaveEndAudio;
 
     protected Animator animator;
     public Beat_manager beatManager;
@@ -62,7 +60,6 @@ public class Baqueta_movement : MonoBehaviour
     }
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         baquetaCollider = GetComponent<Collider2D>();
@@ -248,6 +245,7 @@ public class Baqueta_movement : MonoBehaviour
     {
         impulseBool = true;
         rb.velocity = impulseAngle * jumpForce;
+        loopingSource.PlayOneShot(impulseAudio);
     }
 
     public void ShootSoundWave()
@@ -255,7 +253,13 @@ public class Baqueta_movement : MonoBehaviour
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0;
         speed = 0;
+        loopingSource.PlayOneShot(soundWaveAudio);
         StartCoroutine(ResetShootSoundwave());
+    }
+
+    public void OnSoundWaveDestruction(){
+        loopingSource.Stop();
+        audioSource.PlayOneShot(soundWaveEndAudio);
     }
 
     private IEnumerator ResetFailBeat()
@@ -320,12 +324,16 @@ public class Baqueta_movement : MonoBehaviour
         PlayHitSound();
         StartCoroutine(Invulnerable());
     }
+    public void OnRespawn()
+    {
+        StartCoroutine(Invulnerable());
+    }
     public void PlayHitSound()
     {
         PlaySound(getHitSound);
     }
 
-    IEnumerator Invulnerable()
+    private IEnumerator Invulnerable()
     {
         vulnerable = false;
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
@@ -334,7 +342,6 @@ public class Baqueta_movement : MonoBehaviour
         
         while (timePassed < vulnerableTime)
         {
-        Debug.Log("Vulnerable: " + spriteRenderer.enabled);
             spriteRenderer.enabled = !spriteRenderer.enabled;
             yield return new WaitForSeconds(blinkInterval);
             timePassed += blinkInterval;
@@ -370,8 +377,14 @@ public class Baqueta_movement : MonoBehaviour
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0;
         speed = 0;
+        isDead = true;
     }
 
+    public void EnableBaqueta()
+    {
+        rb.gravityScale = originalGravityScale;
+        isDead = false;
+    }
     public void KillBaqueta()
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
