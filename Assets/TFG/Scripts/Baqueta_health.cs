@@ -44,7 +44,7 @@ public class Baqueta_health : MonoBehaviour
 
     public void Heal()
     {
-        health++;
+        health = health + 2;
         if(health > maxHealth)
         {
             health = maxHealth;

@@ -46,6 +46,7 @@ public class Baqueta_movement : MonoBehaviour
     public AudioClip onWrongBeatAudio;  public AudioClip getHitSound;
     public AudioClip impulseAudio;      public AudioClip jumpAudio;
     public AudioClip soundWaveAudio;    public AudioClip soundWaveEndAudio;
+    public AudioClip getCoinSound;      public AudioClip getHealthSound;
 
     protected Animator animator;
     public Beat_manager beatManager;
@@ -332,6 +333,15 @@ public class Baqueta_movement : MonoBehaviour
     {
         PlaySound(getHitSound);
     }
+    public void PlayHealSound()
+    {
+        PlaySound(getHealthSound);
+    }
+    public void PlayCoinSound()
+    {
+        PlaySound(getCoinSound);
+    }
+
 
     private IEnumerator Invulnerable()
     {

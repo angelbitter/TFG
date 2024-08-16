@@ -6,11 +6,17 @@ public class LevelController : MonoBehaviour
 {
     public static LevelController instance;
     public float waitForRespawn;
+    public int points;
 
     private void Awake()
     {
         instance = this;
     }
+    void Start()
+    {
+        points = 0;
+    }
+    
     public void Respawn()
     {
         StartCoroutine(RespawnCoroutine());
