@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class UI_elements : MonoBehaviour
     public static UI_elements instance;
     public Image life1, life2, life3;
     public Sprite fullLife, emptyLife, halfLife;
+    public TextMeshProUGUI coinText;
 
     private void Awake()
     {
@@ -17,7 +19,7 @@ public class UI_elements : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        UpdateCoinDisplay();
     }
 
     // Update is called once per frame
@@ -62,6 +64,9 @@ public class UI_elements : MonoBehaviour
                 break;
         }
     }
-
+    public void UpdateCoinDisplay()
+    {
+        coinText.text = LevelController.instance.coinsCollected.ToString();
+    }
 
 }

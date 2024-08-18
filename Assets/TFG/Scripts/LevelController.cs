@@ -7,6 +7,7 @@ public class LevelController : MonoBehaviour
     public static LevelController instance;
     public float waitForRespawn;
     public int points;
+    public int coinsCollected;
 
     private void Awake()
     {
