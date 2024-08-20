@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
 {
@@ -8,6 +11,9 @@ public class LevelController : MonoBehaviour
     public float waitForRespawn;
     public int points;
     public int coinsCollected;
+    private int timePoints, enemyPoints;
+    private float timePassed;
+    public TextMeshProUGUI pointsText;
 
     private void Awake()
     {
@@ -16,13 +22,27 @@ public class LevelController : MonoBehaviour
     void Start()
     {
         points = 0;
+        timePassed = 0;
+        timePoints = 10000;
     }
     
     public void Respawn()
     {
         StartCoroutine(RespawnCoroutine());
     }
-    
+    public void LevelComplete()
+    {   
+        Baqueta_movement.instance.DisableBaqueta();
+        timePassed = Time.time;
+        timePoints = timePoints - (int)timePassed * 10;
+        points += Math.Max(0, timePoints);
+        points += coinsCollected * 100 + Baqueta_health.instance.health * 1000 + enemyPoints;
+        pointsText.text = "Your points: " + points;
+        Debug.Log("Points: " + points);
+        Beat_manager.instance.StopMusic();
+        Beat_manager.instance.PlayWinAudio();
+    }
+
     IEnumerator RespawnCoroutine()
     {
         Baqueta_movement.instance.DisableBaqueta();

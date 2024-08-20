@@ -10,19 +10,17 @@ public class UI_elements : MonoBehaviour
     public Image life1, life2, life3;
     public Sprite fullLife, emptyLife, halfLife;
     public TextMeshProUGUI coinText;
+    [SerializeField] GameObject PauseMenu; 
 
     private void Awake()
     {
         instance = this;
     }
-    [SerializeField] GameObject PauseMenu; 
-    // Start is called before the first frame update
     void Start()
     {
         UpdateCoinDisplay();
     }
 
-    // Update is called once per frame
     public void UpdateHealthDisplay()
     {
         switch (Baqueta_health.instance.health)

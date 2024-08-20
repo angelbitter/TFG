@@ -183,7 +183,7 @@ public class Baqueta_movement : MonoBehaviour
         speed = 0;
         song = true;
         beatTriggered = true;
-    
+        impulseBool = false;
      }
      public void OnRightBeatSongMode(){
         showRightVFX.Invoke();

@@ -14,7 +14,6 @@ public class Coin_pickup : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && !collected)
         {
-            LevelController.instance.points += 100;
             LevelController.instance.coinsCollected++;
             UI_elements.instance.UpdateCoinDisplay();
             animator.Play("PickedUp");

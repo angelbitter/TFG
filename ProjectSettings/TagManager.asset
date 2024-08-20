@@ -53,6 +53,9 @@ TagManager:
   - name: Level
     uniqueID: 3196911423
     locked: 0
+  - name: Pickups
+    uniqueID: 412255957
+    locked: 0
   - name: Player
     uniqueID: 2028727003
     locked: 0

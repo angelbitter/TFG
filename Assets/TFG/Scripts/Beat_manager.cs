@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.Events;
 public class Beat_manager : MonoBehaviour
 {
-
+    public static Beat_manager instance;
     const int INNER_BEATS = 8;
     [SerializeField] private float bpmMain;
     [SerializeField] public AudioSource audioSong;
     private AudioSource audioClips;
-    public AudioClip onBeatClip;
+    public AudioClip onBeatClip; public AudioClip winAudio;
     [SerializeField] private Intervals[] intervalArray;
     [SerializeField] public bool[] songModeArray;
     public UnityEvent impulseEvent;
@@ -18,6 +18,10 @@ public class Beat_manager : MonoBehaviour
     public int songModeBeatCounter;
     public bool failedBeat = false;
 
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
         songModeArray = new bool[INNER_BEATS];
@@ -95,8 +99,13 @@ public class Beat_manager : MonoBehaviour
             if (song && onBeatClip != null)
                 audioClips.PlayOneShot(onBeatClip, 1f);
         }
+    public void StopMusic(){
+        audioSong.Stop();
+    }
+    public void PlayWinAudio(){
+        audioSong.PlayOneShot(winAudio, 2f);
+    }
 }
-
 [System.Serializable] public class Intervals{
     [SerializeField] public float beatDivision;
     [SerializeField] private UnityEvent onBeat;

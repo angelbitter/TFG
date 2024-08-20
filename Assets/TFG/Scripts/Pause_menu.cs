@@ -72,6 +72,7 @@ public class Pause_menu : MonoBehaviour
         Time.timeScale = 1f;
         Loading = true;
         PlaySound(BackSound);
+        Beat_manager.instance.StopMusic();
         StartCoroutine(LoadScreen(0));
     }
 
@@ -90,6 +91,7 @@ public void LoadHelpGuide()
     }
     public void Restart()
     {
+        Time.timeScale = 1f;
         PlaySound(ButtonSound);
         StartCoroutine(LoadScreen(1));
         FadeImage.GetComponent<Image>().raycastTarget = true; 

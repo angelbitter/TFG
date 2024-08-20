@@ -146,7 +146,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 0.2359209
+  MinDistance: 0.25219446
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -234,7 +234,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -299,6 +299,6 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0018088399, y: 0}
-  m_Size: {x: 0.22873497, y: 0.39717606}
+  m_Offset: {x: -0.0012612428, y: 0.015141816}
+  m_Size: {x: 0.2538235, y: 0.45217916}
   m_Direction: 0

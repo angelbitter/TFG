@@ -6,8 +6,8 @@ public class Life_pickup : MonoBehaviour
 {
     public Animator animator;
     private bool collected = false;
-   public float lifeAmplitude = 0.05f;
-    public float lifeFrequency = 1f;
+    private float lifeAmplitude = 0.05f;
+    private float lifeFrequency = 1f;
     private Vector3 startPosition;
 
     void Start()

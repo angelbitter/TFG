@@ -34,6 +34,7 @@ public class Baqueta_health : MonoBehaviour
         {
             DeathMenu.gameObject.SetActive(true);
             Baqueta_movement.instance.isDead = true;
+            Baqueta_movement.instance.DisableBaqueta();
             audioSource.PlayOneShot(deadSound);
             gameObject.GetComponent<Animator>().Play("Death");
         }else {
