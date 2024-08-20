@@ -108,7 +108,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0009315014, y: 0.036401182}
+  m_Offset: {x: -0.0009315014, y: 0.056393296}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -119,7 +119,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.30695677, y: 0.072802365}
+  m_Size: {x: 0.30695677, y: 0.11278659}
   m_EdgeRadius: 0
 --- !u!114 &7791414658814974894
 MonoBehaviour:
@@ -133,6 +133,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8739e0dd418f60845bd478f591530f4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vulnerableTime: 1.5
-  vulnerable: 1
   Baqueta: {fileID: 7403663158098746010, guid: 3aeff20736769e7469a1f0e3fc223cf2, type: 3}

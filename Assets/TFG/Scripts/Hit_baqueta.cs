@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Hit_baqueta : MonoBehaviour
 {
-    public float vulnerableTime = 1.5f;
-    public bool vulnerable = true;
     public GameObject Baqueta;
     // Start is called before the first frame update
     void Start()
@@ -13,27 +11,16 @@ public class Hit_baqueta : MonoBehaviour
         Baqueta = GameObject.Find("Baqueta");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Player" && vulnerable)
+        if(other.gameObject.tag == "Player" && Baqueta_movement.instance.vulnerable && !Baqueta_movement.instance.impulseBool)
         {
             Baqueta_health.instance.TakeDamage();
             Baqueta.GetComponent<Baqueta_movement>().Knockback();
-            StartCoroutine(Invulnerable());
         }
+        // else if(other.gameObject.tag == "Player" && Baqueta_movement.instance.impulseBool)
+        // {
+        //     Baqueta_movement.instance.Impulse();
+        // }
     }
-
-    IEnumerator Invulnerable()
-    {
-        vulnerable = false;
-        yield return new WaitForSeconds(vulnerableTime);
-        vulnerable = true;
-    }
-    
 }

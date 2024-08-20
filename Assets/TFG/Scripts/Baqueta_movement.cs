@@ -14,11 +14,11 @@ public class Baqueta_movement : MonoBehaviour
     public GameObject soundWave;
     private Collider2D baquetaCollider;
     private float horizontal;
-    private bool isGrounded;
-    private bool wasFlying;
+    public bool isGrounded;
+    public bool wasFlying;
     private bool beatTriggered;
     private bool failBeatTriggered;
-    private bool impulseBool;
+    public bool impulseBool;
     private float originalGravityScale;
     private bool song;
     private int songResult = 0;
@@ -34,6 +34,8 @@ public class Baqueta_movement : MonoBehaviour
     public float airAcceleration = 5.0f;
     public float jumpForce = 3.0f;
     public Vector2 impulseAngle = new Vector2(0.8f, 0.8f);
+    private Vector2 originalColliderSize;
+    private Vector2 impulseColliderSize = new Vector2(0.2f, 0.3f);
     public Transform groundCheck;
     public LayerMask whatIsGround;    
     private Vector3 originalScale;
@@ -47,11 +49,12 @@ public class Baqueta_movement : MonoBehaviour
     public AudioClip impulseAudio;      public AudioClip jumpAudio;
     public AudioClip soundWaveAudio;    public AudioClip soundWaveEndAudio;
     public AudioClip getCoinSound;      public AudioClip getHealthSound;
+    public AudioClip bounceSound;
 
     protected Animator animator;
     public Beat_manager beatManager;
 
-    private bool vulnerable = true;
+    public bool vulnerable = true;
     public float vulnerableTime = 1.5f;
     public bool isDead = false;
 
@@ -63,7 +66,8 @@ public class Baqueta_movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        baquetaCollider = GetComponent<Collider2D>();
+        baquetaCollider = GetComponent<Collider2D>(); 
+        originalColliderSize = baquetaCollider.bounds.size;
         originalGravityScale = rb.gravityScale;
         impulseAngle.Normalize();
         originalScale = transform.localScale;
@@ -96,17 +100,17 @@ public class Baqueta_movement : MonoBehaviour
                 impulseAngle = new Vector2(0.8f, 0.8f);
             }
 
-            isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.06f, whatIsGround);
+            if (!(isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.06f, whatIsGround)))
+            {
+                wasFlying = true;
+            }else
+            
             if(isGrounded && wasFlying)
             {
                 PlaySound(landAudio);
                 wasFlying = false;
-            }
-
-            if (isGrounded && !beatTriggered)
-            {
                 impulseBool = false;
-                wasFlying = false;
+                baquetaCollider.GetComponent<BoxCollider2D>().size = originalColliderSize;
             }
 
             if (Input.GetButtonDown("Jump")  && isGrounded)
@@ -154,7 +158,7 @@ public class Baqueta_movement : MonoBehaviour
                     speed = Mathf.MoveTowards(speed, 0, acceleration * Time.deltaTime);
                 }
             }else{
-                wasFlying = true;
+                //wasFlying = true;
                 //air movement
                 if (horizontal != 0.0f){
                     if (horizontal > 0 )
@@ -244,6 +248,7 @@ public class Baqueta_movement : MonoBehaviour
 
     public void Impulse()
     {   
+        baquetaCollider.GetComponent<BoxCollider2D>().size = impulseColliderSize;
         if (baquetaCollider.IsTouchingLayers(LayerMask.GetMask("Obstacles")))
         {
             Collider2D[] results = new Collider2D[1];
@@ -260,7 +265,13 @@ public class Baqueta_movement : MonoBehaviour
         rb.velocity = impulseAngle * jumpForce;
         loopingSource.PlayOneShot(impulseAudio);
     }
-
+public void Impulse2()
+    {   
+        baquetaCollider.GetComponent<BoxCollider2D>().size = impulseColliderSize;
+        impulseBool = true;
+        rb.velocity = impulseAngle * jumpForce;
+        loopingSource.PlayOneShot(bounceSound);
+    }
     public void ShootSoundWave()
     {
         rb.velocity = Vector2.zero;
@@ -311,11 +322,6 @@ public class Baqueta_movement : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Hazard") && impulseBool)
-        {
-            impulseBool = true;
-            return;
-        }
         if (collision.gameObject.CompareTag("Wall") && !isGrounded)
         {
             speed = 0;
@@ -323,6 +329,7 @@ public class Baqueta_movement : MonoBehaviour
             {
                 rb.velocity = Vector2.zero;
                 impulseBool = false; 
+                baquetaCollider.GetComponent<BoxCollider2D>().size = originalColliderSize;
             }
         }
         
@@ -338,6 +345,10 @@ public class Baqueta_movement : MonoBehaviour
                 soundBarrier.DeactivateCollision();
                 soundBarrier.TakeDamage();
             }
+        }
+        if(other.gameObject.CompareTag("Hazard") && impulseBool)
+        {
+            Impulse2();
         }
     }
 

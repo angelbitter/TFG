@@ -11,7 +11,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Decoration
   - Water
   - UI
   - Player
@@ -19,9 +19,9 @@ TagManager:
   - Walls
   - Hazards
   - Pickups
-  - 
-  - 
-  - 
+  - BG
+  - Level
+  - Obstacles
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: BG
     uniqueID: 3185121365
+    locked: 0
+  - name: Decoration
+    uniqueID: 3114797649
     locked: 0
   - name: Level
     uniqueID: 3196911423
