@@ -243,7 +243,19 @@ public class Baqueta_movement : MonoBehaviour
     }
 
     public void Impulse()
-    {
+    {   
+        if (baquetaCollider.IsTouchingLayers(LayerMask.GetMask("Obstacles")))
+        {
+            Collider2D[] results = new Collider2D[1];
+            int numColliders = baquetaCollider.OverlapCollider(new ContactFilter2D().NoFilter(), results);
+            Collider2D other = numColliders > 0 ? results[0] : null;
+            Sound_barrier soundBarrier = other.gameObject.GetComponent<Sound_barrier>();
+            if (soundBarrier != null)
+            {
+                soundBarrier.DeactivateCollision();
+                soundBarrier.TakeDamage();
+            }
+        }
         impulseBool = true;
         rb.velocity = impulseAngle * jumpForce;
         loopingSource.PlayOneShot(impulseAudio);
@@ -285,7 +297,7 @@ public class Baqueta_movement : MonoBehaviour
         {
             direction = Vector3.left;
         }
-        GameObject soundWaveInst = Instantiate(soundWave, transform.position + direction * 0.2f + new Vector3(0, 0.1f, 0), Quaternion.identity) as GameObject;
+        GameObject soundWaveInst = Instantiate(soundWave, transform.position + direction * 0.2f, Quaternion.identity) as GameObject;
         soundWaveInst.GetComponent<Sound_wave_script>().SetDirection(direction);
         
         rb.gravityScale = originalGravityScale; 
@@ -311,6 +323,20 @@ public class Baqueta_movement : MonoBehaviour
             {
                 rb.velocity = Vector2.zero;
                 impulseBool = false; 
+            }
+        }
+        
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("SoundBarrier") && impulseBool)
+        {
+            
+            Sound_barrier soundBarrier = other.gameObject.GetComponent<Sound_barrier>();
+            if (soundBarrier != null)
+            {
+                soundBarrier.DeactivateCollision();
+                soundBarrier.TakeDamage();
             }
         }
     }

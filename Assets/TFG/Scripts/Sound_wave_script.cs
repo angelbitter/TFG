@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Sound_wave_script : MonoBehaviour
 {
+    public Animator animator;
     public float Speed = 2f;
     public float acceleration = 2f;
     public float maxSpeed = 3f;
@@ -14,6 +15,7 @@ public class Sound_wave_script : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         StartCoroutine(TimeUntilDestroy());
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -37,19 +39,28 @@ public class Sound_wave_script : MonoBehaviour
     public void OnDestroyWave()
     {
         Baqueta_movement.instance.OnSoundWaveDestruction();
-        Destroy(gameObject);
+        animator.Play("WaveDestroy");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        rb.velocity = Vector2.zero;
         if (collision.gameObject.CompareTag("SoundBarrier"))
         {
-            //collision.gameObject.GetComponent<Barrier>().TakeDamage();
-            Destroy(gameObject);
+            Sound_barrier soundBarrier = collision.gameObject.GetComponent<Sound_barrier>();
+            if (soundBarrier != null)
+            {
+                soundBarrier.TakeDamage();
+            }
+            OnDestroyWave();
         }
         if (collision.gameObject.CompareTag("Wall"))
         {
             OnDestroyWave();
         }
+    }
+    public void DestroyWave()
+    {
+        Destroy(gameObject);
     }
 }

@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1654833976140497967}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.027, y: 0.003, z: 0}
+  m_LocalPosition: {x: 0.022, y: -0.159, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -59,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 2326724559286271218}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.16, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -326,14 +326,22 @@ MonoBehaviour:
   pulseSize: 1.15
   returnSpeed: 5
   audioSource: {fileID: 0}
-  jumpAudio: {fileID: 8300000, guid: 387d090ceecff484cbe97b4c7fae5ece, type: 3}
+  loopingSource: {fileID: 0}
   landAudio: {fileID: 8300000, guid: adfd8f7b56e631845b42b93ae4da6062, type: 3}
   onRightSongAudio: {fileID: 8300000, guid: 624c2d56305ef6345b74603d415bfa66, type: 3}
   onRightBeatAudio: {fileID: 8300000, guid: 7f8c38ea7f0647f4784b9a813b194256, type: 3}
   onWrongSongAudio: {fileID: 8300000, guid: 190128333dbc7524fba4b964c3c3d9fc, type: 3}
   onWrongBeatAudio: {fileID: 8300000, guid: 1c42629f09437454b945dc62610b2303, type: 3}
   getHitSound: {fileID: 8300000, guid: 3c4de1bc6a3a0aa4f808339d607a54a7, type: 3}
+  impulseAudio: {fileID: 0}
+  jumpAudio: {fileID: 8300000, guid: 387d090ceecff484cbe97b4c7fae5ece, type: 3}
+  soundWaveAudio: {fileID: 0}
+  soundWaveEndAudio: {fileID: 0}
+  getCoinSound: {fileID: 0}
+  getHealthSound: {fileID: 0}
   beatManager: {fileID: 1185659564063819685, guid: c26d5c485de02e147a449a7ab9ff07a0, type: 3}
+  vulnerableTime: 1.5
+  isDead: 0
 --- !u!95 &5471886418630119301
 Animator:
   serializedVersion: 5
@@ -387,10 +395,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03594445, y: 0.1526475}
+  m_Offset: {x: 0.035944447, y: -0.0044201612}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.516129, y: 0}
+    pivot: {x: 0.516129, y: 0.5}
     oldSize: {x: 0.31, y: 0.32}
     newSize: {x: 0.31, y: 0.32}
     adaptiveTilingThreshold: 0.5
@@ -398,7 +406,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1479308, y: 0.2547865}
+  m_Size: {x: 0.1479308, y: 0.26724052}
   m_EdgeRadius: 0
 --- !u!82 &187336708966841807
 AudioSource:
@@ -511,5 +519,7 @@ MonoBehaviour:
   health: 6
   maxHealth: 6
   vulnerable: 1
-  hitAngle: -60
-  hitForce: 2
+  vulnerableTime: 1.5
+  deadSound: {fileID: 0}
+  audioSource: {fileID: 0}
+  DeathMenu: {fileID: 0}

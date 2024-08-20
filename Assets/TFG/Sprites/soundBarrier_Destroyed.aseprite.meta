@@ -1,8 +1,13 @@
 fileFormatVersion: 2
-guid: 64ae0f1056f51c94483589f9b8bb1a0a
+guid: 191bf0610aaa91c4eabfb96972367492
 ScriptedImporter:
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: soundBarrier_Destroyed_Clip
+    second: {fileID: 7400000, guid: d54d7360396cf454589812f5662f29c4, type: 2}
   serializedVersion: 2
   userData: 
   assetBundleName: 
@@ -75,7 +80,7 @@ ScriptedImporter:
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
-    defaultPivotAlignment: 0
+    defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
     spritePadding: 0
@@ -88,7 +93,7 @@ ScriptedImporter:
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
-    defaultPivotAlignment: 0
+    defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
     spritePadding: 0
@@ -97,7 +102,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638597503988810922
+  platformSettingsDirtyTick: 638597718708347238
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,38 +126,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: air_baqueta_Frame_0
+  - name: soundBarrier_Destroyed_Frame_0
     originalName: 
-    pivot: {x: 0.47058827, y: 0.5625}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 44
-      width: 34
-      height: 32
-    spriteID: 8114380265fdf854d9fc6fdd8037d6a3
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 44}
-  - name: air_baqueta_Frame_1
-    originalName: 
-    pivot: {x: 0.5, y: 0.5625}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 36
+      width: 16
       height: 32
-    spriteID: c3c4719f5b327fc46a51f7709bbab9d7
+    spriteID: 3a9af561c775b1b4e874bd945c7c44b0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -161,18 +146,18 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: air_baqueta_Frame_2
+  - name: soundBarrier_Destroyed_Frame_1
     originalName: 
-    pivot: {x: 0.47058827, y: 0.5625}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 46
+      x: 4
       y: 44
-      width: 34
+      width: 16
       height: 32
-    spriteID: fd6c0b98628e68445a9127a8091747ee
+    spriteID: 0ec33c86dfd4933468d38630bd8953d2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -180,19 +165,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 46, y: 44}
-  - name: air_baqueta_Frame_3
+    uvTransform: {x: 4, y: 44}
+  - name: soundBarrier_Destroyed_Frame_2
     originalName: 
-    pivot: {x: 0.5, y: 0.5625}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 48
-      y: 4
-      width: 36
+      x: 4
+      y: 84
+      width: 16
       height: 32
-    spriteID: 3bbff2051ed04894893c6e4751e2e9d5
+    spriteID: 972422cd370cc6649807dda7b82b5a80
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -200,48 +185,96 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 48, y: 4}
+    uvTransform: {x: 4, y: 84}
+  - name: soundBarrier_Destroyed_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 28
+      y: 4
+      width: 16
+      height: 32
+    spriteID: 82dbc3f3d84757f418adbe8e476fe58b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 28, y: 4}
+  - name: soundBarrier_Destroyed_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 28
+      y: 44
+      width: 16
+      height: 32
+    spriteID: 1eca02370bc065947931a1b707107744
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 28, y: 44}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -795954464
-    name: air_baqueta
+    guid: -612391288
+    name: soundBarrier_Destroyed
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: air_baqueta_Frame_0
+    - name: soundBarrier_Destroyed_Frame_0
       frameIndex: 0
       cellRect:
-        x: 2
+        x: 0
         y: 0
-        width: 34
+        width: 16
         height: 32
-      spriteId: 8114380265fdf854d9fc6fdd8037d6a3
-    - name: air_baqueta_Frame_1
+      spriteId: 3a9af561c775b1b4e874bd945c7c44b0
+    - name: soundBarrier_Destroyed_Frame_1
       frameIndex: 1
       cellRect:
         x: 0
         y: 0
-        width: 36
+        width: 16
         height: 32
-      spriteId: c3c4719f5b327fc46a51f7709bbab9d7
-    - name: air_baqueta_Frame_2
+      spriteId: 0ec33c86dfd4933468d38630bd8953d2
+    - name: soundBarrier_Destroyed_Frame_2
       frameIndex: 2
       cellRect:
-        x: 2
+        x: 0
         y: 0
-        width: 34
+        width: 16
         height: 32
-      spriteId: fd6c0b98628e68445a9127a8091747ee
-    - name: air_baqueta_Frame_3
+      spriteId: 972422cd370cc6649807dda7b82b5a80
+    - name: soundBarrier_Destroyed_Frame_3
       frameIndex: 3
       cellRect:
         x: 0
         y: 0
-        width: 36
+        width: 16
         height: 32
-      spriteId: 3bbff2051ed04894893c6e4751e2e9d5
+      spriteId: 82dbc3f3d84757f418adbe8e476fe58b
+    - name: soundBarrier_Destroyed_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 0
+        y: 0
+        width: 16
+        height: 32
+      spriteId: 1eca02370bc065947931a1b707107744
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -284,4 +317,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 36, y: 36}
+  canvasSize: {x: 16, y: 32}

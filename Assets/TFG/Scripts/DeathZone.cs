@@ -10,7 +10,8 @@ public class DeathZone : MonoBehaviour
         {
             Baqueta_health.instance.TakeDamage();
             Baqueta_movement.instance.PlayHitSound();
-            LevelController.instance.Respawn();
+            if (Baqueta_health.instance.health > 0)
+                LevelController.instance.Respawn();
         }
     }
 }
