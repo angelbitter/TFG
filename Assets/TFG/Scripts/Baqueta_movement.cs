@@ -158,7 +158,6 @@ public class Baqueta_movement : MonoBehaviour
                     speed = Mathf.MoveTowards(speed, 0, acceleration * Time.deltaTime);
                 }
             }else{
-                //wasFlying = true;
                 //air movement
                 if (horizontal != 0.0f){
                     if (horizontal > 0 )

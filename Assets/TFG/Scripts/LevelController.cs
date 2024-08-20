@@ -33,12 +33,13 @@ public class LevelController : MonoBehaviour
     public void LevelComplete()
     {   
         Baqueta_movement.instance.DisableBaqueta();
+        Baqueta_movement.instance.isDead = true;
         timePassed = Time.time;
         timePoints = timePoints - (int)timePassed * 10;
         points += Math.Max(0, timePoints);
         points += coinsCollected * 100 + Baqueta_health.instance.health * 1000 + enemyPoints;
         pointsText.text = "Your points: " + points;
-        Debug.Log("Points: " + points);
+
         Beat_manager.instance.StopMusic();
         Beat_manager.instance.PlayWinAudio();
     }

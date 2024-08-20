@@ -46,17 +46,22 @@ public class LineBeatMarker : MonoBehaviour
 
         if (transform.position == endPos)
         {
-            originalPos = beginningPos;
             transform.position = beginningPos;
             elapsedTime = 0f;
         }
     }
     public void OnSongMode()
     {
-        colorRenderer.color = originalColor;
+        if (isSongMode)
+            colorRenderer.color = originalColor;
     }
     public void OnSongModeEnd()
     {
+        if (isSongMode)
         colorRenderer.color = attenuatedColor;
+    }
+    public void ResetPosition()
+    {
+        transform.position = originalPos;
     }
 }

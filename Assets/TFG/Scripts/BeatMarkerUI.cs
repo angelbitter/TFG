@@ -38,4 +38,12 @@ public class BeatMarkerUI : MonoBehaviour
             lineBeatMarker.OnSongModeEnd();
         }
     }
+    
+    public void OnBeat()
+    {
+        foreach (LineBeatMarker lineBeatMarker in lineBeatMarkers)
+        {
+            lineBeatMarker.ResetPosition();
+        }
+    }
 }
