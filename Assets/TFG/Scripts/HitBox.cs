@@ -23,5 +23,13 @@ public class HitBox : MonoBehaviour
             other.gameObject.GetComponent<Enemy>().Death();
             Baqueta_movement.instance.Jump2();
         }
+        if (other.gameObject.tag == "Hazard" && Baqueta_movement.instance.impulseBool)
+        {
+            Baqueta_movement.instance.Impulse2();
+        }
+        if (other.gameObject.tag == "SoundBarrier" && Baqueta_movement.instance.impulseBool)
+        { 
+            other.gameObject.GetComponent<Sound_barrier>().TakeDamage();
+        }
     }
 }

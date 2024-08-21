@@ -35,7 +35,7 @@ public class Baqueta_movement : MonoBehaviour
     public float jumpForce = 3.0f;
     public Vector2 impulseAngle = new Vector2(0.8f, 0.8f);
     private Vector2 originalColliderSize;
-    private Vector2 impulseColliderSize = new Vector2(0.2f, 0.3f);
+    private Vector2 impulseColliderSize = new Vector2(0.2f, 0.25f);
     public Transform groundCheck;
     public LayerMask whatIsGround;    
     private Vector3 originalScale;
@@ -254,6 +254,7 @@ public class Baqueta_movement : MonoBehaviour
     public void Impulse()
     {   
         baquetaCollider.GetComponent<BoxCollider2D>().size = impulseColliderSize;
+        impulseBool = true;
         if (baquetaCollider.IsTouchingLayers(LayerMask.GetMask("Obstacles")))
         {
             Collider2D[] results = new Collider2D[1];
@@ -266,7 +267,6 @@ public class Baqueta_movement : MonoBehaviour
                 soundBarrier.TakeDamage();
             }
         }
-        impulseBool = true;
         rb.velocity = impulseAngle * jumpForce;
         loopingSource.PlayOneShot(impulseAudio);
     }
@@ -327,14 +327,13 @@ public void Impulse2()
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Wall") && !isGrounded)
+        if (collision.gameObject.CompareTag("Wall") && (!isGrounded|| impulseBool))
         {
-            speed = 0;
-            if (impulseBool)
+            speed = 0;if (impulseBool)
             {
-                rb.velocity = Vector2.zero;
-                impulseBool = false; 
+                impulseBool = false;
                 baquetaCollider.GetComponent<BoxCollider2D>().size = originalColliderSize;
+                rb.velocity = Vector2.zero;
             }
         }
         
@@ -350,10 +349,6 @@ public void Impulse2()
                 soundBarrier.DeactivateCollision();
                 soundBarrier.TakeDamage();
             }
-        }
-        if(other.gameObject.CompareTag("Hazard") && impulseBool)
-        {
-            Impulse2();
         }
     }
 

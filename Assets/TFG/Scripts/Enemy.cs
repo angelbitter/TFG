@@ -5,21 +5,30 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public SpriteRenderer sr;
-    public Animator animator;
+    private SpriteRenderer sr;
+    private Animator animator;
     public float jump;
+    public float flyAmplitude;
+    public float flyFrequency;
     public CapsuleCollider2D colliderEnemy2;
     private bool isDead;
     public float speed;
     public bool isLand;
     public Transform leftPoint, rightPoint;
+    private Vector3 startPosition;
     private bool rightDirection = true;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        leftPoint.parent = null;
-        rightPoint.parent = null;
+        startPosition = transform.position;
+        if (isLand)
+        {
+            leftPoint.parent = null;
+            rightPoint.parent = null;
+        }
         colliderEnemy2 = GetComponent<CapsuleCollider2D>();
+        sr = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         isDead = false;
     }
     void Update()
@@ -58,6 +67,8 @@ public class Enemy : MonoBehaviour
     private void MovementAir()
     {
         
+        float yOffset = Mathf.Sin(Time.time * flyFrequency) * flyAmplitude;
+        transform.position = startPosition + new Vector3(0, yOffset, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
