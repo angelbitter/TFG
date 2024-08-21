@@ -14,7 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2253911629886400664, guid: e1921a116c9636f4e99315a05f906a4b, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -2253911629886400664, guid: e1921a116c9636f4e99315a05f906a4b, type: 3}
+      propertyPath: m_TagString
+      value: SoundWave
       objectReference: {fileID: 0}
     - target: {fileID: 1160356261127867848, guid: e1921a116c9636f4e99315a05f906a4b, type: 3}
       propertyPath: m_Controller
@@ -22,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: df67443b488b31c4bacf907d9c3d4242, type: 2}
     - target: {fileID: 3626916397498700004, guid: e1921a116c9636f4e99315a05f906a4b, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: e1921a116c9636f4e99315a05f906a4b, type: 3}
       propertyPath: m_SortingLayerID

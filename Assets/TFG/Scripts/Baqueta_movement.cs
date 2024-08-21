@@ -49,7 +49,7 @@ public class Baqueta_movement : MonoBehaviour
     public AudioClip impulseAudio;      public AudioClip jumpAudio;
     public AudioClip soundWaveAudio;    public AudioClip soundWaveEndAudio;
     public AudioClip getCoinSound;      public AudioClip getHealthSound;
-    public AudioClip bounceSound;
+    public AudioClip bounceSound;       public AudioClip hitEnemySound;
 
     protected Animator animator;
     public Beat_manager beatManager;
@@ -141,6 +141,12 @@ public class Baqueta_movement : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         PlaySound(jumpAudio);
+    }
+    public void Jump2()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        PlaySound(hitEnemySound);
     }
     private void FixedUpdate()
     {
@@ -357,9 +363,16 @@ public void Impulse2()
         {
             return;
         }
+        if (song)
+        {
+            songResult = 0;
+            SongModeEnd();
+        }
         rb.velocity = new Vector2(-transform.localScale.x, 1) * 2.0f;
+        HitBox.instance.colliderHitBox.enabled = false;
         PlayHitSound();
         StartCoroutine(Invulnerable());
+
     }
     public void OnRespawn()
     {
@@ -394,6 +407,7 @@ public void Impulse2()
         }
         spriteRenderer.enabled = true;
         vulnerable = true;
+        HitBox.instance.colliderHitBox.enabled = true;
         if (IsTouchingHazard())
         {
             Baqueta_health.instance.TakeDamage();

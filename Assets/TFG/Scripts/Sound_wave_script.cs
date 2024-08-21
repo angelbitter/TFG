@@ -58,6 +58,12 @@ public class Sound_wave_script : MonoBehaviour
         {
             OnDestroyWave();
         }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Speed=0;
+            acceleration=0;
+            OnDestroyWave();
+        }
     }
     public void DestroyWave()
     {

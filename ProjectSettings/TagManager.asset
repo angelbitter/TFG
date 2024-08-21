@@ -7,11 +7,13 @@ TagManager:
   - Wall
   - Hazard
   - SoundBarrier
+  - SoundWave
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Decoration
+  - 
   - Water
   - UI
   - Player
@@ -22,8 +24,8 @@ TagManager:
   - BG
   - Level
   - Obstacles
-  - 
-  - 
+  - Decoration
+  - SoundWave
   - 
   - 
   - 
