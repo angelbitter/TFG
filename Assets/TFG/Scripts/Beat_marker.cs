@@ -9,6 +9,7 @@ public class Beat_marker : MonoBehaviour
 
     [SerializeField] private float PulseSize = 1.15f;
     [SerializeField] private float ReturnSpeed = 5f;
+    public bool play = false;
     
     private Vector3 OriginalScale;
     private int beatCounter;
@@ -35,5 +36,23 @@ public class Beat_marker : MonoBehaviour
         else
             beatCounter++;
         beatEvents[beatCounter].Invoke();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Player")
+        {
+            play = true;
+            Baqueta_movement.instance.SetListening(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.tag == "Player")
+        {
+            play = false;
+            Baqueta_movement.instance.SetListening(false);
+        }
     }
 }

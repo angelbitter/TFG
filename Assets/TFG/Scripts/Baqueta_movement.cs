@@ -32,13 +32,16 @@ public class Baqueta_movement : MonoBehaviour
     public float maxSpeed = 1.5f;
     public float acceleration = 10.0f;
     public float airAcceleration = 5.0f;
-    public float jumpForce = 3.0f;
-    public Vector2 impulseAngle = new Vector2(0.8f, 0.8f);
+    public float jumpForce = 2.5f;
+    public float impulseForce = 3f;
+    public Vector2 impulseAngle = new Vector2(1, 1);
     private Vector2 originalColliderSize;
     private Vector2 impulseColliderSize = new Vector2(0.2f, 0.25f);
     public Transform groundCheck;
     public LayerMask whatIsGround;    
     private Vector3 originalScale;
+    public bool Listening = false;
+    public bool interactionBubbleDirection = false;
     [SerializeField] private float pulseSize = 1.15f;
     [SerializeField] private float returnSpeed = 5f;
     
@@ -92,12 +95,14 @@ public class Baqueta_movement : MonoBehaviour
             {
                 transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
                 originalScale = transform.localScale;
-                impulseAngle = new Vector2(-0.8f, 0.8f);
+                impulseAngle = new Vector2(-1f, 1f);
+                interactionBubbleDirection = false;
             }else if(horizontal > 0 && isGrounded)
             {
                 transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 originalScale = transform.localScale;
-                impulseAngle = new Vector2(0.8f, 0.8f);
+                impulseAngle = new Vector2(1f, 1f);
+                interactionBubbleDirection = true;
             }
 
             if (!(isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.06f, whatIsGround)))
@@ -167,9 +172,9 @@ public class Baqueta_movement : MonoBehaviour
                 //air movement
                 if (horizontal != 0.0f){
                     if (horizontal > 0 )
-                        speed = Mathf.Min(speed + airAcceleration * Time.deltaTime, maxSpeed);
+                        speed = Mathf.Min(speed + airAcceleration * Time.deltaTime, maxSpeed - 0.5f);
                     else
-                        speed = Mathf.Max(speed - airAcceleration * Time.deltaTime, -maxSpeed);
+                        speed = Mathf.Max(speed - airAcceleration * Time.deltaTime, -maxSpeed + 0.5f);
                 }else{
                     speed = Mathf.MoveTowards(speed, 0, airAcceleration * Time.deltaTime);
                 }
@@ -267,14 +272,14 @@ public class Baqueta_movement : MonoBehaviour
                 soundBarrier.TakeDamage();
             }
         }
-        rb.velocity = impulseAngle * jumpForce;
+        rb.velocity = impulseAngle * impulseForce;
         loopingSource.PlayOneShot(impulseAudio);
     }
 public void Impulse2()
     {   
         baquetaCollider.GetComponent<BoxCollider2D>().size = impulseColliderSize;
         impulseBool = true;
-        rb.velocity = impulseAngle * jumpForce;
+        rb.velocity = impulseAngle * impulseForce;
         loopingSource.PlayOneShot(bounceSound);
     }
     public void ShootSoundWave()
@@ -386,6 +391,18 @@ public void Impulse2()
         PlaySound(getCoinSound);
     }
 
+    public void PlaySongModeBeat()
+    {
+        audioSource.PlayOneShot(onRightBeatAudio);
+    }
+    public void PlaySongModeBeat2()
+    {
+        audioSource.PlayOneShot(onRightSongAudio);
+    }
+    public void SetListening(bool value)
+    {
+        Listening = value;
+    }
 
     private IEnumerator Invulnerable()
     {

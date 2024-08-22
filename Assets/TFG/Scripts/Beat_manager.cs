@@ -97,7 +97,9 @@ public class Beat_manager : MonoBehaviour
     }
     public void PlayOnBeatClip(){
             if (song && onBeatClip != null)
+            {
                 audioClips.PlayOneShot(onBeatClip, 1f);
+            }
         }
     public void StopMusic(){
         audioSong.Stop();
@@ -112,12 +114,10 @@ public class Beat_manager : MonoBehaviour
     [SerializeField] private UnityEvent onWrongBeat;
     [SerializeField] private UnityEvent onCorrectBeat;
     [SerializeField] private UnityEvent songModeEndEvent;
-
-    [SerializeField] public Beat_manager beatManager;
     private bool songMode = false;
     private bool newBeat = false;
     private float threshold = 0.1f;
-    private float threshold2 = 0.075f;
+    public float threshold2 = 0.065f;
     private int lastInterval  = 0;
 
     public float GetIntervalLength(float bpm){
@@ -147,11 +147,11 @@ public class Beat_manager : MonoBehaviour
         {  
             onCorrectBeat.Invoke();
             songMode = true;
-            if ((intervalLength - threshold) < intervalPos)
+            if (Mathf.Abs(intervalPos - intervalLength) < threshold)
             {
                 newBeat = false;
             }else{
-                beatManager.songModeBeatCounter = 1;
+                Beat_manager.instance.songModeBeatCounter++;
             }
         }
         else
@@ -164,15 +164,15 @@ public class Beat_manager : MonoBehaviour
         float intervalLength = GetIntervalLength(bpm);
         float intervalPos = time % intervalLength;
         if (note < 3){
-            if (Mathf.Abs(intervalPos  - intervalLength) < threshold2  || Mathf.Abs(intervalPos) < threshold2)
+            if (Mathf.Abs(intervalPos  - intervalLength) <  threshold2  || Mathf.Abs(intervalPos) < threshold2)
             { 
                 
                 onCorrectBeat.Invoke();
-                if ((intervalLength - threshold2) < intervalPos){
-                    beatManager.songModeArray[beatCounter - 1] = true;
+                if (Mathf.Abs(intervalPos - intervalLength) < threshold2){
+                    Beat_manager.instance.songModeArray[beatCounter - 1] = true;
                 }
                 else{
-                    beatManager.songModeArray[beatCounter - 2] = true;
+                   Beat_manager.instance.songModeArray[beatCounter - 2] = true;
                 }
             }
             else {
@@ -180,7 +180,7 @@ public class Beat_manager : MonoBehaviour
             }
         }
         else{
-            beatManager.failedBeat = true;
+            Beat_manager.instance.failedBeat = true;
             onWrongBeat.Invoke();
         }
     }

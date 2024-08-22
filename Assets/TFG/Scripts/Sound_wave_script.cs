@@ -38,6 +38,8 @@ public class Sound_wave_script : MonoBehaviour
     }
     public void OnDestroyWave()
     {
+        Speed=0;
+        acceleration=0;
         Baqueta_movement.instance.OnSoundWaveDestruction();
         animator.Play("WaveDestroy");
     }
@@ -56,12 +58,6 @@ public class Sound_wave_script : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Wall"))
         {
-            OnDestroyWave();
-        }
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Speed=0;
-            acceleration=0;
             OnDestroyWave();
         }
     }

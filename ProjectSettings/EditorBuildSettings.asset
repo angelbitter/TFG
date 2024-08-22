@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/TFG/Scenes/MainMenu.unity
     guid: 1586fa07cf690704f9bfe4f1ab7b6db8
   - enabled: 1
+    path: Assets/TFG/Scenes/Level1.unity
+    guid: 26e52945dced07b47b1555c19a9629f1
+  - enabled: 1
     path: Assets/TFG/Scenes/Prueba.unity
     guid: 8f8af7581d3df0248818ef7cfba9d308
   m_configObjects: {}

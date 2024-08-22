@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Visual_effects : MonoBehaviour
 
-{
-    public GameObject Baqueta;
-    protected Animator Animator;
+{    protected Animator Animator;
 
     private bool WrongBeatTriggered;
     private bool RightBeatTriggered;
