@@ -8,7 +8,7 @@ public class Sound_wave_script : MonoBehaviour
     public float Speed = 2f;
     public float acceleration = 2f;
     public float maxSpeed = 3f;
-    public float lifeTime = 5f;
+    public float lifeTime = 3f;
     private Rigidbody2D rb;
     private Vector2 Direction;
     void Start()

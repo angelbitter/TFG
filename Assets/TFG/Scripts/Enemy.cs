@@ -100,9 +100,15 @@ public class Enemy : MonoBehaviour
         colliderEnemy2.enabled = false;
         rb.velocity = Vector2.zero;
         speed = 0;
+        
         animator.Play("DestroyItem");
         LevelController.instance.enemyPoints++; 
         isDead = true;
+        flyAmplitude = 0;
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
     public void OnBeat()
     {   if(!isDead){
@@ -114,10 +120,14 @@ public class Enemy : MonoBehaviour
         }
     }
     IEnumerator OnBeatCoroutine()
-    {   if(!isDead){
+    {   
         yield return new WaitForSeconds(0.4f);
-        speed = 0.5f;
         animator.speed=1;
+        if(!isDead){
+            speed = 0.5f;
+        }else{
+            rb.velocity = Vector2.zero;
+            speed = 0;
         }
     }
     public void DestroyItem()

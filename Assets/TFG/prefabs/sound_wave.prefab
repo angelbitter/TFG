@@ -111,7 +111,7 @@ MonoBehaviour:
   Speed: 2
   acceleration: 2
   maxSpeed: 3
-  lifeTime: 5
+  lifeTime: 3
 --- !u!50 &5301181090073340989
 Rigidbody2D:
   serializedVersion: 4
@@ -134,7 +134,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1

@@ -1,11 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 using UnityEngine.Events;
-using Unity.VisualScripting.Dependencies.Sqlite;
-using Cinemachine;
-using Unity.VisualScripting;
 
 public class Baqueta_movement : MonoBehaviour
 {
@@ -23,7 +18,7 @@ public class Baqueta_movement : MonoBehaviour
     private bool song;
     private int songResult = 0;
     
-    private int songModeBeatCounter = 0;
+    private int note = 0;
 
     [SerializeField] private UnityEvent showWrongVFX;
     [SerializeField] private UnityEvent showRightVFX;
@@ -125,18 +120,16 @@ public class Baqueta_movement : MonoBehaviour
             if (Input.GetButtonDown("Fire1") && !failBeatTriggered && !beatTriggered)
                 {
                     //action button - start of SongMode
-                    songModeBeatCounter=0;
-                    float sampledTime = (float)beatManager.GetComponent<AudioSource>().timeSamples / beatManager.GetComponent<AudioSource>().clip.frequency;
-                    beatManager.CheckSongMode(sampledTime);
+                    note=0;
+                    beatManager.CheckSongMode();
                 }
             }
             else {
                 if (Input.GetButtonDown("Fire1") && song)
                 {
                     //action button - song Mode Beats
-                    float sampledTime = (float)beatManager.GetComponent<AudioSource>().timeSamples / beatManager.GetComponent<AudioSource>().clip.frequency;
-                    beatManager.CheckSongModeBeat(sampledTime, songModeBeatCounter);
-                    songModeBeatCounter++;
+                    beatManager.CheckSongModeBeat( note);
+                    note++;
                 }  
             }
         
@@ -217,7 +210,7 @@ public class Baqueta_movement : MonoBehaviour
     public void SongModeEnd()
     {
         song = false;
-        songModeBeatCounter = 0;
+        note = 0;
         rb.gravityScale = originalGravityScale;
         if (songResult == 0)
         {
