@@ -19,6 +19,10 @@ public class Sound_barrier : MonoBehaviour
     public void TakeDamage()
     {
         animator.Play("BarrierDestroy");
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
         audioSource.Play();
     }
     public void DestroyBarrier()

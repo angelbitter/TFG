@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: c0817377778964c4581d24b36c557875, type: 2}
     - target: {fileID: 3626916397498700004, guid: 43fb59b256780894fae69875c2bd33ce, type: 3}
       propertyPath: m_FlipX
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: 43fb59b256780894fae69875c2bd33ce, type: 3}
       propertyPath: m_FlipY

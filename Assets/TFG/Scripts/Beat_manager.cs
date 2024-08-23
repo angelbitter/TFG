@@ -103,6 +103,7 @@ public class Beat_manager : MonoBehaviour
     [SerializeField] private UnityEvent onWrongBeat;
     [SerializeField] private UnityEvent onCorrectBeat;
     [SerializeField] private UnityEvent songModeEndEvent;
+    private bool catchUp = false;
     private bool songMode = false;
     private bool newBeat = false;
     private float threshold = 0.1f;
@@ -117,7 +118,8 @@ public class Beat_manager : MonoBehaviour
     {
         if(Mathf.FloorToInt(interval) != lastInterval)
         {
-            lastInterval = Mathf.FloorToInt(interval);
+            if(!catchUp) {
+                lastInterval = Mathf.FloorToInt(interval);
                 if(beatDivision == 2.0f){
                     number++;
                     if (number % 8 == 0){
@@ -129,7 +131,9 @@ public class Beat_manager : MonoBehaviour
                     songMode = false;
                 }
                 newBeat = true;
-            onBeat.Invoke();
+                onBeat.Invoke();
+            }
+            catchUp = false;
         }
     }
 
@@ -147,7 +151,9 @@ public class Beat_manager : MonoBehaviour
                     number = 0;
                 }
             }
+            catchUp = true;
             newBeat = true;
+            onBeat.Invoke();
         }
     }
 
