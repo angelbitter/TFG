@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
@@ -11,6 +12,7 @@ public class LevelController : MonoBehaviour
     public float waitForRespawn;
     public int points;
     public int coinsCollected;
+    public Coin_pickup[] totalCoins;
     private int timePoints;
     public int enemyPoints;
     private float timePassed;
@@ -25,6 +27,7 @@ public class LevelController : MonoBehaviour
         points = 0;
         timePassed = 0;
         enemyPoints = 0;
+        coinsCollected = 0;
         timePoints = 10000;
     }
     
@@ -44,6 +47,22 @@ public class LevelController : MonoBehaviour
 
         Beat_manager.instance.StopMusic();
         Beat_manager.instance.PlayWinAudio();
+
+        if(PlayerPrefs.HasKey("levelPoints"))
+        {
+            if(PlayerPrefs.GetInt("levelPoints") < points)
+            {
+                PlayerPrefs.SetInt("levelPoints", points);
+            }
+        }
+        if (PlayerPrefs.HasKey("levelCoinsCollected"))
+        {
+            if (PlayerPrefs.GetInt("levelCoinsCollected") < coinsCollected)
+            {
+                PlayerPrefs.SetInt("levelCoinsCollected", coinsCollected);
+            }
+        }
+        PlayerPrefs.SetInt("levelCoinsTotal", totalCoins.Length);
     }
 
     IEnumerator RespawnCoroutine()

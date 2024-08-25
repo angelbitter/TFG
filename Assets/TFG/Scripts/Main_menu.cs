@@ -3,23 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
+using System;
 
 public class Main_menu : MonoBehaviour
 {
-
     public GameObject HelpGuide;
-    
     public AudioSource Audio;
     public AudioClip BackSound;
     public AudioClip ButtonSound;
     
     public Image FadeImage;
+    public TextMeshProUGUI highScoreText, coinsCollected, totalCoins;
+    public GameObject levelInfo;
 
+
+    void Start()
+    {
+        if(PlayerPrefs.HasKey("levelPoints"))
+        {
+            highScoreText.text = "Your score: " + PlayerPrefs.GetInt("levelPoints");
+            coinsCollected.text = "" + PlayerPrefs.GetInt("levelCoinsCollected");
+            totalCoins.text = "/ " + PlayerPrefs.GetInt("levelCoinsTotal");
+        }
+        else
+        {
+            levelInfo.SetActive(false);
+        }
+    }
     public void PlayGame()
     {
         PlaySound(ButtonSound);
         StartCoroutine(LoadGame());
-        FadeImage.GetComponent<Image>().raycastTarget = true; 
+        FadeImage.GetComponent<Image>().raycastTarget = true;
     }
 
     public void QuitGame()
