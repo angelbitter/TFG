@@ -8,7 +8,7 @@ using System;
 
 public class Main_menu : MonoBehaviour
 {
-    public GameObject HelpGuide;
+    public GameObject HelpGuide, DeleteScreen, MainPanel;
     public AudioSource Audio;
     public AudioClip BackSound;
     public AudioClip ButtonSound;
@@ -25,6 +25,7 @@ public class Main_menu : MonoBehaviour
             highScoreText.text = "Your score: " + PlayerPrefs.GetInt("levelPoints");
             coinsCollected.text = "" + PlayerPrefs.GetInt("levelCoinsCollected");
             totalCoins.text = "/ " + PlayerPrefs.GetInt("levelCoinsTotal");
+            levelInfo.SetActive(true);
         }
         else
         {
@@ -46,7 +47,7 @@ public class Main_menu : MonoBehaviour
 
     public void LoadHelpGuide()
     {
-        HelpGuide.SetActive(true);        
+        HelpGuide.SetActive(true);      
         PlaySound(ButtonSound);
     }
 
@@ -54,6 +55,32 @@ public class Main_menu : MonoBehaviour
     {
         HelpGuide.SetActive(false);
         PlaySound(BackSound);
+    }
+
+    public void CloseDeleteScreen()
+    {
+        DeleteScreen.SetActive(false);       
+        MainPanel.SetActive(true);
+        levelInfo.SetActive(true);
+        PlaySound(BackSound);
+    }
+    public void OpenDeleteScreen()
+    {
+        DeleteScreen.SetActive(true);
+        MainPanel.SetActive(false);
+        levelInfo.SetActive(false);
+        PlaySound(ButtonSound);
+    }
+    public void DeleteData()
+    {
+        PlayerPrefs.DeleteAll();
+        DeleteScreen.SetActive(false);
+        levelInfo.SetActive(false);
+        MainPanel.SetActive(true);
+        PlaySound(ButtonSound);
+        highScoreText.text = "Your score:" + PlayerPrefs.GetInt("levelPoints");
+        coinsCollected.text = "" + PlayerPrefs.GetInt("levelCoinsCollected");
+        totalCoins.text = "/ " + PlayerPrefs.GetInt("levelCoinsTotal");
     }
 
     public void PlaySound(AudioClip clip)

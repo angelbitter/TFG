@@ -54,6 +54,9 @@ public class LevelController : MonoBehaviour
             {
                 PlayerPrefs.SetInt("levelPoints", points);
             }
+        }else
+        {
+            PlayerPrefs.SetInt("levelPoints", points);
         }
         if (PlayerPrefs.HasKey("levelCoinsCollected"))
         {
@@ -61,6 +64,10 @@ public class LevelController : MonoBehaviour
             {
                 PlayerPrefs.SetInt("levelCoinsCollected", coinsCollected);
             }
+        }
+        else
+        {
+            PlayerPrefs.SetInt("levelCoinsCollected", coinsCollected);
         }
         PlayerPrefs.SetInt("levelCoinsTotal", totalCoins.Length);
     }
