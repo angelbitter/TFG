@@ -82,8 +82,11 @@ public class Baqueta_movement : MonoBehaviour
 
         // para la animación de "pulsar"
         transform.localScale = Vector3.Lerp(transform.localScale,originalScale, Time.deltaTime * returnSpeed);
-
-        if (!isDead) horizontal = Input.GetAxisRaw("Horizontal");
+        if(isDead)
+        {
+            return;
+        }
+        horizontal = Input.GetAxisRaw("Horizontal");
         
         if (!song){
             if(horizontal < 0 && isGrounded)
