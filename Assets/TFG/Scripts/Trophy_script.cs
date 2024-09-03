@@ -28,7 +28,6 @@ public class Trophy_script : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             LevelController.instance.LevelComplete();
-            Baqueta_movement.instance.DisableBaqueta();
             animator.Play("PickedUp");
         }
     }
