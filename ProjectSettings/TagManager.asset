@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Wall
+  - Hazard
+  - SoundBarrier
+  - SoundWave
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -14,13 +19,13 @@ TagManager:
   - Player
   - Ground
   - Walls
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Hazards
+  - Pickups
+  - BG
+  - Level
+  - Obstacles
+  - Decoration
+  - SoundWave
   - 
   - 
   - 
@@ -40,4 +45,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BG
+    uniqueID: 3185121365
+    locked: 0
+  - name: Decoration
+    uniqueID: 3114797649
+    locked: 0
+  - name: Level
+    uniqueID: 3196911423
+    locked: 0
+  - name: Pickups
+    uniqueID: 412255957
+    locked: 0
+  - name: Player
+    uniqueID: 2028727003
+    locked: 0
+  - name: UI
+    uniqueID: 2091480999
     locked: 0

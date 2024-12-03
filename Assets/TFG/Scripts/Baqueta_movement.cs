@@ -1,62 +1,462 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Baqueta_movement : MonoBehaviour
 {
-    private Rigidbody2D Rb;
-    private float Horizontal;
-    private float Vertical;
-    private bool IsGrounded;
+    public static Baqueta_movement instance;
+    private Rigidbody2D rb;
+    public GameObject soundWave;
+    private Collider2D baquetaCollider;
+    private float horizontal;
+    public bool isGrounded;
+    public bool wasFlying;
+    private bool beatTriggered;
+    private bool failBeatTriggered;
+    public bool impulseBool;
+    private float originalGravityScale;
+    private bool song;
+    private int songResult = 0;
+    
+    private int note = 0;
 
+    [SerializeField] private UnityEvent showWrongVFX;
+    [SerializeField] private UnityEvent showRightVFX;
 
-    public float Speed;
-    public float JumpForce;
-    public Transform GroundCheck;
-    public LayerMask WhatIsGround;    
+    public float speed;
+    public float maxSpeed = 1.5f;
+    public float acceleration = 10.0f;
+    public float airAcceleration = 5.0f;
+    public float jumpForce = 2.5f;
+    public float impulseForce = 3f;
+    public Vector2 impulseAngle = new Vector2(1, 1);
+    private Vector2 originalColliderSize;
+    private Vector2 impulseColliderSize = new Vector2(0.2f, 0.25f);
+    public Transform groundCheck;
+    public LayerMask whatIsGround;    
+    private Vector3 originalScale;
+    public bool Listening = false;
+    public bool interactionBubbleDirection = false;
+    [SerializeField] private float pulseSize = 1.15f;
+    [SerializeField] private float returnSpeed = 5f;
+    
+    public AudioSource audioSource;     public AudioSource loopingSource;
+    public AudioClip landAudio;         public AudioClip onRightSongAudio;
+    public AudioClip onRightBeatAudio;  public AudioClip onWrongSongAudio;
+    public AudioClip onWrongBeatAudio;  public AudioClip getHitSound;
+    public AudioClip impulseAudio;      public AudioClip jumpAudio;
+    public AudioClip soundWaveAudio;    public AudioClip soundWaveEndAudio;
+    public AudioClip getCoinSound;      public AudioClip getHealthSound;
+    public AudioClip bounceSound;       public AudioClip hitEnemySound;
 
-    protected Animator Animator;
+    protected Animator animator;
+    public Beat_manager beatManager;
 
- 
- 
+    public bool vulnerable = true;
+    public float vulnerableTime = 1.5f;
+    public bool isDead = false;
+
+    void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
-        Rb = GetComponent<Rigidbody2D>();;
-        Animator = GetComponent<Animator>();
-
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        baquetaCollider = GetComponent<Collider2D>(); 
+        originalColliderSize = baquetaCollider.bounds.size;
+        originalGravityScale = rb.gravityScale;
+        impulseAngle.Normalize();
+        originalScale = transform.localScale;
+        isDead = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Horizontal = Input.GetAxisRaw("Horizontal");
-        Vertical = Input.GetAxisRaw("Vertical");
+        animator.SetBool("running", horizontal != 0.0f);
+        animator.SetBool("air", !isGrounded);
+        animator.SetBool("fail", failBeatTriggered);
+        animator.SetBool("songMode", song);
+        animator.SetBool("impulsed", impulseBool);
 
-        Animator.SetBool("running", Horizontal != 0.0f);
-        Animator.SetBool("air", !IsGrounded);
-
-        if(Horizontal < 0)
+        // para la animación de "pulsar"
+        transform.localScale = Vector3.Lerp(transform.localScale,originalScale, Time.deltaTime * returnSpeed);
+        if(isDead)
         {
-            transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
-        }else if(Horizontal > 0)
-        {
-            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            return;
         }
+        horizontal = Input.GetAxisRaw("Horizontal");
+        
+        if (!song){
+            if(horizontal < 0 && isGrounded)
+            {
+                transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+                originalScale = transform.localScale;
+                impulseAngle = new Vector2(-1f, 1f);
+                interactionBubbleDirection = false;
+            }else if(horizontal > 0 && isGrounded)
+            {
+                transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                originalScale = transform.localScale;
+                impulseAngle = new Vector2(1f, 1f);
+                interactionBubbleDirection = true;
+            }
 
-        IsGrounded = Physics2D.OverlapCircle(GroundCheck.position, 0.1f, WhatIsGround);
+            if (!(isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.06f, whatIsGround)))
+            {
+                wasFlying = true;
+            }else
+            
+            if(isGrounded && wasFlying)
+            {
+                PlaySound(landAudio);
+                wasFlying = false;
+                impulseBool = false;
+                baquetaCollider.GetComponent<BoxCollider2D>().size = originalColliderSize;
+            }
 
-        if (Input.GetKeyDown(KeyCode.Space)  && IsGrounded)
-        {
-            Jump();
-        }
+            if (Input.GetButtonDown("Jump")  && isGrounded)
+            {
+                Jump();
+            }
+            if (Input.GetButtonDown("Fire1") && !failBeatTriggered && !beatTriggered)
+                {
+                    //action button - start of SongMode
+                    note=0;
+                    beatManager.CheckSongMode();
+                }
+            }
+            else {
+                if (Input.GetButtonDown("Fire1") && song)
+                {
+                    //action button - song Mode Beats
+                    beatManager.CheckSongModeBeat( note);
+                    note++;
+                }  
+            }
+        
     }
     private void Jump()
     {
-        Debug.Log("salto");
-        Rb.AddForce(Vector2.up * JumpForce);
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        PlaySound(jumpAudio);
+    }
+    public void Jump2()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        PlaySound(hitEnemySound);
     }
     private void FixedUpdate()
     {
-        Rb.velocity = new Vector2(Horizontal * Speed, Rb.velocity.y);
+        if (impulseBool){
+            return;
+        }
+        if (!song){
+            if (isGrounded) {
+                if (horizontal != 0.0f){
+                    if (horizontal > 0 )
+                        speed = Mathf.Min(speed + acceleration * Time.deltaTime, maxSpeed);
+                    else
+                        speed = Mathf.Max(speed - acceleration * Time.deltaTime, -maxSpeed);
+                }else{
+                    speed = Mathf.MoveTowards(speed, 0, acceleration * Time.deltaTime);
+                }
+            }else{
+                //air movement
+                if (horizontal != 0.0f){
+                    if (horizontal > 0 )
+                        speed = Mathf.Min(speed + airAcceleration * Time.deltaTime, maxSpeed - 0.5f);
+                    else
+                        speed = Mathf.Max(speed - airAcceleration * Time.deltaTime, -maxSpeed + 0.5f);
+                }else{
+                    speed = Mathf.MoveTowards(speed, 0, airAcceleration * Time.deltaTime);
+                }
+            }
+            rb.velocity = new Vector2(speed , rb.velocity.y);
+        }
+    }
+
+    public void OnRightBeat()
+    {   
+        Pulse();
+        showRightVFX.Invoke();
+        PlaySound(onRightBeatAudio);
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0;
+        speed = 0;
+        song = true;
+        beatTriggered = true;
+        impulseBool = false;
+     }
+     public void OnRightBeatSongMode(){
+        showRightVFX.Invoke();
+        PlaySound(onRightBeatAudio);
+        Pulse();
+     }
+
+    public void OnWrongBeat()
+    {
+        failBeatTriggered = true;
+        PlaySound(onWrongBeatAudio);
+        showWrongVFX.Invoke();
+        speed = 0;
+        StartCoroutine(ResetFailBeat());
+    }
+    public void OnWrongBeatSongMode(){
+        PlaySound(onWrongBeatAudio);
+        songResult = 0;
+    }
+
+    public void SongModeEnd()
+    {
+        song = false;
+        note = 0;
+        rb.gravityScale = originalGravityScale;
+        if (songResult == 0)
+        {
+            showWrongVFX.Invoke();
+            PlaySound(onWrongSongAudio);
+        }else{
+            Pulse();
+            PlaySound(onRightSongAudio);
+            switch (songResult)
+            {
+                case 1:
+                    Impulse();
+                    break;
+                case 2:
+                    ShootSoundWave();
+                    break;
+                default:
+                    break;
+
+        //abierta la puerta a más acciones
+
+            }
+        }
+        
+        songResult = 0;
+
+        StartCoroutine(ResetBeatTriggered());
+    }
+    public void CorrectImpulse()
+    {
+        songResult = 1;
+    }
+
+    public void CorrectSoundWave()
+    {
+        songResult = 2;
+    }
+
+    public void Impulse()
+    {   
+        baquetaCollider.GetComponent<BoxCollider2D>().size = impulseColliderSize;
+        impulseBool = true;
+        if (baquetaCollider.IsTouchingLayers(LayerMask.GetMask("Obstacles")))
+        {
+            Collider2D[] results = new Collider2D[1];
+            int numColliders = baquetaCollider.OverlapCollider(new ContactFilter2D().NoFilter(), results);
+            Collider2D other = numColliders > 0 ? results[0] : null;
+            Sound_barrier soundBarrier = other.gameObject.GetComponent<Sound_barrier>();
+            if (soundBarrier != null)
+            {
+                soundBarrier.DeactivateCollision();
+                soundBarrier.TakeDamage();
+            }
+        }
+        rb.velocity = impulseAngle * impulseForce;
+        loopingSource.PlayOneShot(impulseAudio);
+    }
+public void Impulse2()
+    {   
+        baquetaCollider.GetComponent<BoxCollider2D>().size = impulseColliderSize;
+        impulseBool = true;
+        rb.velocity = impulseAngle * impulseForce;
+        loopingSource.PlayOneShot(bounceSound);
+    }
+    public void ShootSoundWave()
+    {
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0;
+        speed = 0;
+        loopingSource.PlayOneShot(soundWaveAudio);
+        StartCoroutine(ResetShootSoundwave());
+    }
+
+    public void OnSoundWaveDestruction(){
+        loopingSource.Stop();
+        audioSource.PlayOneShot(soundWaveEndAudio);
+    }
+
+    private IEnumerator ResetFailBeat()
+    {
+        yield return new WaitForSeconds(0.5f);
+        failBeatTriggered = false;
+    }
+    private IEnumerator ResetBeatTriggered()
+    {
+        yield return new WaitForSeconds(0.5f);
+        beatTriggered = false;
+    }
+    private IEnumerator ResetShootSoundwave()
+    {
+        yield return new WaitForSeconds(0.25f);
+        Vector3 direction;
+        if (transform.localScale.x > 0)
+        {
+            direction = Vector3.right;
+        }
+        else
+        {
+            direction = Vector3.left;
+        }
+        GameObject soundWaveInst = Instantiate(soundWave, transform.position + direction * 0.2f, Quaternion.identity) as GameObject;
+        soundWaveInst.GetComponent<Sound_wave_script>().SetDirection(direction);
+        
+        rb.gravityScale = originalGravityScale; 
+    
+    }
+
+    public void Pulse()
+    {
+        transform.localScale = originalScale * pulseSize;
+    }
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall") && (!isGrounded|| impulseBool))
+        {
+            speed = 0;if (impulseBool)
+            {
+                impulseBool = false;
+                baquetaCollider.GetComponent<BoxCollider2D>().size = originalColliderSize;
+                rb.velocity = Vector2.zero;
+            }
+        }
+        
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("SoundBarrier") && impulseBool)
+        {
+            
+            Sound_barrier soundBarrier = other.gameObject.GetComponent<Sound_barrier>();
+            if (soundBarrier != null)
+            {
+                soundBarrier.DeactivateCollision();
+                soundBarrier.TakeDamage();
+            }
+        }
+    }
+
+    public void Knockback()
+    {
+        if (!vulnerable || isDead)
+        {
+            return;
+        }
+        if (song)
+        {
+            songResult = 0;
+            SongModeEnd();
+        }
+        rb.velocity = new Vector2(-transform.localScale.x, 1) * 2.0f;
+        HitBox.instance.colliderHitBox.enabled = false;
+        PlayHitSound();
+        StartCoroutine(Invulnerable());
+
+    }
+    public void OnRespawn()
+    {
+        StartCoroutine(Invulnerable());
+    }
+    public void PlayHitSound()
+    {
+        PlaySound(getHitSound);
+    }
+    public void PlayHealSound()
+    {
+        PlaySound(getHealthSound);
+    }
+    public void PlayCoinSound()
+    {
+        PlaySound(getCoinSound);
+    }
+
+    public void PlaySongModeBeat()
+    {
+        audioSource.PlayOneShot(onRightBeatAudio);
+    }
+    public void PlaySongModeBeat2()
+    {
+        audioSource.PlayOneShot(onRightSongAudio);
+    }
+    public void SetListening(bool value)
+    {
+        Listening = value;
+    }
+
+    private IEnumerator Invulnerable()
+    {
+        vulnerable = false;
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        float blinkInterval = 0.1f;
+        float timePassed = 0f;
+        
+        while (timePassed < vulnerableTime)
+        {
+            spriteRenderer.enabled = !spriteRenderer.enabled;
+            yield return new WaitForSeconds(blinkInterval);
+            timePassed += blinkInterval;
+        }
+        spriteRenderer.enabled = true;
+        vulnerable = true;
+        HitBox.instance.colliderHitBox.enabled = true;
+        if (IsTouchingHazard())
+        {
+            Baqueta_health.instance.TakeDamage();
+            Knockback();
+        }
+    }
+    public bool IsTouchingHazard()
+    {   
+        if (baquetaCollider.IsTouchingLayers(LayerMask.GetMask("Hazards")))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    // Baqueta Sounds
+
+    public void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+    }
+    public void DisableBaqueta()
+    {   horizontal = 0;
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0;
+        speed = 0;
+        isDead = true;
+    }
+
+    public void EnableBaqueta()
+    {
+        rb.gravityScale = originalGravityScale;
+        isDead = false;
+    }
+    public void KillBaqueta()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.enabled = false;
+        gameObject.SetActive(false);        
     }
 }

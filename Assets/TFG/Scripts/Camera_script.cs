@@ -4,19 +4,15 @@ using UnityEngine;
 
 public class Camera_script : MonoBehaviour
 {
-
     public GameObject Baqueta;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float minHeight = -0.16f;
+    public float maxHeight = 1.6f;
 
-    // Update is called once per frame
     void Update()
     {
         Vector3 position = transform.position ;
         position.x = Baqueta.transform.position.x;
+        position.y = Mathf.Clamp(Baqueta.transform.position.y, minHeight, maxHeight);
         transform.position = position;
     }
 }

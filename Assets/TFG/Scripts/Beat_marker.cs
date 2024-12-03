@@ -1,45 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Beat_marker : MonoBehaviour
 {
 
     [SerializeField] private float PulseSize = 1.15f;
     [SerializeField] private float ReturnSpeed = 5f;
-    // [SerializeField] private bool UseBeat;
+    public bool play = false;
     
-    public GameObject Baqueta;
     private Vector3 OriginalScale;
-    // Start is called before the first frame update
+    private int beatCounter;
+    public UnityEvent[] beatEvents;
+
     void Start()
     {
         OriginalScale = transform.localScale;
-        // if (UseBeat){
-        //     StartCoroutine(BeatPulse());
-        // }
+        beatCounter = 0;
     }
-    // Update is called once per frame
     void Update()
     {
         transform.localScale = Vector3.Lerp(transform.localScale,OriginalScale, Time.deltaTime * ReturnSpeed);
-        
-        Vector3 position = transform.position ;
-        position.x = Baqueta.transform.position.x - 1.0f;
-        transform.position = position;
     }
 
     public void Pulse()
     {
         transform.localScale = OriginalScale * PulseSize;
-        Debug.Log("Pulse");
     }
 
-    private IEnumerator BeatPulse()
+    public void CountBeatsOnSongMode(){
+        if(beatCounter == 7)
+            beatCounter = 0;
+        else
+            beatCounter++;
+        beatEvents[beatCounter].Invoke();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        while (true)
+        if(other.tag == "Player")
         {
-            Pulse();
+            play = true;
+            Baqueta_movement.instance.SetListening(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.tag == "Player")
+        {
+            play = false;
+            Baqueta_movement.instance.SetListening(false);
         }
     }
 }
