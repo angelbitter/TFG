@@ -1,0 +1,102 @@
+\doxysection{Intervals Class Reference}
+\hypertarget{class_intervals}{}\label{class_intervals}\index{Intervals@{Intervals}}
+
+
+La clase {\ttfamily \doxylink{class_intervals}{Intervals}} se encarga de gestionar los intervalos de tiempo que se usan para marcar el ritmo.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{class_intervals_abee797f9f87c0bf57d2256760b213987}{Get\+Interval\+Length}} (float bpm)
+\begin{DoxyCompactList}\small\item\em Método Get\+Interval\+Length, se encarga de calcular la longitud de un intervalo a raiz del bpm de la canción. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_intervals_a9ed8126a334b31181f51b01427dc8279}{Check\+For\+New\+Interval}} (float interval)
+\begin{DoxyCompactList}\small\item\em Método Check\+For\+New\+Interval, se encarga de comprobar si ha pasado un nuevo intervalo de tiempo. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_intervals_a832da32d9e82ca6349292708fb7ecb68}{Check\+Interval}} (float interval)
+\begin{DoxyCompactList}\small\item\em Método Check\+Interval, se encarga de comprobar si ha pasado un nuevo intervalo de tiempo manualmente cuando el jugador pulsa el botón. \end{DoxyCompactList}\item 
+\Hypertarget{class_intervals_a104338dc5562bf3508e05df8d2a63704}\label{class_intervals_a104338dc5562bf3508e05df8d2a63704} 
+void {\bfseries Check\+On\+Beat} (float bpm)
+\begin{DoxyCompactList}\small\item\em Método Check\+On\+Beat, se encarga de comprobar si el jugador ha pulsado el botón en el momento correcto para entrar en el modo Song\+Mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_intervals_a70321d2fa4f33ad40f1b73eca5f8516a}{Check\+On\+Song\+Mode\+Beat}} (float bpm, int note)
+\begin{DoxyCompactList}\small\item\em Método Check\+On\+Song\+Mode\+Beat, se encarga de comprobar si el jugador ha pulsado el botón en el momento correcto en el modo Song\+Mode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_intervals_a5c7dd0bf5e668c66b7c2586b78b16f62}\label{class_intervals_a5c7dd0bf5e668c66b7c2586b78b16f62} 
+float {\bfseries beat\+Division}
+\begin{DoxyCompactList}\small\item\em El tamaño del intervalo, puede ser 4/4, 2/8, 1/4 o 1/8. \end{DoxyCompactList}\item 
+\Hypertarget{class_intervals_a60eca23f979b67c59a8b53347234c43e}\label{class_intervals_a60eca23f979b67c59a8b53347234c43e} 
+float {\bfseries threshold2} = 0.\+065f
+\begin{DoxyCompactList}\small\item\em El umbral de error para el modo Song\+Mode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+La clase {\ttfamily \doxylink{class_intervals}{Intervals}} se encarga de gestionar los intervalos de tiempo que se usan para marcar el ritmo. 
+
+Cada intervalo tiene un tamaño y emite eventos distintos 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_intervals_a9ed8126a334b31181f51b01427dc8279}\index{Intervals@{Intervals}!CheckForNewInterval@{CheckForNewInterval}}
+\index{CheckForNewInterval@{CheckForNewInterval}!Intervals@{Intervals}}
+\doxysubsubsection{\texorpdfstring{CheckForNewInterval()}{CheckForNewInterval()}}
+{\footnotesize\ttfamily \label{class_intervals_a9ed8126a334b31181f51b01427dc8279} 
+void Intervals.\+Check\+For\+New\+Interval (\begin{DoxyParamCaption}\item[{float}]{interval}{}\end{DoxyParamCaption})}
+
+
+
+Método Check\+For\+New\+Interval, se encarga de comprobar si ha pasado un nuevo intervalo de tiempo. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em interval} & El intervalo de tiempo actual\\
+\hline
+\end{DoxyParams}
+
+
+Este método se llama automáticamente en el Update de \doxylink{class_beat__manager}{Beat\+\_\+manager} y sirve para marcar el ritmo segú el intervalo cambie \Hypertarget{class_intervals_a832da32d9e82ca6349292708fb7ecb68}\index{Intervals@{Intervals}!CheckInterval@{CheckInterval}}
+\index{CheckInterval@{CheckInterval}!Intervals@{Intervals}}
+\doxysubsubsection{\texorpdfstring{CheckInterval()}{CheckInterval()}}
+{\footnotesize\ttfamily \label{class_intervals_a832da32d9e82ca6349292708fb7ecb68} 
+void Intervals.\+Check\+Interval (\begin{DoxyParamCaption}\item[{float}]{interval}{}\end{DoxyParamCaption})}
+
+
+
+Método Check\+Interval, se encarga de comprobar si ha pasado un nuevo intervalo de tiempo manualmente cuando el jugador pulsa el botón. 
+
+Esto fue necesario para el modo Song\+Mode, ya que el jugador puede pulsar el botón entre el intervalo en el que los updates de \doxylink{class_beat__manager}{Beat\+\_\+manager} se llaman y el siguiente intervalo no se haya reconocido aún 
+
+~\newline
+ \Hypertarget{class_intervals_a70321d2fa4f33ad40f1b73eca5f8516a}\index{Intervals@{Intervals}!CheckOnSongModeBeat@{CheckOnSongModeBeat}}
+\index{CheckOnSongModeBeat@{CheckOnSongModeBeat}!Intervals@{Intervals}}
+\doxysubsubsection{\texorpdfstring{CheckOnSongModeBeat()}{CheckOnSongModeBeat()}}
+{\footnotesize\ttfamily \label{class_intervals_a70321d2fa4f33ad40f1b73eca5f8516a} 
+void Intervals.\+Check\+On\+Song\+Mode\+Beat (\begin{DoxyParamCaption}\item[{float}]{bpm}{, }\item[{int}]{note}{}\end{DoxyParamCaption})}
+
+
+
+Método Check\+On\+Song\+Mode\+Beat, se encarga de comprobar si el jugador ha pulsado el botón en el momento correcto en el modo Song\+Mode. 
+
+~\newline
+ \Hypertarget{class_intervals_abee797f9f87c0bf57d2256760b213987}\index{Intervals@{Intervals}!GetIntervalLength@{GetIntervalLength}}
+\index{GetIntervalLength@{GetIntervalLength}!Intervals@{Intervals}}
+\doxysubsubsection{\texorpdfstring{GetIntervalLength()}{GetIntervalLength()}}
+{\footnotesize\ttfamily \label{class_intervals_abee797f9f87c0bf57d2256760b213987} 
+float Intervals.\+Get\+Interval\+Length (\begin{DoxyParamCaption}\item[{float}]{bpm}{}\end{DoxyParamCaption})}
+
+
+
+Método Get\+Interval\+Length, se encarga de calcular la longitud de un intervalo a raiz del bpm de la canción. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bpm} & El bpm de la canción de fondo\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Devuelve el intervalo en segundos para el tamaño de intervalo
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beat\+\_\+manager.\+cs\end{DoxyCompactItemize}

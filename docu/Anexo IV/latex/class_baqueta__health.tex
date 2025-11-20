@@ -1,0 +1,70 @@
+\doxysection{Baqueta\+\_\+health Class Reference}
+\hypertarget{class_baqueta__health}{}\label{class_baqueta__health}\index{Baqueta\_health@{Baqueta\_health}}
+
+
+La clase {\ttfamily \doxylink{class_baqueta__health}{Baqueta\+\_\+health}} se encarga de gestionar la vida de Baqueta.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_baqueta__health_af50899231bc275efc979e25f3b0006d0}\label{class_baqueta__health_af50899231bc275efc979e25f3b0006d0} 
+void {\bfseries Take\+Damage} ()
+\begin{DoxyCompactList}\small\item\em Método Take\+Damage, se encarga de reducir la vida de Baqueta. \end{DoxyCompactList}\item 
+\Hypertarget{class_baqueta__health_a350be8ae45bc41c49d3e71743bb96274}\label{class_baqueta__health_a350be8ae45bc41c49d3e71743bb96274} 
+void {\bfseries Heal} ()
+\begin{DoxyCompactList}\small\item\em Método Heal, se encarga de aumentar la salud de Baqueta cuando recoge una vida. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_baqueta__health_a56a80a7d312ba0532cf7aace4ef3cbcc}\label{class_baqueta__health_a56a80a7d312ba0532cf7aace4ef3cbcc} 
+int {\bfseries health}
+\begin{DoxyCompactList}\small\item\em La vida actual de Baqueta y su vida máxima. \end{DoxyCompactList}\item 
+\Hypertarget{class_baqueta__health_a1d18a6df6afd52bf81c270d9796907c1}\label{class_baqueta__health_a1d18a6df6afd52bf81c270d9796907c1} 
+int {\bfseries max\+Health}
+\item 
+bool \mbox{\hyperlink{class_baqueta__health_ac0abf1e2550465f6f830b55f8d5b40cf}{vulnerable}} = true
+\begin{DoxyCompactList}\small\item\em Un booleano que indica si Baqueta es vulnerable. \end{DoxyCompactList}\item 
+\Hypertarget{class_baqueta__health_a96828acf9d2618db7bce974775474b16}\label{class_baqueta__health_a96828acf9d2618db7bce974775474b16} 
+float {\bfseries vulnerable\+Time} = 1.\+5f
+\begin{DoxyCompactList}\small\item\em El tiempo que Baqueta es invulnerable tras recibir daño. \end{DoxyCompactList}\item 
+\Hypertarget{class_baqueta__health_a157d8482f851e9442bc7db2bf4e19d49}\label{class_baqueta__health_a157d8482f851e9442bc7db2bf4e19d49} 
+Audio\+Clip {\bfseries dead\+Sound}
+\begin{DoxyCompactList}\small\item\em El sonido que se reproduce al morir Baqueta. \end{DoxyCompactList}\item 
+\Hypertarget{class_baqueta__health_a9b5452ac5c2148f00f5119b95625e79d}\label{class_baqueta__health_a9b5452ac5c2148f00f5119b95625e79d} 
+Audio\+Source {\bfseries audio\+Source}
+\begin{DoxyCompactList}\small\item\em El componente Audio\+Source de Baqueta. \end{DoxyCompactList}\item 
+\Hypertarget{class_baqueta__health_a1c6ec4f26cfbdd6fc22c5b114b0bde03}\label{class_baqueta__health_a1c6ec4f26cfbdd6fc22c5b114b0bde03} 
+Game\+Object {\bfseries Death\+Menu}
+\begin{DoxyCompactList}\small\item\em Referencia al menú de Game Over ~\newline
+ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_baqueta__health_a0aa492d105bfd028cb711a56b140e505}\label{class_baqueta__health_a0aa492d105bfd028cb711a56b140e505} 
+static \mbox{\hyperlink{class_baqueta__health}{Baqueta\+\_\+health}} {\bfseries instance}
+\begin{DoxyCompactList}\small\item\em La instancia de la clase \doxylink{class_baqueta__health}{Baqueta\+\_\+health}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+La clase {\ttfamily \doxylink{class_baqueta__health}{Baqueta\+\_\+health}} se encarga de gestionar la vida de Baqueta. 
+
+La clase se encarga de gestionar la vida de Baqueta, así como de su invulnerabilidad y de su muerte 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_baqueta__health_ac0abf1e2550465f6f830b55f8d5b40cf}\index{Baqueta\_health@{Baqueta\_health}!vulnerable@{vulnerable}}
+\index{vulnerable@{vulnerable}!Baqueta\_health@{Baqueta\_health}}
+\doxysubsubsection{\texorpdfstring{vulnerable}{vulnerable}}
+{\footnotesize\ttfamily \label{class_baqueta__health_ac0abf1e2550465f6f830b55f8d5b40cf} 
+bool Baqueta\+\_\+health.\+vulnerable = true}
+
+
+
+Un booleano que indica si Baqueta es vulnerable. 
+
+/// ~\newline
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Baqueta\+\_\+health.\+cs\end{DoxyCompactItemize}

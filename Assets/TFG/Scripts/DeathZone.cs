@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// La clase <c>DeathZone</c> se encarga de gestionar la colisión de Baqueta con las zonas de muerte
+/// </summary>
 public class DeathZone : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)

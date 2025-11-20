@@ -1,16 +1,35 @@
 using UnityEngine;
 using System.Collections;
-public class Fondo : MonoBehaviour
+/// <summary>
+/// La clase <c>InGame_Background</c> se encarga de mover el fondo del nivel
+/// </summary>
+public class InGame_Background : MonoBehaviour
 {
+    /// <summary>
+    /// La referencia al objeto Baqueta
+    /// </summary>
     public Transform baqueta;
     protected MeshRenderer meshRender;
+    /// <summary>
+    /// La velocidad de movimiento del fondo en el eje X de cada capa de textura
+    /// </summary>
     public float velocidadX1, velocidadX2, velocidadX3, velocidadX4, velocidadX5;    
+    /// <summary>
+    /// La velocidad de movimiento del fondo en el eje Y de cada capa de textura
+    /// </summary>
     public float velocidadY1, velocidadY2, velocidadY3, velocidadY4, velocidadY5;
+    /// <summary>
+    /// La altura mínima a la que puede llegar el fondo
+    /// </summary>
     public float minHeight = -0.2f;
+    /// <summary>
+    /// La altura máxima a la que puede llegar el fondo
+    /// </summary>
     public float maxHeight = 1.6f;
+    /// <summary>
+    /// Booleano que indica si el fondo es el primero o el segundo, ya que por su tamaño se usan dos fondos
+    /// </summary>
     public bool first; 
-
-    private 
 
     // Use this for initialization
     void Start ()

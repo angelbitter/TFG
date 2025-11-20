@@ -1,0 +1,53 @@
+\doxysection{Beat\+\_\+marker Class Reference}
+\hypertarget{class_beat__marker}{}\label{class_beat__marker}\index{Beat\_marker@{Beat\_marker}}
+
+
+La clase {\ttfamily \doxylink{class_beat__marker}{Beat\+\_\+marker}} se encarga de gestionar los marcadores de ritmo de los tutoriales sonoros.  
+
+
+Inheritance diagram for Beat\+\_\+marker\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_beat__marker}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_beat__marker_aa5c41419a3dcec0d85a05e440fabbc6b}\label{class_beat__marker_aa5c41419a3dcec0d85a05e440fabbc6b} 
+void {\bfseries Pulse} ()
+\begin{DoxyCompactList}\small\item\em Método Pulse, se encarga de expandir el marcador. \end{DoxyCompactList}\item 
+\Hypertarget{class_beat__marker_a45b14d57315a5c0d77eb8ee4de21604d}\label{class_beat__marker_a45b14d57315a5c0d77eb8ee4de21604d} 
+void {\bfseries Count\+Beats\+On\+Song\+Mode} ()
+\begin{DoxyCompactList}\small\item\em Método Count\+Beats\+On\+Song\+Mode, se encarga de contar las corcheas segun el metodo On\+Beat se invoca desde \doxylink{class_beat__manager}{Beat\+\_\+manager} y llamar a los eventos correspondientes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_beat__marker_a32db36d8488800a068fc8a22a514b8c5}\label{class_beat__marker_a32db36d8488800a068fc8a22a514b8c5} 
+bool {\bfseries play} = false
+\begin{DoxyCompactList}\small\item\em Un booleano que indica si baqueta está dentro del rango del marcador. \end{DoxyCompactList}\item 
+Unity\+Event\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_beat__marker_a8ea33ecb90bfbcc389ba0230d47462e4}{beat\+Events}}
+\begin{DoxyCompactList}\small\item\em Un array de Unity\+Events que se invocarán en función del contador de beats. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+La clase {\ttfamily \doxylink{class_beat__marker}{Beat\+\_\+marker}} se encarga de gestionar los marcadores de ritmo de los tutoriales sonoros. 
+
+Estos marcadores son los que aparecen por el nivel y que indican al jugador cuándo debe pulsar el botón para realizar habilidades rítmicas 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_beat__marker_a8ea33ecb90bfbcc389ba0230d47462e4}\index{Beat\_marker@{Beat\_marker}!beatEvents@{beatEvents}}
+\index{beatEvents@{beatEvents}!Beat\_marker@{Beat\_marker}}
+\doxysubsubsection{\texorpdfstring{beatEvents}{beatEvents}}
+{\footnotesize\ttfamily \label{class_beat__marker_a8ea33ecb90bfbcc389ba0230d47462e4} 
+Unity\+Event \mbox{[}$\,$\mbox{]} Beat\+\_\+marker.\+beat\+Events}
+
+
+
+Un array de Unity\+Events que se invocarán en función del contador de beats. 
+
+Cada Unity\+Event se corresponde con una barra unica del marcador 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beat\+\_\+marker.\+cs\end{DoxyCompactItemize}

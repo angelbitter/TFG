@@ -1,19 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// La clase <c>Enemy</c> se encarga de gestionar a cada enemigo en el nivel
+/// </summary>
+/// <remarks>
+/// Cada enemigo tiene un comportamiento diferente, algunos se mueven por tierra y otros por aire
+/// </remarks>
 public class Enemy : MonoBehaviour
 {
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Animator animator;
+    /// <summary>
+    /// La fuerza con la que el enemigo salta
+    /// </summary>
     public float jump;
+    /// <summary>
+    /// La amplitud a la que oscila un enemigo aereo
+    /// </summary>
     public float flyAmplitude;
+    /// <summary>
+    /// La frecuencia a la que oscila un enemigo aereo
+    /// </summary>
     public float flyFrequency;
+    /// <summary>
+    /// Referencia al collider del enemigo
+    /// </summary>
     public CapsuleCollider2D colliderEnemy2;
     private bool isDead;
+    /// <summary>
+    /// La velocidad a la que se mueve el enemigo
+    /// </summary>
     public float speed;
+    /// <summary>
+    /// Booleano que indica si el enemigo se mueve por tierra o por aire
+    /// </summary>
     public bool isLand;
+    /// <summary>
+    /// Puntos entre los que el enemigo de tierra se mueve
+    /// </summary>
     public Transform leftPoint, rightPoint;
     private Vector3 startPosition;
     private bool rightDirection = true;
@@ -92,9 +118,15 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Baqueta_health.instance.TakeDamage();  
-            Baqueta_movement.instance.Knockback();
+            if(Baqueta_health.instance.health >= 0)
+            {
+                Baqueta_movement.instance.Knockback();
+            }
         }
     }
+    /// <summary>
+    /// Método Death, se encarga de destruir al enemigo y sumar puntos al jugador
+    /// </summary>
     public void Death()
     {
         colliderEnemy2.enabled = false;
@@ -110,6 +142,9 @@ public class Enemy : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
+    /// <summary>
+    /// Método OnBeat, se encarga de hacer saltar al enemigo en el momento del beat
+    /// </summary>
     public void OnBeat()
     {   if(!isDead){
         animator.speed = 0;

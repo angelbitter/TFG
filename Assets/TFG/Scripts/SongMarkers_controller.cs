@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// La clase <c>SongMarkers_controller</c> se encarga de gestionar los marcadores de los beats de la canción
+/// </summary>
 public class SongMarkers_controller : MonoBehaviour
 {
     public Beat_marker[] markers;

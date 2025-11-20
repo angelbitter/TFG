@@ -1,0 +1,77 @@
+\doxysection{Line\+Beat\+Marker Class Reference}
+\hypertarget{class_line_beat_marker}{}\label{class_line_beat_marker}\index{LineBeatMarker@{LineBeatMarker}}
+
+
+La clase {\ttfamily \doxylink{class_line_beat_marker}{Line\+Beat\+Marker}} se encarga de gestionar el movimiento de cada marcador unico de ritmo.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_line_beat_marker_ae5bc94cfb96bec626e4424fc43e31327}\label{class_line_beat_marker_ae5bc94cfb96bec626e4424fc43e31327} 
+void {\bfseries On\+Song\+Mode} ()
+\begin{DoxyCompactList}\small\item\em Método On\+Song\+Mode, se encarga de cambiar el color del marcador cuando Baqueta esta en modo canción. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_line_beat_marker_a179860639d535a371369dc359e13cb28}{On\+Song\+Mode\+End}} ()
+\begin{DoxyCompactList}\small\item\em Método On\+Song\+Mode\+End, se encarga de cambiar el color del marcador cuando Baqueta sale del modo canción. \end{DoxyCompactList}\item 
+\Hypertarget{class_line_beat_marker_aa9a7791d9d340fed888276bacf23ff3b}\label{class_line_beat_marker_aa9a7791d9d340fed888276bacf23ff3b} 
+void {\bfseries Reset\+Position} ()
+\begin{DoxyCompactList}\small\item\em Método Reset\+Position, se encarga de resetear la posición del marcador cuando el evento On\+Beat es llamado. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_line_beat_marker_ad20aaf93b94a042913360fb86085a9cd}\label{class_line_beat_marker_ad20aaf93b94a042913360fb86085a9cd} 
+bool {\bfseries is\+Song\+Mode}
+\begin{DoxyCompactList}\small\item\em Booleano que indica si Baqueta se encuentra en modo cancion. \end{DoxyCompactList}\item 
+\Hypertarget{class_line_beat_marker_ae8cf4d0e2886e85fe36fe7a70f97daf9}\label{class_line_beat_marker_ae8cf4d0e2886e85fe36fe7a70f97daf9} 
+bool {\bfseries is\+Left}
+\begin{DoxyCompactList}\small\item\em Booleano que indica si el marcador se encuentra en la parte izquierda de la pantalla. \end{DoxyCompactList}\item 
+Vector3 \mbox{\hyperlink{class_line_beat_marker_a8d283b2d2cffe56b6d0ec8beb8d4d810}{beginning\+Pos}}
+\begin{DoxyCompactList}\small\item\em La posición del principio del contenedor del marcador. \end{DoxyCompactList}\item 
+\Hypertarget{class_line_beat_marker_a1b010e68229ea00af9e8bbe35166e137}\label{class_line_beat_marker_a1b010e68229ea00af9e8bbe35166e137} 
+Vector3 {\bfseries original\+Pos}
+\begin{DoxyCompactList}\small\item\em La posición original del marcador. \end{DoxyCompactList}\item 
+\Hypertarget{class_line_beat_marker_a1ccc8cde9ef47db228002e66b0d302a9}\label{class_line_beat_marker_a1ccc8cde9ef47db228002e66b0d302a9} 
+Vector3 {\bfseries end\+Pos}
+\begin{DoxyCompactList}\small\item\em La posición final del contenedor del marcador. \end{DoxyCompactList}\item 
+\Hypertarget{class_line_beat_marker_ad411efd205e4570941efeae142291a77}\label{class_line_beat_marker_ad411efd205e4570941efeae142291a77} 
+\mbox{\hyperlink{class_beat_marker_u_i}{Beat\+Marker\+UI}} {\bfseries beat\+Marker\+UI}
+\begin{DoxyCompactList}\small\item\em La referencia al marcador de ritmo. \end{DoxyCompactList}\item 
+\Hypertarget{class_line_beat_marker_a0586646bf5d6047d73cc7a3d72882d89}\label{class_line_beat_marker_a0586646bf5d6047d73cc7a3d72882d89} 
+float {\bfseries speed} = 200f
+\begin{DoxyCompactList}\small\item\em La velocidad de movimiento del marcador. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+La clase {\ttfamily \doxylink{class_line_beat_marker}{Line\+Beat\+Marker}} se encarga de gestionar el movimiento de cada marcador unico de ritmo. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_line_beat_marker_a179860639d535a371369dc359e13cb28}\index{LineBeatMarker@{LineBeatMarker}!OnSongModeEnd@{OnSongModeEnd}}
+\index{OnSongModeEnd@{OnSongModeEnd}!LineBeatMarker@{LineBeatMarker}}
+\doxysubsubsection{\texorpdfstring{OnSongModeEnd()}{OnSongModeEnd()}}
+{\footnotesize\ttfamily \label{class_line_beat_marker_a179860639d535a371369dc359e13cb28} 
+void Line\+Beat\+Marker.\+On\+Song\+Mode\+End (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Método On\+Song\+Mode\+End, se encarga de cambiar el color del marcador cuando Baqueta sale del modo canción. 
+
+~\newline
+ 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_line_beat_marker_a8d283b2d2cffe56b6d0ec8beb8d4d810}\index{LineBeatMarker@{LineBeatMarker}!beginningPos@{beginningPos}}
+\index{beginningPos@{beginningPos}!LineBeatMarker@{LineBeatMarker}}
+\doxysubsubsection{\texorpdfstring{beginningPos}{beginningPos}}
+{\footnotesize\ttfamily \label{class_line_beat_marker_a8d283b2d2cffe56b6d0ec8beb8d4d810} 
+Vector3 Line\+Beat\+Marker.\+beginning\+Pos}
+
+
+
+La posición del principio del contenedor del marcador. 
+
+~\newline
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Line\+Beat\+Marker.\+cs\end{DoxyCompactItemize}

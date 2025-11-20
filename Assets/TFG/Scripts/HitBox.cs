@@ -2,9 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// La clase <c>HitBox</c> se encarga de gestionar la colision que usa Baqueta para atacar a los enemigos y hazards
+/// </summary>
 public class HitBox : MonoBehaviour
 {
+    /// <summary>
+    /// La instancia de la clase HitBox
+    /// </summary>
     public static HitBox instance;
+    /// <summary>
+    /// El collider de la hitbox
+    /// </summary>
     public BoxCollider2D colliderHitBox;
 
     private void Awake()

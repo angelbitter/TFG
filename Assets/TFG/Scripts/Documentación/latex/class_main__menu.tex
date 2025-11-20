@@ -1,0 +1,114 @@
+\doxysection{Main\+\_\+menu Class Reference}
+\hypertarget{class_main__menu}{}\label{class_main__menu}\index{Main\_menu@{Main\_menu}}
+
+
+La clase {\ttfamily \doxylink{class_main__menu}{Main\+\_\+menu}} se encarga de controlar el menu principal del juego.  
+
+
+Inheritance diagram for Main\+\_\+menu\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_main__menu}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_main__menu_ab605a8521f14b75dc8f98f965467f53b}\label{class_main__menu_ab605a8521f14b75dc8f98f965467f53b} 
+void {\bfseries Play\+Game} ()
+\begin{DoxyCompactList}\small\item\em Método que se llama cuando el jugador pulsa el boton de jugar. \end{DoxyCompactList}\item 
+\Hypertarget{class_main__menu_a588c04905dcd408d5da96d80bc56be66}\label{class_main__menu_a588c04905dcd408d5da96d80bc56be66} 
+void {\bfseries Quit\+Game} ()
+\begin{DoxyCompactList}\small\item\em Método que se llama cuando el jugador pulsa el boton de salir. \end{DoxyCompactList}\item 
+\Hypertarget{class_main__menu_aa40e85f242f2c8a6b2a81256cc0e95f6}\label{class_main__menu_aa40e85f242f2c8a6b2a81256cc0e95f6} 
+void {\bfseries Load\+Help\+Guide} ()
+\begin{DoxyCompactList}\small\item\em Método que se llama cuando el jugador pulsa el boton de ayuda para carguar la guia de ayuda. \end{DoxyCompactList}\item 
+\Hypertarget{class_main__menu_a00b4bb6395730846c0c182d725c7e1b6}\label{class_main__menu_a00b4bb6395730846c0c182d725c7e1b6} 
+void {\bfseries Close\+Help\+Guide} ()
+\begin{DoxyCompactList}\small\item\em Método que se llama cuando el jugador pulsa el boton de cerrar la guia de ayuda. \end{DoxyCompactList}\item 
+\Hypertarget{class_main__menu_ad52129f035443e5bfa7d7c1eee971a96}\label{class_main__menu_ad52129f035443e5bfa7d7c1eee971a96} 
+void {\bfseries Close\+Delete\+Screen} ()
+\begin{DoxyCompactList}\small\item\em Método que se llama cuando el jugador pulsa el boton de cerrar la ventana de borrar datos. \end{DoxyCompactList}\item 
+\Hypertarget{class_main__menu_acb81adc4e16285be3ffed61df675f809}\label{class_main__menu_acb81adc4e16285be3ffed61df675f809} 
+void {\bfseries Open\+Delete\+Screen} ()
+\begin{DoxyCompactList}\small\item\em Método que se llama cuando el jugador pulsa el boton de borrar datos en forma de papelera. \end{DoxyCompactList}\item 
+\Hypertarget{class_main__menu_a18051a1dcb7d01eed36c84d2e201689b}\label{class_main__menu_a18051a1dcb7d01eed36c84d2e201689b} 
+void {\bfseries Delete\+Data} ()
+\begin{DoxyCompactList}\small\item\em Método que se llama cuando el jugador confirma que quiere borrar los datos. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main__menu_a2e326a47d8c88e5d70cc05993d365c4d}{Play\+Sound}} (Audio\+Clip clip)
+\begin{DoxyCompactList}\small\item\em Método que se llama para que suene un sonido especifico. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_main__menu_a54a8bf44b463b65df9e70308b0712476}\label{class_main__menu_a54a8bf44b463b65df9e70308b0712476} 
+Game\+Object {\bfseries Help\+Guide}
+\begin{DoxyCompactList}\small\item\em Referencias a los paneles de ayuda, borrar datos y el panel principal. \end{DoxyCompactList}\item 
+\Hypertarget{class_main__menu_a4325188c9b5c3e355af8d3ab08a0f6c5}\label{class_main__menu_a4325188c9b5c3e355af8d3ab08a0f6c5} 
+Game\+Object {\bfseries Delete\+Screen}
+\item 
+\Hypertarget{class_main__menu_a7f570d05f4295c780e170947e10ddf6a}\label{class_main__menu_a7f570d05f4295c780e170947e10ddf6a} 
+Game\+Object {\bfseries Main\+Panel}
+\item 
+\Hypertarget{class_main__menu_a1e904aa955a28cbe62f81e26721f0a80}\label{class_main__menu_a1e904aa955a28cbe62f81e26721f0a80} 
+Audio\+Source {\bfseries Audio}
+\item 
+\Hypertarget{class_main__menu_a2e89e595cb85a57c6e269d09c34d639d}\label{class_main__menu_a2e89e595cb85a57c6e269d09c34d639d} 
+Audio\+Clip {\bfseries Back\+Sound}
+\item 
+\Hypertarget{class_main__menu_a67a3f301b3c0d2dffe338101bd81a027}\label{class_main__menu_a67a3f301b3c0d2dffe338101bd81a027} 
+Audio\+Clip {\bfseries Button\+Sound}
+\item 
+Image \mbox{\hyperlink{class_main__menu_a5ec602ec4329167a8894720bb563c93b}{Fade\+Image}}
+\begin{DoxyCompactList}\small\item\em La imagen que hace la vez de transición. \end{DoxyCompactList}\item 
+\Hypertarget{class_main__menu_addeff5adb423bd09f9c6f7752aa5b79c}\label{class_main__menu_addeff5adb423bd09f9c6f7752aa5b79c} 
+Text\+Mesh\+Pro\+UGUI {\bfseries high\+Score\+Text}
+\begin{DoxyCompactList}\small\item\em El texto que muestra la puntuación más alta y las monedas recogidas. \end{DoxyCompactList}\item 
+\Hypertarget{class_main__menu_ae84d6b7353d0dbcdd5b000919693e4d4}\label{class_main__menu_ae84d6b7353d0dbcdd5b000919693e4d4} 
+Text\+Mesh\+Pro\+UGUI {\bfseries coins\+Collected}
+\item 
+\Hypertarget{class_main__menu_a55a988b5847cc5301ab0d6550fca329f}\label{class_main__menu_a55a988b5847cc5301ab0d6550fca329f} 
+Text\+Mesh\+Pro\+UGUI {\bfseries total\+Coins}
+\item 
+\Hypertarget{class_main__menu_a7d87e1dc915437d1b61c11f6a714065c}\label{class_main__menu_a7d87e1dc915437d1b61c11f6a714065c} 
+Game\+Object {\bfseries level\+Info}
+\begin{DoxyCompactList}\small\item\em El panel que muestra la información del nivel, como la puntuación y las monedas recogidas. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+La clase {\ttfamily \doxylink{class_main__menu}{Main\+\_\+menu}} se encarga de controlar el menu principal del juego. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_main__menu_a2e326a47d8c88e5d70cc05993d365c4d}\index{Main\_menu@{Main\_menu}!PlaySound@{PlaySound}}
+\index{PlaySound@{PlaySound}!Main\_menu@{Main\_menu}}
+\doxysubsubsection{\texorpdfstring{PlaySound()}{PlaySound()}}
+{\footnotesize\ttfamily \label{class_main__menu_a2e326a47d8c88e5d70cc05993d365c4d} 
+void Main\+\_\+menu.\+Play\+Sound (\begin{DoxyParamCaption}\item[{Audio\+Clip}]{clip}{}\end{DoxyParamCaption})}
+
+
+
+Método que se llama para que suene un sonido especifico. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em clip} & Clip de audio que sonará\\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_main__menu_a5ec602ec4329167a8894720bb563c93b}\index{Main\_menu@{Main\_menu}!FadeImage@{FadeImage}}
+\index{FadeImage@{FadeImage}!Main\_menu@{Main\_menu}}
+\doxysubsubsection{\texorpdfstring{FadeImage}{FadeImage}}
+{\footnotesize\ttfamily \label{class_main__menu_a5ec602ec4329167a8894720bb563c93b} 
+Image Main\+\_\+menu.\+Fade\+Image}
+
+
+
+La imagen que hace la vez de transición. 
+
+~\newline
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Main\+\_\+menu.\+cs\end{DoxyCompactItemize}

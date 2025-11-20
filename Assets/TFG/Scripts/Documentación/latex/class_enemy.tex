@@ -1,0 +1,62 @@
+\doxysection{Enemy Class Reference}
+\hypertarget{class_enemy}{}\label{class_enemy}\index{Enemy@{Enemy}}
+
+
+La clase {\ttfamily \doxylink{class_enemy}{Enemy}} se encarga de gestionar a cada enemigo en el nivel.  
+
+
+Inheritance diagram for Enemy\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_enemy}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_enemy_ad0978cbb4f71c1e4e1a2c679281e6fda}\label{class_enemy_ad0978cbb4f71c1e4e1a2c679281e6fda} 
+void {\bfseries Death} ()
+\begin{DoxyCompactList}\small\item\em Método Death, se encarga de destruir al enemigo y sumar puntos al jugador. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_a904a562bae440faf573a7f507586a534}\label{class_enemy_a904a562bae440faf573a7f507586a534} 
+void {\bfseries On\+Beat} ()
+\begin{DoxyCompactList}\small\item\em Método On\+Beat, se encarga de hacer saltar al enemigo en el momento del beat. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_a2cfeff4c7440031cdb904a3e6df9c274}\label{class_enemy_a2cfeff4c7440031cdb904a3e6df9c274} 
+void {\bfseries Destroy\+Item} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_enemy_a29e10043259d51cd94bd70998e86086f}\label{class_enemy_a29e10043259d51cd94bd70998e86086f} 
+float {\bfseries jump}
+\begin{DoxyCompactList}\small\item\em La fuerza con la que el enemigo salta. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_a10f3c4e5ad9043ffce36c7eb00bcc8fb}\label{class_enemy_a10f3c4e5ad9043ffce36c7eb00bcc8fb} 
+float {\bfseries fly\+Amplitude}
+\begin{DoxyCompactList}\small\item\em La amplitud a la que oscila un enemigo aereo. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_a555e4e870a23c9b9733a4882b90ef3ea}\label{class_enemy_a555e4e870a23c9b9733a4882b90ef3ea} 
+float {\bfseries fly\+Frequency}
+\begin{DoxyCompactList}\small\item\em La frecuencia a la que oscila un enemigo aereo. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_aff9b601c8d27626b9c7bd2ff580be8c7}\label{class_enemy_aff9b601c8d27626b9c7bd2ff580be8c7} 
+Capsule\+Collider2D {\bfseries collider\+Enemy2}
+\begin{DoxyCompactList}\small\item\em Referencia al collider del enemigo. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_ad58edec05f9a44da44ef1021a4005d06}\label{class_enemy_ad58edec05f9a44da44ef1021a4005d06} 
+float {\bfseries speed}
+\begin{DoxyCompactList}\small\item\em La velocidad a la que se mueve el enemigo. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_aed65c6ca066a3e109d4b65b248aab9c3}\label{class_enemy_aed65c6ca066a3e109d4b65b248aab9c3} 
+bool {\bfseries is\+Land}
+\begin{DoxyCompactList}\small\item\em Booleano que indica si el enemigo se mueve por tierra o por aire. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_a93ed239a4d1e96f52896ef3ba1249401}\label{class_enemy_a93ed239a4d1e96f52896ef3ba1249401} 
+Transform {\bfseries left\+Point}
+\begin{DoxyCompactList}\small\item\em Puntos entre los que el enemigo de tierra se mueve. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_a74f4e01cf5e17caae37cf07d315dff1d}\label{class_enemy_a74f4e01cf5e17caae37cf07d315dff1d} 
+Transform {\bfseries right\+Point}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+La clase {\ttfamily \doxylink{class_enemy}{Enemy}} se encarga de gestionar a cada enemigo en el nivel. 
+
+Cada enemigo tiene un comportamiento diferente, algunos se mueven por tierra y otros por aire 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Enemy.\+cs\end{DoxyCompactItemize}

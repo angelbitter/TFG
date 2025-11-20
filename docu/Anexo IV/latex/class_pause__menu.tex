@@ -1,0 +1,99 @@
+\doxysection{Pause\+\_\+menu Class Reference}
+\hypertarget{class_pause__menu}{}\label{class_pause__menu}\index{Pause\_menu@{Pause\_menu}}
+
+
+La clase {\ttfamily \doxylink{class_pause__menu}{Pause\+\_\+menu}} se encarga de gestionar el menú de pausa del juego.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_pause__menu_a78e6943bec8346b76344da087216296b}\label{class_pause__menu_a78e6943bec8346b76344da087216296b} 
+void {\bfseries Pause} ()
+\begin{DoxyCompactList}\small\item\em Método Pause, se llama cuando el jugador pulsa el botoón ESC. \end{DoxyCompactList}\item 
+\Hypertarget{class_pause__menu_ab1dba9299bde92bfca4c33b6724b0fbd}\label{class_pause__menu_ab1dba9299bde92bfca4c33b6724b0fbd} 
+void {\bfseries Resume} ()
+\begin{DoxyCompactList}\small\item\em Método Resume, se llama cuando el jugador pulsa el boton de continuar. \end{DoxyCompactList}\item 
+\Hypertarget{class_pause__menu_a70502a645af03ad59cb94e45428ceea3}\label{class_pause__menu_a70502a645af03ad59cb94e45428ceea3} 
+void {\bfseries Quit\+Game} ()
+\begin{DoxyCompactList}\small\item\em Método que se llama cuando el jugador quiere salir del juego. \end{DoxyCompactList}\item 
+\Hypertarget{class_pause__menu_a20ca10cce794cae051828e3d85b4f7b3}\label{class_pause__menu_a20ca10cce794cae051828e3d85b4f7b3} 
+void {\bfseries Load\+Help\+Guide} ()
+\begin{DoxyCompactList}\small\item\em Método que se llama cuando el jugador quiere cargar la guía de ayuda. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_pause__menu_af75f7d6275d38f1b32e874cacbdbb1d0}{Close\+Help\+Guide}} ()
+\begin{DoxyCompactList}\small\item\em Método que se llama cuando el jugador quiere cerrar la guía de ayuda. \end{DoxyCompactList}\item 
+\Hypertarget{class_pause__menu_a938fc50aff38c5de6dbc4f6d4c2e3703}\label{class_pause__menu_a938fc50aff38c5de6dbc4f6d4c2e3703} 
+void {\bfseries Restart} ()
+\begin{DoxyCompactList}\small\item\em Método que se llama cuando el jugador quiere reiniciar el nivel. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_pause__menu_a68745ddc6a40dbf1541edfe3174d9336}{Play\+Sound}} (Audio\+Clip clip)
+\begin{DoxyCompactList}\small\item\em Método que se llama para que suene un sonido especifico. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_pause__menu_a2fdf9da9267d22e6f3a4039c6f065f36}\label{class_pause__menu_a2fdf9da9267d22e6f3a4039c6f065f36} 
+Audio\+Source {\bfseries Audio}
+\item 
+\Hypertarget{class_pause__menu_a4275ebee7cbcb6325a89ad49ac35880b}\label{class_pause__menu_a4275ebee7cbcb6325a89ad49ac35880b} 
+Audio\+Source {\bfseries Music}
+\item 
+\Hypertarget{class_pause__menu_af6796c0347a251e33e567ea36e2cae1e}\label{class_pause__menu_af6796c0347a251e33e567ea36e2cae1e} 
+Audio\+Clip {\bfseries Back\+Sound}
+\item 
+\Hypertarget{class_pause__menu_a31a25c4e31feeac14d6fc5e4f13dc880}\label{class_pause__menu_a31a25c4e31feeac14d6fc5e4f13dc880} 
+Audio\+Clip {\bfseries Button\+Sound}
+\item 
+\Hypertarget{class_pause__menu_a9f8a641bd9fbf0021e826b1f056a83ca}\label{class_pause__menu_a9f8a641bd9fbf0021e826b1f056a83ca} 
+Audio\+Clip {\bfseries Pause\+Game\+Sound}
+\item 
+\Hypertarget{class_pause__menu_adb154e894eeac8871b362ac82883df14}\label{class_pause__menu_adb154e894eeac8871b362ac82883df14} 
+Game\+Object {\bfseries Baqueta}
+\item 
+\Hypertarget{class_pause__menu_a664d02b8fec755340f98c6ade2272865}\label{class_pause__menu_a664d02b8fec755340f98c6ade2272865} 
+Image {\bfseries Fade\+Image}
+\begin{DoxyCompactList}\small\item\em La imagen que hace la vez de transición con un fundido negro. \end{DoxyCompactList}\item 
+\Hypertarget{class_pause__menu_aa0a53aa6e2f1b22259ea403e3dcd15c3}\label{class_pause__menu_aa0a53aa6e2f1b22259ea403e3dcd15c3} 
+Game\+Object {\bfseries Help\+Guide}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_pause__menu_aca97e1931080b05a4680052a0a0d0589}\label{class_pause__menu_aca97e1931080b05a4680052a0a0d0589} 
+static bool {\bfseries Game\+Is\+Paused} = false
+\begin{DoxyCompactList}\small\item\em Variable que indica si el juego esta pausado. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+La clase {\ttfamily \doxylink{class_pause__menu}{Pause\+\_\+menu}} se encarga de gestionar el menú de pausa del juego. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_pause__menu_af75f7d6275d38f1b32e874cacbdbb1d0}\index{Pause\_menu@{Pause\_menu}!CloseHelpGuide@{CloseHelpGuide}}
+\index{CloseHelpGuide@{CloseHelpGuide}!Pause\_menu@{Pause\_menu}}
+\doxysubsubsection{\texorpdfstring{CloseHelpGuide()}{CloseHelpGuide()}}
+{\footnotesize\ttfamily \label{class_pause__menu_af75f7d6275d38f1b32e874cacbdbb1d0} 
+void Pause\+\_\+menu.\+Close\+Help\+Guide (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Método que se llama cuando el jugador quiere cerrar la guía de ayuda. 
+
+~\newline
+ \Hypertarget{class_pause__menu_a68745ddc6a40dbf1541edfe3174d9336}\index{Pause\_menu@{Pause\_menu}!PlaySound@{PlaySound}}
+\index{PlaySound@{PlaySound}!Pause\_menu@{Pause\_menu}}
+\doxysubsubsection{\texorpdfstring{PlaySound()}{PlaySound()}}
+{\footnotesize\ttfamily \label{class_pause__menu_a68745ddc6a40dbf1541edfe3174d9336} 
+void Pause\+\_\+menu.\+Play\+Sound (\begin{DoxyParamCaption}\item[{Audio\+Clip}]{clip}{}\end{DoxyParamCaption})}
+
+
+
+Método que se llama para que suene un sonido especifico. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em clip} & Clip de audio que sonará\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Pause\+\_\+menu.\+cs\end{DoxyCompactItemize}

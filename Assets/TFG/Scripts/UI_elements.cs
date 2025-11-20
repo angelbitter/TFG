@@ -4,11 +4,26 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// La clase <c>UI_elements</c> se encarga de gestionar los elementos del HUD del jugador
+/// </summary>
 public class UI_elements : MonoBehaviour
 {
+    /// <summary>
+    /// La instancia de la clase UI_elements
+    /// </summary>
     public static UI_elements instance;
+    /// <summary>
+    /// Los iconos de vida de Baqueta
+    /// </summary>
     public Image life1, life2, life3;
+    /// <summary>
+    /// Los sprites de la vida de Baqueta
+    /// </summary>
     public Sprite fullLife, emptyLife, halfLife;
+    /// <summary>
+    /// El texto que muestra las monedas recogidas
+    /// </summary>
     public TextMeshProUGUI coinText;
     [SerializeField] GameObject PauseMenu; 
 
@@ -20,7 +35,9 @@ public class UI_elements : MonoBehaviour
     {
         UpdateCoinDisplay();
     }
-
+    /// <summary>
+    /// Método que se llama cuando la vida de baqueta cambia
+    /// </summary>
     public void UpdateHealthDisplay()
     {
         switch (Baqueta_health.instance.health)
@@ -62,6 +79,9 @@ public class UI_elements : MonoBehaviour
                 break;
         }
     }
+    /// <summary>
+    /// Método que se llama cuando Baqueta recoge una moneda
+    /// </summary>
     public void UpdateCoinDisplay()
     {
         coinText.text = LevelController.instance.coinsCollected.ToString();

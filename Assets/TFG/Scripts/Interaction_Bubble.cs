@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// La clase <c>Interaction_Bubble</c> se encarga de gestionar la animación de la burbuja de interacción
+/// </summary>
 public class Interaction_Bubble : MonoBehaviour
 {
     private Animator animator;

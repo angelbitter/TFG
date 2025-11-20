@@ -5,17 +5,43 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+/// <summary>
+/// La clase <c>LevelController</c> se encarga de gestionar el nivel
+/// </summary>
+/// <remarks>
+/// Se manejan aspectos como la puntuación del nivel, el respawn de Baqueta y el final del nivel
+/// </remarks>
 public class LevelController : MonoBehaviour
 {
+    /// <summary>
+    /// La instancia de la clase LevelController
+    /// </summary>
     public static LevelController instance;
+    /// <summary>
+    /// El tiempo que se espera para que Baqueta resucite
+    /// </summary>
     public float waitForRespawn;
+    /// <summary>
+    ///  La puntuación del nivel
+    /// </summary>
     public int points;
+    /// <summary>
+    /// Las monedas recogidas por Baqueta
+    /// </summary>
     public int coinsCollected;
+    /// <summary>
+    /// Todas las monedas del nivel
+    /// </summary>
     public Coin_pickup[] totalCoins;
     private int timePoints;
+    /// <summary>
+    /// Los puntos obtenidos de eliminar enemigos
+    /// </summary>
     public int enemyPoints;
     private float timePassed;
+    /// <summary>
+    /// El texto que muestra la puntuación
+    /// </summary>
     public TextMeshProUGUI pointsText;
 
     private void Awake()
@@ -31,10 +57,16 @@ public class LevelController : MonoBehaviour
         timePoints = 10000;
     }
     
+    /// <summary>
+    /// Método Respawn, se encarga de resucitar a Baqueta
+    /// </summary>
     public void Respawn()
     {
         StartCoroutine(RespawnCoroutine());
     }
+    /// <summary>
+    /// Método LevelComplete, se encarga de finalizar el nivel, guardando la puntuación y mostrando la pantalla de fin de nivel
+    /// </summary>
     public void LevelComplete()
     {   
         Baqueta_movement.instance.DisableBaqueta();

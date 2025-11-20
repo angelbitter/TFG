@@ -1,0 +1,115 @@
+\doxysection{Beat\+\_\+manager Class Reference}
+\hypertarget{class_beat__manager}{}\label{class_beat__manager}\index{Beat\_manager@{Beat\_manager}}
+
+
+La clase {\ttfamily \doxylink{class_beat__manager}{Beat\+\_\+manager}} se encarga de gestionar los beats y los intervalos de tiempo.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_beat__manager_a8c3a430e9209970d0c3b9983c902c999}{Check\+Song\+Mode}} ()
+\begin{DoxyCompactList}\small\item\em Método Check\+Song\+Mode, se encarga de comprobar cuando es llamado si la accion realizada por el jugador está sincronizada con el ritmo de la canción. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_beat__manager_a0e3e8725f1d43dcf0a661908f7975e6b}{Check\+Song\+Mode\+Beat}} (int note)
+\begin{DoxyCompactList}\small\item\em Método Check\+Song\+Mode\+Beat, se encarga de comprobar si el jugador ha pulsado el botón en el momento correcto en el Song\+Modeç \end{DoxyCompactList}\item 
+\Hypertarget{class_beat__manager_a6b4cc9331b8877cf09f2aa82379115ee}\label{class_beat__manager_a6b4cc9331b8877cf09f2aa82379115ee} 
+void {\bfseries Start\+Song\+Mode} ()
+\begin{DoxyCompactList}\small\item\em Método Start\+Song\+Mode, se encarga de activar el modo Song\+Mode. \end{DoxyCompactList}\item 
+\Hypertarget{class_beat__manager_a7c26afefed1db8d038e6082012d56057}\label{class_beat__manager_a7c26afefed1db8d038e6082012d56057} 
+void {\bfseries End\+Song\+Mode} ()
+\begin{DoxyCompactList}\small\item\em Método End\+Song\+Mode, se encarga de desactivar el modo Song\+Mode y enviar el evento correspondiente al ritmo realizado por el jugador. \end{DoxyCompactList}\item 
+\Hypertarget{class_beat__manager_af566328e963eef8ac25bdff7d44f264f}\label{class_beat__manager_af566328e963eef8ac25bdff7d44f264f} 
+void {\bfseries Play\+On\+Beat\+Clip} ()
+\begin{DoxyCompactList}\small\item\em Método Play\+On\+Beat\+Clip, se encarga de reproducir un clip de audio cuando el jugador realiza una acción en el momento correcto. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_beat__manager_ae1bde6e8837a6c653c7f35aaa8319972}{Stop\+Music}} ()
+\begin{DoxyCompactList}\small\item\em Método Play\+Music, se encarga de parar la música de fondo cuando el jugador está en un menú \end{DoxyCompactList}\item 
+\Hypertarget{class_beat__manager_af82d94b8007b42b96bec165e78beebcc}\label{class_beat__manager_af82d94b8007b42b96bec165e78beebcc} 
+void {\bfseries Play\+Win\+Audio} ()
+\begin{DoxyCompactList}\small\item\em Método Play\+Win\+Audio, se encarga de reproducir un clip de audio cuando el jugador gana la partida. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_beat__manager_af481e6beecbd503401c5b278faa38e1f}\label{class_beat__manager_af481e6beecbd503401c5b278faa38e1f} 
+float {\bfseries bpm\+Main}
+\item 
+\Hypertarget{class_beat__manager_a3974fc5d0d9a3eb65f004fa82642f7b9}\label{class_beat__manager_a3974fc5d0d9a3eb65f004fa82642f7b9} 
+Audio\+Source {\bfseries audio\+Song}
+\item 
+\Hypertarget{class_beat__manager_a94602b912f3bd094424b211bdfe7e85a}\label{class_beat__manager_a94602b912f3bd094424b211bdfe7e85a} 
+Audio\+Clip {\bfseries on\+Beat\+Clip}
+\item 
+\Hypertarget{class_beat__manager_a4741ac1bcdfe9b9421411ab2e0820142}\label{class_beat__manager_a4741ac1bcdfe9b9421411ab2e0820142} 
+Audio\+Clip {\bfseries win\+Audio}
+\item 
+\Hypertarget{class_beat__manager_a1fe1c414c1b5625fcb649891a9a2e6bf}\label{class_beat__manager_a1fe1c414c1b5625fcb649891a9a2e6bf} 
+bool\mbox{[}$\,$\mbox{]} {\bfseries song\+Mode\+Array}
+\item 
+\Hypertarget{class_beat__manager_a26c3a9a62c4e953e7abaf33716d980da}\label{class_beat__manager_a26c3a9a62c4e953e7abaf33716d980da} 
+Unity\+Event {\bfseries impulse\+Event}
+\begin{DoxyCompactList}\small\item\em Evento que se dispara al realizar correctamente la habilidad del impulso. \end{DoxyCompactList}\item 
+\Hypertarget{class_beat__manager_a46c59e82c96f92a786b8e56579fdb4e5}\label{class_beat__manager_a46c59e82c96f92a786b8e56579fdb4e5} 
+Unity\+Event {\bfseries shoot\+Event}
+\begin{DoxyCompactList}\small\item\em Evento que se dispara al realizar correctamente la habilidad de disparo. \end{DoxyCompactList}\item 
+\Hypertarget{class_beat__manager_a3dcbaebbbe9294a6a5f0ddf0af274cad}\label{class_beat__manager_a3dcbaebbbe9294a6a5f0ddf0af274cad} 
+bool {\bfseries failed\+Beat} = false
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_beat__manager_a49fb98a34d059091162dcac36ef0e2fe}\label{class_beat__manager_a49fb98a34d059091162dcac36ef0e2fe} 
+static \mbox{\hyperlink{class_beat__manager}{Beat\+\_\+manager}} {\bfseries instance}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+La clase {\ttfamily \doxylink{class_beat__manager}{Beat\+\_\+manager}} se encarga de gestionar los beats y los intervalos de tiempo. 
+
+Lleva la cuenta de cada intervalo de tiempo, los cuales tienen tamaños diferentes y emiten distintos eventos 
+
+~\newline
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_beat__manager_a8c3a430e9209970d0c3b9983c902c999}\index{Beat\_manager@{Beat\_manager}!CheckSongMode@{CheckSongMode}}
+\index{CheckSongMode@{CheckSongMode}!Beat\_manager@{Beat\_manager}}
+\doxysubsubsection{\texorpdfstring{CheckSongMode()}{CheckSongMode()}}
+{\footnotesize\ttfamily \label{class_beat__manager_a8c3a430e9209970d0c3b9983c902c999} 
+void Beat\+\_\+manager.\+Check\+Song\+Mode (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Método Check\+Song\+Mode, se encarga de comprobar cuando es llamado si la accion realizada por el jugador está sincronizada con el ritmo de la canción. 
+
+Esto se llama unicamente cuando el jugador entra en el Song\+Mode \Hypertarget{class_beat__manager_a0e3e8725f1d43dcf0a661908f7975e6b}\index{Beat\_manager@{Beat\_manager}!CheckSongModeBeat@{CheckSongModeBeat}}
+\index{CheckSongModeBeat@{CheckSongModeBeat}!Beat\_manager@{Beat\_manager}}
+\doxysubsubsection{\texorpdfstring{CheckSongModeBeat()}{CheckSongModeBeat()}}
+{\footnotesize\ttfamily \label{class_beat__manager_a0e3e8725f1d43dcf0a661908f7975e6b} 
+void Beat\+\_\+manager.\+Check\+Song\+Mode\+Beat (\begin{DoxyParamCaption}\item[{int}]{note}{}\end{DoxyParamCaption})}
+
+
+
+Método Check\+Song\+Mode\+Beat, se encarga de comprobar si el jugador ha pulsado el botón en el momento correcto en el Song\+Modeç 
+
+
+\begin{DoxyParams}{Parameters}
+{\em note} & El numero de nota que ha pulsado el jugador\\
+\hline
+\end{DoxyParams}
+
+
+Esto se llama unicamente cuando el jugador está ya en el Song\+Mode y toca el ritmo de una cacnión en concreto \Hypertarget{class_beat__manager_ae1bde6e8837a6c653c7f35aaa8319972}\index{Beat\_manager@{Beat\_manager}!StopMusic@{StopMusic}}
+\index{StopMusic@{StopMusic}!Beat\_manager@{Beat\_manager}}
+\doxysubsubsection{\texorpdfstring{StopMusic()}{StopMusic()}}
+{\footnotesize\ttfamily \label{class_beat__manager_ae1bde6e8837a6c653c7f35aaa8319972} 
+void Beat\+\_\+manager.\+Stop\+Music (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Método Play\+Music, se encarga de parar la música de fondo cuando el jugador está en un menú 
+
+~\newline
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beat\+\_\+manager.\+cs\end{DoxyCompactItemize}

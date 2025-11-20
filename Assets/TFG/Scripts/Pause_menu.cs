@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+/// <summary>
+/// La clase <c>Pause_menu</c> se encarga de gestionar el menú de pausa del juego
+/// </summary>
 public class Pause_menu : MonoBehaviour
 {
+    /// <summary>
+    /// Variable que indica si el juego esta pausado
+    /// </summary>
     public static bool GameIsPaused = false;
+    /// <summary>
+    /// Variable que indica si se esta cargando una escena, se usa para controlar las transiciones
+    /// </summary>
     private bool Loading = false;
     private bool Help = false;
 
@@ -17,6 +25,9 @@ public class Pause_menu : MonoBehaviour
     public AudioClip PauseGameSound;
 
     public GameObject Baqueta;
+    /// <summary>
+    /// La imagen que hace la vez de transición con un fundido negro
+    /// </summary>
     public Image FadeImage;
     [SerializeField] GameObject PauseMenu;
     public GameObject HelpGuide;
@@ -42,7 +53,9 @@ public class Pause_menu : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Método Pause, se llama cuando el jugador pulsa el botoón ESC
+    /// </summary>
     public void Pause()
     {
         Time.timeScale = 0f;
@@ -53,7 +66,9 @@ public class Pause_menu : MonoBehaviour
         Baqueta.GetComponent<Baqueta_movement>().enabled = false;
         PauseMenu.SetActive(true);
     }
-
+    /// <summary>
+    /// Método Resume, se llama cuando el jugador pulsa el boton de continuar
+    /// </summary>
     public void Resume()
     {
         Time.timeScale = 1f;
@@ -65,7 +80,9 @@ public class Pause_menu : MonoBehaviour
         Baqueta.GetComponent<Baqueta_movement>().enabled = true;
         PauseMenu.SetActive(false);
     }
-
+    /// <summary>
+    /// Método que se llama cuando el jugador quiere salir del juego
+    /// </summary>
     public void QuitGame()
     {
         Baqueta_movement.instance.DisableBaqueta();
@@ -75,20 +92,27 @@ public class Pause_menu : MonoBehaviour
         Beat_manager.instance.StopMusic();
         StartCoroutine(LoadScreen(0));
     }
-
+/// <summary>
+/// Método que se llama cuando el jugador quiere cargar la guía de ayuda
+/// </summary>
 public void LoadHelpGuide()
     {
         Help = true;
         HelpGuide.SetActive(true);        
         PlaySound(ButtonSound);
     }
-    
+    /// <summary>
+    /// Método que se llama cuando el jugador quiere cerrar la guía de ayuda
+    /// </summary> 
     public void CloseHelpGuide()
     {
         Help = false;
         HelpGuide.SetActive(false);
         PlaySound(BackSound);
     }
+    /// <summary>
+    /// Método que se llama cuando el jugador quiere reiniciar el nivel
+    /// </summary>
     public void Restart()
     {
         Time.timeScale = 1f;
@@ -96,7 +120,10 @@ public void LoadHelpGuide()
         StartCoroutine(LoadScreen(1));
         FadeImage.GetComponent<Image>().raycastTarget = true; 
     }
-
+    /// <summary>
+    /// Método que se llama para que suene un sonido especifico
+    /// </summary>
+    /// <param name="clip">Clip de audio que sonará</param>
     public void PlaySound(AudioClip clip)
     {
         if (Audio != null && clip != null)

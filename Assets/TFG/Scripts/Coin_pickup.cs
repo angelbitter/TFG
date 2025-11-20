@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// La clase <c>Coin_pickup</c> se encarga de gestionar la recogida de monedas por parte de Baqueta y comunicarlo al LevelController
+///  </summary>
 public class Coin_pickup : MonoBehaviour
 {
     private Animator animator;
@@ -21,6 +24,9 @@ public class Coin_pickup : MonoBehaviour
             Baqueta_movement.instance.PlayCoinSound();
         }
     }
+    /// <summary>
+    /// Método DestroyItem, se encarga de destruir la moneda una vez ha sido recogida y su animación de desaparecer haya terminado
+    /// </summary>
     public void DestroyItem()
     {
         Destroy(gameObject);

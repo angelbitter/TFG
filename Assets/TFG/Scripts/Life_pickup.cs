@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// La clase <c>Life_pickup</c> se encarga de gestionar el objeto de vida que Baqueta puede recoger
+/// </summary>
 public class Life_pickup : MonoBehaviour
 {
     public Animator animator;

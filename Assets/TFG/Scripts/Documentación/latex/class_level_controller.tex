@@ -1,0 +1,59 @@
+\doxysection{Level\+Controller Class Reference}
+\hypertarget{class_level_controller}{}\label{class_level_controller}\index{LevelController@{LevelController}}
+
+
+La clase {\ttfamily \doxylink{class_level_controller}{Level\+Controller}} se encarga de gestionar el nivel.  
+
+
+Inheritance diagram for Level\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_level_controller}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_level_controller_a9c6bfe2d63dee459b1179c37cbcd3bed}\label{class_level_controller_a9c6bfe2d63dee459b1179c37cbcd3bed} 
+void {\bfseries Respawn} ()
+\begin{DoxyCompactList}\small\item\em Método \doxylink{class_respawn}{Respawn}, se encarga de resucitar a Baqueta. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_controller_a80737e1ad2ecdf22a3581eb951b59f15}\label{class_level_controller_a80737e1ad2ecdf22a3581eb951b59f15} 
+void {\bfseries Level\+Complete} ()
+\begin{DoxyCompactList}\small\item\em Método Level\+Complete, se encarga de finalizar el nivel, guardando la puntuación y mostrando la pantalla de fin de nivel. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_level_controller_af9b1f5517ae17f701d6d288d50f5eeef}\label{class_level_controller_af9b1f5517ae17f701d6d288d50f5eeef} 
+float {\bfseries wait\+For\+Respawn}
+\begin{DoxyCompactList}\small\item\em El tiempo que se espera para que Baqueta resucite. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_controller_af1a288f6d9776dcc123693ea45dcc2ad}\label{class_level_controller_af1a288f6d9776dcc123693ea45dcc2ad} 
+int {\bfseries points}
+\begin{DoxyCompactList}\small\item\em La puntuación del nivel. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_controller_a3d4a0de821630bea41a2247cced12b48}\label{class_level_controller_a3d4a0de821630bea41a2247cced12b48} 
+int {\bfseries coins\+Collected}
+\begin{DoxyCompactList}\small\item\em Las monedas recogidas por Baqueta. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_controller_aaa61cfffd4bd2726473135ecaed11a93}\label{class_level_controller_aaa61cfffd4bd2726473135ecaed11a93} 
+\mbox{\hyperlink{class_coin__pickup}{Coin\+\_\+pickup}}\mbox{[}$\,$\mbox{]} {\bfseries total\+Coins}
+\begin{DoxyCompactList}\small\item\em Todas las monedas del nivel. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_controller_abf8e5e82167037d95002d4bb970f5cfe}\label{class_level_controller_abf8e5e82167037d95002d4bb970f5cfe} 
+int {\bfseries enemy\+Points}
+\begin{DoxyCompactList}\small\item\em Los puntos obtenidos de eliminar enemigos. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_controller_a79881864f2496ffe861ffd7171a36424}\label{class_level_controller_a79881864f2496ffe861ffd7171a36424} 
+Text\+Mesh\+Pro\+UGUI {\bfseries points\+Text}
+\begin{DoxyCompactList}\small\item\em El texto que muestra la puntuación. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_level_controller_aa7dc4ed936e8303d26747c1fc8239633}\label{class_level_controller_aa7dc4ed936e8303d26747c1fc8239633} 
+static \mbox{\hyperlink{class_level_controller}{Level\+Controller}} {\bfseries instance}
+\begin{DoxyCompactList}\small\item\em La instancia de la clase \doxylink{class_level_controller}{Level\+Controller}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+La clase {\ttfamily \doxylink{class_level_controller}{Level\+Controller}} se encarga de gestionar el nivel. 
+
+Se manejan aspectos como la puntuación del nivel, el respawn de Baqueta y el final del nivel 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Level\+Controller.\+cs\end{DoxyCompactItemize}

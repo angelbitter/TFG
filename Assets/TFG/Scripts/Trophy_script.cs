@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// La clase <c>Trophy_script</c> se encarga de gestionar la meta del nivel
+/// </summary>
 public class Trophy_script : MonoBehaviour
 {
-    
     public Animator animator; 
     public Collider2D collider2Dtrophy;
     private Vector3 startPosition;
